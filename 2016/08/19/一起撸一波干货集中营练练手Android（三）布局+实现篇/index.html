@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>一起撸一波干货集中营练练手android（三）布局+实现篇 | Mapleslong&#39;s Blog</title>
+  <title>一起撸一波干货集中营练练手android（三）布局+实现篇 | 枫叶的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <meta name="keywords" content="Android" />
@@ -16,8 +16,9 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="一起撸一波干货集中营练练手Android（三）布局+实现篇">
 <meta property="og:url" content="http://blog.mapleslong.com/2016/08/19/一起撸一波干货集中营练练手Android（三）布局+实现篇/index.html">
-<meta property="og:site_name" content="Mapleslong&#39;s Blog">
+<meta property="og:site_name" content="枫叶的博客">
 <meta property="og:description" content="MPGankIO 布局+实现篇 整个App到了这里就开始准备开始实现逻辑啦，有没有点小期待后续如果有需要可以爬一波包包通缉令的数据O(∩_∩)O~~  我们的布局采用5.0之后的新布局控件 1.CardView  CardView 对这个控件还不太了解的可以戳这里 12345678910111213141516171819CardView特别的属性如下：android:cardCornerRadi">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://o6kv2wscf.bkt.clouddn.com/16-8-19/98564766.jpg">
 <meta property="og:image" content="http://o6kv2wscf.bkt.clouddn.com/16-8-19/18992588.jpg">
 <meta property="og:image" content="http://o6kv2wscf.bkt.clouddn.com/16-8-19/37113028.jpg">
@@ -27,7 +28,7 @@
 <meta name="twitter:description" content="MPGankIO 布局+实现篇 整个App到了这里就开始准备开始实现逻辑啦，有没有点小期待后续如果有需要可以爬一波包包通缉令的数据O(∩_∩)O~~  我们的布局采用5.0之后的新布局控件 1.CardView  CardView 对这个控件还不太了解的可以戳这里 12345678910111213141516171819CardView特别的属性如下：android:cardCornerRadi">
 <meta name="twitter:image" content="http://o6kv2wscf.bkt.clouddn.com/16-8-19/98564766.jpg">
   
-    <link rel="alternate" href="/atom.xml" title="Mapleslong&#39;s Blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="枫叶的博客" type="application/atom+xml">
   
 
   
@@ -104,15 +105,15 @@
             <div class="navbar-collapse collapse">
               <ul class="hnav navbar-nav">
                 
-                  <li> <a class="main-nav-link" href="/">Startseite</a> </li>
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
                 
-                  <li> <a class="main-nav-link" href="/archives">Archive</a> </li>
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
                 
-                  <li> <a class="main-nav-link" href="/categories">Kategorien</a> </li>
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
                 
-                  <li> <a class="main-nav-link" href="/tags">Tags</a> </li>
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
                 
-                  <li> <a class="main-nav-link" href="/about">About</a> </li>
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
                 
                   <li><div id="search-form-wrap">
 
@@ -124,7 +125,7 @@
     <div class="ins-search-mask"></div>
     <div class="ins-search-container">
         <div class="ins-input-wrapper">
-            <input type="text" class="ins-search-input" placeholder="Schreib etwas..." />
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
             <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="ins-section-wrapper">
@@ -136,11 +137,11 @@
 (function (window) {
     var INSIGHT_CONFIG = {
         TRANSLATION: {
-            POSTS: 'Beiträge',
-            PAGES: 'Seiten',
-            CATEGORIES: 'Kategorien',
-            TAGS: 'Tags',
-            UNTITLED: '(Unbenannt)',
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
         },
         ROOT_URL: '/',
         CONTENT_URL: '/content.json',
@@ -189,7 +190,7 @@
       
 	<a class="article-views">
 	<span id="busuanzi_container_page_pv">
-		PV:<span id="busuanzi_value_page_pv"></span>
+		阅读量<span id="busuanzi_value_page_pv"></span>
 	</span>
 	</a>
 
@@ -269,7 +270,7 @@
 <script>
 var a = new Donate({
   title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
-  btnText: 'Donate', // 可选参数，打赏按钮文字
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
   el: document.getElementById('donation_div'),
   wechatImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/WeChanQR.png',
   alipayImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/AliPayQR.jpg'
@@ -312,7 +313,7 @@ var a = new Donate({
 <nav id="article-nav">
   
     <a href="/2016/08/19/一起撸一波干货集中营练练手Android（四）终章/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Neuer</strong>
+      <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
           一起撸一波干货集中营练练手Android（四）终章
@@ -322,7 +323,7 @@ var a = new Donate({
   
   
     <a href="/2016/08/19/一起撸一波干货集中营练练手Android（二）网络篇/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Älter</strong>
+      <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">一起撸一波干货集中营练练手Android（二) 网络篇</div>
     </a>
   
@@ -335,7 +336,7 @@ var a = new Donate({
 
   <aside id="toc-sidebar">
     <div id="toc" class="toc-article">
-    <strong class="toc-title">Inhalt</strong>
+    <strong class="toc-title">文章目录</strong>
     
         <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MPGankIO-布局-实现篇"><span class="nav-number">1.</span> <span class="nav-text">MPGankIO 布局+实现篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-CardView"><span class="nav-number">1.1.</span> <span class="nav-text">1.CardView</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-RecyclerView"><span class="nav-number">1.2.</span> <span class="nav-text">2.RecyclerView</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Fragment"><span class="nav-number">1.3.</span> <span class="nav-text">3.Fragment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-代码附上"><span class="nav-number">1.4.</span> <span class="nav-text">4.代码附上</span></a></li></ol></li></ol>
     
@@ -351,12 +352,12 @@ var a = new Donate({
   <div class="container">
       	<div class="row">
 	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
-	      <p id="copyRightEn">Copyright &copy; 2016 - 2017 Mapleslong&#39;s Blog All Rights Reserved.</p>
+	      <p id="copyRightEn">Copyright &copy; 2016 - 2017 枫叶的博客 All Rights Reserved.</p>
 	      
 	      
     		<p class="busuanzi_uv">
-				UV : <span id="busuanzi_value_site_uv"></span> |  
-				PV : <span id="busuanzi_value_site_pv"></span>
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
 		    </p>
   		   
 		</div>
@@ -502,7 +503,7 @@ var a = new Donate({
         </div>
          <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
           <div class="panel-body">
-            Mapleslong&#39;s Blog
+            枫叶的博客
           </div>
           <div class="panel-body">
             Copyright © 2017 Mapleslong All Rights Reserved.

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>那些年一起学过的android动画（一） | Mapleslong&#39;s Blog</title>
+  <title>那些年一起学过的android动画（一） | 枫叶的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <meta name="keywords" content="Android" />
@@ -16,8 +16,9 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="那些年一起学过的Android动画（一）">
 <meta property="og:url" content="http://blog.mapleslong.com/2016/08/26/那些年一起学过的Android动画（一）/index.html">
-<meta property="og:site_name" content="Mapleslong&#39;s Blog">
+<meta property="og:site_name" content="枫叶的博客">
 <meta property="og:description" content="Android动画有三大类（视图动画、帧动画、属性动画【3.0引进】） 为了就是让人机交互更加友好，（讲的高大上一点更容易被关注！） 合理的使用动画能让用户获得更加愉悦的使用体验！你懂的很愉悦！   android已经写好了一些动画可以方便的使用例如『透明度』『旋转』『缩放』『位移』 1.视图动画（View Animation） 做过Flash的都会知道补间动画，给出两个关键帧，通过一些算法将给">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1896391-0680c4e63979f8de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://img.blog.csdn.net/20140115213539656?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvand6aGFuZ2ppZQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 <meta property="og:updated_time" content="2016-08-28T02:50:44.000Z">
@@ -26,7 +27,7 @@
 <meta name="twitter:description" content="Android动画有三大类（视图动画、帧动画、属性动画【3.0引进】） 为了就是让人机交互更加友好，（讲的高大上一点更容易被关注！） 合理的使用动画能让用户获得更加愉悦的使用体验！你懂的很愉悦！   android已经写好了一些动画可以方便的使用例如『透明度』『旋转』『缩放』『位移』 1.视图动画（View Animation） 做过Flash的都会知道补间动画，给出两个关键帧，通过一些算法将给">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1896391-0680c4e63979f8de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
   
-    <link rel="alternate" href="/atom.xml" title="Mapleslong&#39;s Blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="枫叶的博客" type="application/atom+xml">
   
 
   
@@ -103,15 +104,15 @@
             <div class="navbar-collapse collapse">
               <ul class="hnav navbar-nav">
                 
-                  <li> <a class="main-nav-link" href="/">Startseite</a> </li>
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
                 
-                  <li> <a class="main-nav-link" href="/archives">Archive</a> </li>
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
                 
-                  <li> <a class="main-nav-link" href="/categories">Kategorien</a> </li>
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
                 
-                  <li> <a class="main-nav-link" href="/tags">Tags</a> </li>
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
                 
-                  <li> <a class="main-nav-link" href="/about">About</a> </li>
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
                 
                   <li><div id="search-form-wrap">
 
@@ -123,7 +124,7 @@
     <div class="ins-search-mask"></div>
     <div class="ins-search-container">
         <div class="ins-input-wrapper">
-            <input type="text" class="ins-search-input" placeholder="Schreib etwas..." />
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
             <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="ins-section-wrapper">
@@ -135,11 +136,11 @@
 (function (window) {
     var INSIGHT_CONFIG = {
         TRANSLATION: {
-            POSTS: 'Beiträge',
-            PAGES: 'Seiten',
-            CATEGORIES: 'Kategorien',
-            TAGS: 'Tags',
-            UNTITLED: '(Unbenannt)',
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
         },
         ROOT_URL: '/',
         CONTENT_URL: '/content.json',
@@ -188,7 +189,7 @@
       
 	<a class="article-views">
 	<span id="busuanzi_container_page_pv">
-		PV:<span id="busuanzi_value_page_pv"></span>
+		阅读量<span id="busuanzi_value_page_pv"></span>
 	</span>
 	</a>
 
@@ -281,7 +282,7 @@
 <script>
 var a = new Donate({
   title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
-  btnText: 'Donate', // 可选参数，打赏按钮文字
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
   el: document.getElementById('donation_div'),
   wechatImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/WeChanQR.png',
   alipayImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/AliPayQR.jpg'
@@ -324,7 +325,7 @@ var a = new Donate({
 <nav id="article-nav">
   
     <a href="/2016/08/26/那些年一起学过的Android动画（二）/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Neuer</strong>
+      <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
           那些年一起学过的Android动画（二）
@@ -334,7 +335,7 @@ var a = new Donate({
   
   
     <a href="/2016/08/19/一起撸一波干货集中营练练手Android（四）终章/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Älter</strong>
+      <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">一起撸一波干货集中营练练手Android（四）终章</div>
     </a>
   
@@ -347,7 +348,7 @@ var a = new Donate({
 
   <aside id="toc-sidebar">
     <div id="toc" class="toc-article">
-    <strong class="toc-title">Inhalt</strong>
+    <strong class="toc-title">文章目录</strong>
     
         <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-视图动画（View-Animation）"><span class="nav-number">1.</span> <span class="nav-text">1.视图动画（View Animation）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-X-接下来我们在介绍中提到AnimationSet"><span class="nav-number">1.1.</span> <span class="nav-text">1.X 接下来我们在介绍中提到AnimationSet</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-帧动画-Frame-Animation"><span class="nav-number">2.</span> <span class="nav-text">2.帧动画(Frame Animation)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-属性动画（Property-Animation）"><span class="nav-number">3.</span> <span class="nav-text">3.属性动画（Property Animation）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol>
     
@@ -363,12 +364,12 @@ var a = new Donate({
   <div class="container">
       	<div class="row">
 	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
-	      <p id="copyRightEn">Copyright &copy; 2016 - 2017 Mapleslong&#39;s Blog All Rights Reserved.</p>
+	      <p id="copyRightEn">Copyright &copy; 2016 - 2017 枫叶的博客 All Rights Reserved.</p>
 	      
 	      
     		<p class="busuanzi_uv">
-				UV : <span id="busuanzi_value_site_uv"></span> |  
-				PV : <span id="busuanzi_value_site_pv"></span>
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
 		    </p>
   		   
 		</div>
@@ -514,7 +515,7 @@ var a = new Donate({
         </div>
          <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
           <div class="panel-body">
-            Mapleslong&#39;s Blog
+            枫叶的博客
           </div>
           <div class="panel-body">
             Copyright © 2017 Mapleslong All Rights Reserved.
