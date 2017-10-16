@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>那些年一起学过的android动画（一） | Mapleslong&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="Android" />
+  
+  
+  
+  
+  <meta name="description" content="Android动画有三大类（视图动画、帧动画、属性动画【3.0引进】） 为了就是让人机交互更加友好，（讲的高大上一点更容易被关注！） 合理的使用动画能让用户获得更加愉悦的使用体验！你懂的很愉悦！   android已经写好了一些动画可以方便的使用例如『透明度』『旋转』『缩放』『位移』 1.视图动画（View Animation） 做过Flash的都会知道补间动画，给出两个关键帧，通过一些算法将给">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="那些年一起学过的Android动画（一）">
+<meta property="og:url" content="http://blog.mapleslong.com/2016/08/26/那些年一起学过的Android动画（一）/index.html">
+<meta property="og:site_name" content="Mapleslong&#39;s Blog">
+<meta property="og:description" content="Android动画有三大类（视图动画、帧动画、属性动画【3.0引进】） 为了就是让人机交互更加友好，（讲的高大上一点更容易被关注！） 合理的使用动画能让用户获得更加愉悦的使用体验！你懂的很愉悦！   android已经写好了一些动画可以方便的使用例如『透明度』『旋转』『缩放』『位移』 1.视图动画（View Animation） 做过Flash的都会知道补间动画，给出两个关键帧，通过一些算法将给">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1896391-0680c4e63979f8de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://img.blog.csdn.net/20140115213539656?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvand6aGFuZ2ppZQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2016-08-28T02:50:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="那些年一起学过的Android动画（一）">
+<meta name="twitter:description" content="Android动画有三大类（视图动画、帧动画、属性动画【3.0引进】） 为了就是让人机交互更加友好，（讲的高大上一点更容易被关注！） 合理的使用动画能让用户获得更加愉悦的使用体验！你懂的很愉悦！   android已经写好了一些动画可以方便的使用例如『透明度』『旋转』『缩放』『位移』 1.视图动画（View Animation） 做过Flash的都会知道补间动画，给出两个关键帧，通过一些算法将给">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1896391-0680c4e63979f8de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+    <link rel="alternate" href="/atom.xml" title="Mapleslong&#39;s Blog" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css" >
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">Startseite</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">Archive</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">Kategorien</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">Tags</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Schreib etwas..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Beiträge',
+            PAGES: 'Seiten',
+            CATEGORIES: 'Kategorien',
+            TAGS: 'Tags',
+            UNTITLED: '(Unbenannt)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-那些年一起学过的Android动画（一）" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      那些年一起学过的Android动画（一）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2016/08/26/那些年一起学过的Android动画（一）/" class="article-date">
+	  <time datetime="2016-08-26T06:59:30.000Z" itemprop="datePublished">2016-08-26</time>
+	</a>
+
+      
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>Android动画有三大类（视图动画、帧动画、属性动画【3.0引进】）</p>
+<p>为了就是让人机交互更加友好，（讲的高大上一点更容易被关注！）</p>
+<p>合理的使用动画能让用户获得更加愉悦的使用体验！你懂的很愉悦！</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/1896391-0680c4e63979f8de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="动画分类"></p>
+<p><strong>android已经写好了一些动画可以方便的使用例如『透明度』『旋转』『缩放』『位移』</strong></p>
+<h2 id="1-视图动画（View-Animation）"><a href="#1-视图动画（View-Animation）" class="headerlink" title="1.视图动画（View Animation）"></a>1.视图动画（View Animation）</h2><ul>
+<li>做过Flash的都会知道补间动画，给出两个关键帧，通过一些算法将给定属性值在给定的时间内在两个关键帧间渐变。</li>
+</ul>
+<ul>
+<li>可以给一个View同时设置多个动画（AnimationSet,AnimatorSet），比如从透明至不透明的淡入效果，与从小到大的放大效果，这些动画可以同时进行，也可以在一个完成之后开始另一个。</li>
+</ul>
+<ul>
+<li>Android中提供了 AlphaAnimation、RotateAnimation、TranslateAnimation、ScaleAnimation看名字就应该知道对应上面所述的几个动画它们的用法也很简单</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">  <span class="comment">//透明动画  其他动画同理 换一下参数给指定的view启动动画就实现了</span></div><div class="line">AlphaAnimation aa=<span class="keyword">new</span> AlphaAnimation(<span class="number">0f</span>,<span class="number">1f</span>);</div><div class="line">aa.setDuration(<span class="number">2000</span>);</div><div class="line">view.startAnimation(aa);</div><div class="line"></div><div class="line">在此我不一一赘述代码。。因为我懒，而且推荐大家自己看看里面的属性，会懂得更多</div><div class="line">释放你的求知欲吧！！</div></pre></td></tr></table></figure>
+<blockquote>
+<p>动画还需要监听一些事情比如开始、结束、是否重复等等</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">aa.setAnimationListener(<span class="keyword">new</span> Animation.AnimationListener() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationStart</span><span class="params">(Animation animation)</span> </span>&#123;</div><div class="line">                </div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationEnd</span><span class="params">(Animation animation)</span> </span>&#123;</div><div class="line"></div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationRepeat</span><span class="params">(Animation animation)</span> </span>&#123;</div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125;);</div></pre></td></tr></table></figure>
+<h3 id="1-X-接下来我们在介绍中提到AnimationSet"><a href="#1-X-接下来我们在介绍中提到AnimationSet" class="headerlink" title="1.X 接下来我们在介绍中提到AnimationSet"></a>1.X 接下来我们在介绍中提到AnimationSet</h3><ul>
+<li><p>这个类做动画一般来说会比较常用，因为它控制了多个动画一起动还是队列的动，通俗来讲就是你先动还是我先动，或者说大家一起动起来~！ 好像很Happy的样子</p>
+</li>
+<li><p>其实就是这个类内部维护了一个List<animation> AnimationSet继承于Animation</animation></p>
+</li>
+<li><p>同样简单动画可以用XML实现，在我们目录里可以新建一个anim的文件夹，里面可以放一个根为「set」的 原理是一样的</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;set xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;</div><div class="line">    &lt;alpha</div><div class="line">        android:fromAlpha=&quot;0.3&quot;</div><div class="line">        android:toAlpha=&quot;0.5&quot;&gt;&lt;/alpha&gt;</div><div class="line"></div><div class="line">    &lt;rotate</div><div class="line">        android:fromDegrees=&quot;0&quot;</div><div class="line">        android:pivotX=&quot;50%&quot;</div><div class="line">        android:pivotY=&quot;50%&quot;</div><div class="line">        android:toDegrees=&quot;180&quot;/&gt;</div><div class="line">    &lt;scale</div><div class="line">        android:fromXScale=&quot;0.5&quot;</div><div class="line">        android:fromYScale=&quot;0.5&quot;</div><div class="line">        android:pivotX=&quot;50%&quot;</div><div class="line">        android:pivotY=&quot;50%&quot;</div><div class="line">        android:toXScale=&quot;1&quot;</div><div class="line">        android:toYScale=&quot;1&quot;/&gt;</div><div class="line">    &lt;translate</div><div class="line">        android:fromXDelta=&quot;50%&quot;</div><div class="line">        android:fromYDelta=&quot;50%&quot;</div><div class="line">        android:toXDelta=&quot;100%&quot;</div><div class="line">        android:toYDelta=&quot;100%&quot;/&gt;</div><div class="line">&lt;/set&gt;</div><div class="line"></div><div class="line">使用AnimationUtils.loadAnimation(this,R.anim.sad)加载</div></pre></td></tr></table></figure>
+<blockquote>
+<p>（吐槽一下我打样子输入法无限给我杨紫你说这么黑好么！！！）</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">AnimationSet set=<span class="keyword">new</span> AnimationSet(<span class="keyword">true</span>);</div><div class="line">        set.addAnimation(aa);<span class="comment">//加进去就好了 注意内存小心OOM 和内存泄露</span></div><div class="line">        set.setFillAfter(<span class="keyword">true</span>);<span class="comment">//保持结束动画的样子,setFillBefore你懂的</span></div><div class="line">        set.setDuration(<span class="number">5000</span>);</div><div class="line">        view.startAnimation(set);</div></pre></td></tr></table></figure>
+<ul>
+<li>对于内存要有借有还，再借不难</li>
+</ul>
+<h2 id="2-帧动画-Frame-Animation"><a href="#2-帧动画-Frame-Animation" class="headerlink" title="2.帧动画(Frame Animation)"></a>2.帧动画(Frame Animation)</h2><blockquote>
+<p>度娘说</p>
+</blockquote>
+<ul>
+<li>动画是通过把人物的表情、动作、变化等分解后画成许多动作瞬间的画幅，再用摄影机连续拍摄成一系列画面，给视觉造成连续变化的图画。它的基本原理与电影、电视一样，都是视觉暂留原理。医学证明人类具有“视觉暂留”的特性，人的眼睛看到一幅画或一个物体后，在0.34秒内不会消失。利用这一原理，在一幅画还没有消失前播放下一幅画，就会给人造成一种流畅的视觉变化效果。</li>
+</ul>
+<blockquote>
+<p>结论就是 动画标准是一秒24帧，也就是24张画面组成一秒。电视播放标准是25帧每秒。</p>
+</blockquote>
+<ul>
+<li>那么就很好理解啦，1秒大概24幅图片！！！</li>
+</ul>
+<p><img src="http://img.blog.csdn.net/20140115213539656?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvand6aGFuZ2ppZQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="网络图片素材"></p>
+<blockquote>
+<p>用AS的在drawable中新建一个xml</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line"> &lt;animation-list</div><div class="line">        xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">        android:oneshot=&quot;true&quot;</div><div class="line">        &gt;</div><div class="line">    &lt;!--</div><div class="line">    根标签为animation-list，其中oneshot代表着是否只展示一遍，设置为false会不停的循环播放动画</div><div class="line">    根标签下，通过item标签对动画中的每一个图片进行声明</div><div class="line">    android:duration 表示展示所用的该图片的时间长度</div><div class="line"> --&gt;</div><div class="line"></div><div class="line">    &lt;item android:drawable=&quot;@drawable/icon1&quot; android:duration=&quot;150&quot;&gt;&lt;/item&gt;</div><div class="line">        &lt;item android:drawable=&quot;@drawable/icon2&quot; android:duration=&quot;150&quot;&gt;&lt;/item&gt;</div><div class="line">        &lt;item android:drawable=&quot;@drawable/icon3&quot; android:duration=&quot;150&quot;&gt;&lt;/item&gt;</div><div class="line">        &lt;item android:drawable=&quot;@drawable/icon4&quot; android:duration=&quot;150&quot;&gt;&lt;/item&gt;</div><div class="line">        &lt;item android:drawable=&quot;@drawable/icon5&quot; android:duration=&quot;150&quot;&gt;&lt;/item&gt;</div><div class="line">        &lt;item android:drawable=&quot;@drawable/icon6&quot; android:duration=&quot;150&quot;&gt;&lt;/item&gt;</div><div class="line">    &lt;/animation-list&gt;</div><div class="line">    </div><div class="line">    </div><div class="line">    在activity中用一下即可</div><div class="line">    </div><div class="line">        view.setImageResource(R.drawable.icon);</div><div class="line">        AnimationDrawable ad = (AnimationDrawable) view.getDrawable();</div><div class="line">        ad.start();</div><div class="line">        </div><div class="line">        当然你可以手动添加图片帧</div><div class="line">        ad.addFrame(@NonNull Drawable frame, int duration)</div></pre></td></tr></table></figure>
+<h2 id="3-属性动画（Property-Animation）"><a href="#3-属性动画（Property-Animation）" class="headerlink" title="3.属性动画（Property Animation）"></a>3.属性动画（Property Animation）</h2><ul>
+<li>属性动画有 ObjectAnimator、ValueAnimator，常用的还是ObjectAnimator继承于ValueAnimator</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">AnimatorSet animatorSet = new AnimatorSet();///创建属性动画集</div><div class="line">       animatorSet.playTogether(///“playTogether”表示所有的子动画同时运作</div><div class="line">               ObjectAnimator.ofFloat(view, &quot;rotationX&quot;, 0, 360),</div><div class="line">               ObjectAnimator.ofFloat(view, &quot;rotationY&quot;, 0, 180),</div><div class="line">               ObjectAnimator.ofFloat(view, &quot;rotation&quot;, 0, -90),</div><div class="line">               ObjectAnimator.ofFloat(view, &quot;translationX&quot;, 0, 90),</div><div class="line">               ObjectAnimator.ofFloat(view, &quot;translationY&quot;, 0, 90),</div><div class="line">               ObjectAnimator.ofFloat(view, &quot;scaleX&quot;, 1, 1.5f),</div><div class="line">               ObjectAnimator.ofFloat(view, &quot;scaleY&quot;, 1, 0.5f),</div><div class="line">               ObjectAnimator.ofFloat(view, &quot;alpha&quot;, 1, 0.25f, 1)</div><div class="line">       );</div><div class="line">       animatorSet.setDuration(5 * 1000).start();</div></pre></td></tr></table></figure>
+<ul>
+<li>同样Animator也可以写XML来实现</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;set xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    android:ordering=&quot;sequentially&quot;&gt;</div><div class="line">    &lt;objectAnimator</div><div class="line">        android:duration=&quot;3000&quot;</div><div class="line">        android:propertyName=&quot;rotationX&quot;</div><div class="line">        android:repeatCount=&quot;infinite&quot;</div><div class="line">        android:repeatMode=&quot;reverse&quot;</div><div class="line">        android:startOffset=&quot;0&quot;</div><div class="line">        android:valueFrom=&quot;0&quot;</div><div class="line">        android:valueTo=&quot;360&quot;</div><div class="line">        android:valueType=&quot;intType&quot; /&gt;</div><div class="line"></div><div class="line"></div><div class="line">&lt;/set&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">AnimatorSet set = (AnimatorSet) 			AnimatorInflater.loadAnimator(getApplicationContext(), R.animator.property_animator);</div><div class="line">set.setTarget(mView);//设置一下要动的目标View</div><div class="line">set.start();</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">一般监听有</div><div class="line">ObjectAnimator.ofArgb().addListener(<span class="keyword">new</span> Animator.AnimatorListener() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationStart</span><span class="params">(Animator animation)</span> </span>&#123;</div><div class="line">                <span class="comment">//动画开始</span></div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationEnd</span><span class="params">(Animator animation)</span> </span>&#123;</div><div class="line">                <span class="comment">//动画结束</span></div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationCancel</span><span class="params">(Animator animation)</span> </span>&#123;</div><div class="line">                <span class="comment">//动画取消</span></div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationRepeat</span><span class="params">(Animator animation)</span> </span>&#123;</div><div class="line">                <span class="comment">//重复动画</span></div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        ObjectAnimator.ofFloat(view, <span class="string">"alpha"</span>, <span class="number">1</span>, <span class="number">0.25f</span>, <span class="number">1</span>).addUpdateListener(<span class="keyword">new</span> ValueAnimator</div><div class="line">                .AnimatorUpdateListener() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationUpdate</span><span class="params">(ValueAnimator animation)</span> </span>&#123;</div><div class="line">                <span class="comment">//动画值更新通过 animation.getAnimatedValue()取得</span></div><div class="line">                <span class="comment">//这个更新值能让我们做一些规律动画</span></div><div class="line">            &#125;</div><div class="line">        &#125;);</div></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>AnimationSet 与 AnimatorSet 最大的不同在于，AnimationSet 使用的是 Animation 子类、AnimatorSet 使用的是 Animator 的子类。</li>
+</ul>
+<blockquote>
+<p>Animation 是针对视图外观的动画实现，动画被应用时外观改变但视图的触发点不会发生变化，还是在原来定义的位置。</p>
+<p>Animator是针对视图属性的动画实现，动画被应用时对象属性产生变化，最终导致视图外观变化。</p>
+</blockquote>
+<ul>
+<li>这一章讲了一个动画大概，下一章一起看看自定义动画和场景动画还有现在的流行的SVG动画</li>
+</ul>
+<p>有问题可以来我<a href="http://www.mapleslong.com" target="_blank" rel="external">博客</a>或者<a href="http://www.jianshu.com/users/0da7bdbfddb2" target="_blank" rel="external">简书</a>反馈,谢谢大家的停留在这里时间</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: 'Donate', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/WeChanQR.png',
+  alipayImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/AliPayQR.jpg'
+});
+</script>
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/08/26/那些年一起学过的Android动画（二）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          那些年一起学过的Android动画（二）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/08/19/一起撸一波干货集中营练练手Android（四）终章/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">一起撸一波干货集中营练练手Android（四）终章</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Inhalt</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-视图动画（View-Animation）"><span class="nav-number">1.</span> <span class="nav-text">1.视图动画（View Animation）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-X-接下来我们在介绍中提到AnimationSet"><span class="nav-number">1.1.</span> <span class="nav-text">1.X 接下来我们在介绍中提到AnimationSet</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-帧动画-Frame-Animation"><span class="nav-number">2.</span> <span class="nav-text">2.帧动画(Frame Animation)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-属性动画（Property-Animation）"><span class="nav-number">3.</span> <span class="nav-text">3.属性动画（Property Animation）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2017 Mapleslong&#39;s Blog All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Mapleslong&#39;s Blog
+          </div>
+          <div class="panel-body">
+            Copyright © 2017 Mapleslong All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

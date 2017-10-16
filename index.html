@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Mapleslong&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  
+  <meta name="description" content="记录一下成长的点点滴滴">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mapleslong&#39;s Blog">
+<meta property="og:url" content="http://blog.mapleslong.com/index.html">
+<meta property="og:site_name" content="Mapleslong&#39;s Blog">
+<meta property="og:description" content="记录一下成长的点点滴滴">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mapleslong&#39;s Blog">
+<meta name="twitter:description" content="记录一下成长的点点滴滴">
+  
+    <link rel="alternate" href="/atom.xml" title="Mapleslong&#39;s Blog" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/home.css" >
+  
+
+  
+
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css" >
+  
+
+</head>
+
+
+
+  <body>
+
+
+  
+    <header id="header">
+
+	<!-- 背景图模式 -->
+	
+
+    
+      <div id="intrologo" class="intro-logo">
+    
+ 
+
+
+    <canvas width="100%" height="100%"></canvas>
+    <script>
+      var c = document.getElementsByTagName('canvas')[0],
+          x = c.getContext('2d'),
+          w = window.innerWidth,
+          h = window.innerHeight,
+          pr = window.devicePixelRatio || 1,
+          f = 90,
+          q,
+          m = Math,
+          r = 0,
+          u = m.PI*2,
+          v = m.cos,
+          z = m.random
+      c.width = w*pr
+      c.height = h*pr
+      x.scale(pr, pr)
+      x.globalAlpha = 0.6
+
+      <!-- 折线Polyline背景 -->
+      
+        function i(){
+            x.clearRect(0,0,w,h)
+            q=[{x:0,y:h*.7+f},{x:0,y:h*.7-f}]
+            while(q[1].x<w+f) d(q[0], q[1])
+        }
+        function d(i,j){   
+            x.beginPath()
+            x.moveTo(i.x, i.y)
+            x.lineTo(j.x, j.y)
+            var k = j.x + (z()*2-0.25)*f,
+                n = y(j.y)
+            x.lineTo(k, n)
+            x.closePath()
+            r-=u/-50
+            x.fillStyle = '#'+(v(r)*127+128<<16 | v(r+u/3)*127+128<<8 | v(r+u/3*2)*127+128).toString(16)
+            x.fill()
+            q[0] = q[1]
+            q[1] = {x:k,y:n}
+        }
+        function y(p){
+            var t = p + (z()*2-1.1)*f
+            return (t>h||t<0) ? y(p) : t
+        }
+        document.getElementById("intrologo").onclick = i
+        document.getElementById("intrologo").ontouchstart = i
+        i()
+
+      <!-- 多边形trianglify背景 -->
+      
+    </script>
+    
+
+    
+      <div id="homelogo" class="homelogo"> 
+    
+
+        
+          <div class="homelogoback" >
+            <h1><a href="#content" id="logo">Mapleslong&#39;s Blog</a></h1>
+            <h3>记录一下成长的点点滴滴</h3>
+            <h5>Mapleslong</h5>
+            <!-- <p><a href="https://github.com/iTimeTraveler" target="_blank">Github</a></p> -->
+          </div>
+        
+    
+    </div>
+  </div>
+
+  <!-- 自适应主页背景大图 -->
+  
+
+ <!-- home_logo_image居中 -->
+ 
+    <script>
+        var homelogodiv = document.getElementById("homelogo");
+        if (document.all.homelogo.offsetWidth > document.body.clientWidth) {
+          homelogodiv.style.width = document.body.clientWidth + "px";
+          homelogodiv.style.marginLeft = document.body.clientWidth * -0.5 + "px";
+        } else {
+          homelogodiv.style.width = homelogodiv.clientWidth  + "px";
+          homelogodiv.style.marginLeft = (homelogodiv.clientWidth)  * -0.5 + "px";
+        }
+    </script>
+  
+
+  <div class="intro-navigate">
+      <p class="navigater-list">
+        
+          <a id="beautifont" class="main-nav-link" href="/">Startseite</a>
+        
+          <a id="beautifont" class="main-nav-link" href="/archives">Archive</a>
+        
+          <a id="beautifont" class="main-nav-link" href="/categories">Kategorien</a>
+        
+          <a id="beautifont" class="main-nav-link" href="/tags">Tags</a>
+        
+          <a id="beautifont" class="main-nav-link" href="/about">About</a>
+        
+      </p>
+  </div>
+
+</header>
+  
+  <div id="container">
+    <div id="wrap">
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;">
+  
+    <article id="post-那些年一起学过的Android动画（二）"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2016/08/26/那些年一起学过的Android动画（二）/">那些年一起学过的Android动画（二）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2016/08/26/那些年一起学过的Android动画（二）/" class="article-date">
+	  <time datetime="2016-08-26T09:11:16.000Z" itemprop="datePublished">2016-08-26</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="场景动画"><a href="#场景动画" class="headerlink" title="场景动画"></a>场景动画</h2><hr>
+<ol>
+<li><p>LayoutAnimation作用于ViewGroup,为ViewGroup指定一个动画，当他的子元素出场的时候都会具有这种动画，ListView上用的多，LayoutAnimation也是一个View动画。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"> &lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span>?&gt;</div><div class="line">&lt;layoutAnimation xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></div><div class="line"> android:animationOrder=<span class="string">"normal"</span></div><div class="line"> android:delay=<span class="string">"0.3"</span> android:animation=<span class="string">"@anim/anim_item"</span>/&gt;</div><div class="line"><span class="comment">//--- delay 表示动画开始的时间延迟，比如子元素入场动画的时间周期为300ms,</span></div><div class="line"><span class="comment">//那么0.5表示每个子元素都需要延迟150ms才开始播放入场动画。</span></div><div class="line"><span class="comment">//--- animationOrder 表示子元素的动画的顺序，有三种选项：</span></div><div class="line"><span class="comment">//normal(顺序显示）、reverse（逆序显示）和random（随机显示）。</span></div><div class="line"><span class="comment">//---1. android:animation 为子元素指定具体的入场动画</span></div><div class="line"><span class="comment">//----------------------</span></div><div class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span>?&gt;</div><div class="line">&lt;set xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></div><div class="line"> android:duration=<span class="string">"300"</span></div><div class="line"> android:shareInterpolator=<span class="string">"true"</span>&gt;</div><div class="line"> &lt;alpha</div><div class="line">     android:fromAlpha=<span class="string">"0.0"</span></div><div class="line">     android:toAlpha=<span class="string">"1.0"</span> /&gt;</div><div class="line"> &lt;translate</div><div class="line">     android:fromXDelta=<span class="string">"300"</span></div><div class="line">     android:toXDelta=<span class="string">"0"</span> /&gt;</div><div class="line">&lt;/set&gt;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"> //--- 第一种方法、为需要的ViewGroup指定android:layoutAnimation属性</div><div class="line">//---这样ViewGroup的子View就有出场动画了</div><div class="line"> &lt;ListView</div><div class="line">     android:id=&quot;@+id/lv&quot;</div><div class="line">     android:layout_width=&quot;match_parent&quot;</div><div class="line">     android:layout_height=&quot;0dp&quot;</div><div class="line">     android:layout_weight=&quot;1&quot;</div><div class="line">     android:layoutAnimation=&quot;@anim/anim_layout&quot;/&gt;</div><div class="line">//</div><div class="line">//--- 第二种方法、通过LayoutAnimationController来实现</div><div class="line">Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_item);</div><div class="line">LayoutAnimationController controller = new LayoutAnimationController(animation);</div><div class="line">controller.setDelay(0.5f);</div><div class="line">controller.setOrder(LayoutAnimationController.ORDER_NORMAL);</div><div class="line">listview.setLayoutAnimation(controller);</div></pre></td></tr></table></figure>
+<ol>
+<li>Activity/Fragment的切换效果<br>在startActivity(Intent)或finish()之后调用overridePendingTransition(int enterAnim,int exitAnim)方法。<br>Fragment也可以添加切换动画，通过FragmentTransaction中的<br>setCustomAnimations()方法来添加；需考虑兼容性使用View动画，属性动画是API11新引入的;</li>
+</ol>
+<h2 id="插值器和估值器"><a href="#插值器和估值器" class="headerlink" title="插值器和估值器"></a>插值器和估值器</h2><hr>
+<ol>
+<li>时间插值器（TimeInterpolator）的作用是根据时间流逝的百分比来计算出当前属性值改变的百分比，系统预置的有<strong>LinearInterpolator（线性插值器：匀速动画）</strong>，<strong>AccelerateDecelerateInterpolator（加速减速插值器：动画两头慢中间快）</strong>，<strong>DecelerateInterpolator(减速插值器：动画越来越慢）</strong></li>
+<li>估值器（TypeEvaluator）的作用是根据当前属性改变的百分比来计算改变后的属性值。系统预置有IntEvaluator 、FloatEvaluator 、ArgbEvaluator。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param fraction   表示开始和结束值之间的比例</div><div class="line"> * @param startValue  开始值         </div><div class="line"> * @param endValue  结束值</div><div class="line"> * @return  </div><div class="line"> */</div><div class="line">public class IntEvaluator implements TypeEvaluator&lt;Integer&gt; &#123;</div><div class="line"> public Integer evaluate(float fraction, Integer startValue, Integer endValue) &#123;</div><div class="line">     int startInt = startValue;</div><div class="line">     return (int)(startInt + fraction * (endValue - startInt));</div><div class="line"> &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>插值器和估值器除了系统提供之外，我们还可以自定义。自定义插值器需要实现Interpolator或者TimeInterpolator；自定义估值器算法需要实现TypeEvaluator。</li>
+</ol>
+<blockquote>
+<p>自定义动画一般用的比较少，基础篇就西先不介绍了！不过需要先了解矩阵和Camera，做AE动画3D等技术人员肯定会知道哒！</p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="##总结"></a>##总结</h2><p><strong>参考Android开发艺术探索</strong></p>
+<p>使用动画的注意事项</p>
+<ol>
+<li>使用帧动画时，当图片数量较多且图片分辨率较大的时候容易出现OOM，需注意，尽量避免使用帧动画。</li>
+<li>使用无限循环的属性动画时，在Activity退出时即使停止，否则将导致Activity无法释放从而造成内存泄露。</li>
+<li>View动画是对View的影像做动画，并不是真正的改变了View的状态，因此有时候会出现动画完成后View无法隐藏（setVisibility(View.GONE）失效），这时候调用view.clearAnimation()清理View动画即可解决。</li>
+<li>不要使用px，使用px会导致不同设备上有不同的效果。</li>
+<li>View动画是对View的影像做动画，View的真实位置没有变动，也就导致点击View动画后的位置</li>
+<li>触摸事件不会响应，属性动画不存在这个问题。</li>
+<li>使用动画的过程中，使用硬件加速可以提高动画的流畅度。</li>
+<li>动画在3.0以下的系统存在兼容性问题，特殊场景可能无法正常工作，需做好适配工作。</li>
+</ol>
+<blockquote>
+<p>还有一些动画的高级用法比如贝赛尔曲线等自行探索一下更有趣哈</p>
+<p>有问题可以来我<a href="http://www.mapleslong.com" target="_blank" rel="external">博客</a>或者<a href="http://www.jianshu.com/users/0da7bdbfddb2" target="_blank" rel="external">简书</a>反馈,谢谢大家的停留在这里时间</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-那些年一起学过的Android动画（一）"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2016/08/26/那些年一起学过的Android动画（一）/">那些年一起学过的Android动画（一）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2016/08/26/那些年一起学过的Android动画（一）/" class="article-date">
+	  <time datetime="2016-08-26T06:59:30.000Z" itemprop="datePublished">2016-08-26</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>Android动画有三大类（视图动画、帧动画、属性动画【3.0引进】）</p>
+<p>为了就是让人机交互更加友好，（讲的高大上一点更容易被关注！）</p>
+<p>合理的使用动画能让用户获得更加愉悦的使用体验！你懂的很愉悦！</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/1896391-0680c4e63979f8de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="动画分类"></p>
+<p><strong>android已经写好了一些动画可以方便的使用例如『透明度』『旋转』『缩放』『位移』</strong></p>
+<h2 id="1-视图动画（View-Animation）"><a href="#1-视图动画（View-Animation）" class="headerlink" title="1.视图动画（View Animation）"></a>1.视图动画（View Animation）</h2><ul>
+<li>做过Flash的都会知道补间动画，给出两个关键帧，通过一些算法将给定属性值在给定的时间内在两个关键帧间渐变。</li>
+</ul>
+<ul>
+<li>可以给一个View同时设置多个动画（AnimationSet,AnimatorSet），比如从透明至不透明的淡入效果，与从小到大的放大效果，这些动画可以同时进行，也可以在一个完成之后开始另一个。</li>
+</ul>
+<ul>
+<li>Android中提供了 AlphaAnimation、RotateAnimation、TranslateAnimation、ScaleAnimation看名字就应该知道对应上面所述的几个动画它们的用法也很简单</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">  <span class="comment">//透明动画  其他动画同理 换一下参数给指定的view启动动画就实现了</span></div><div class="line">AlphaAnimation aa=<span class="keyword">new</span> AlphaAnimation(<span class="number">0f</span>,<span class="number">1f</span>);</div><div class="line">aa.setDuration(<span class="number">2000</span>);</div><div class="line">view.startAnimation(aa);</div><div class="line"></div><div class="line">在此我不一一赘述代码。。因为我懒，而且推荐大家自己看看里面的属性，会懂得更多</div><div class="line">释放你的求知欲吧！！</div></pre></td></tr></table></figure>
+<blockquote>
+<p>动画还需要监听一些事情比如开始、结束、是否重复等等</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">aa.setAnimationListener(<span class="keyword">new</span> Animation.AnimationListener() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationStart</span><span class="params">(Animation animation)</span> </span>&#123;</div><div class="line">                </div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationEnd</span><span class="params">(Animation animation)</span> </span>&#123;</div><div class="line"></div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationRepeat</span><span class="params">(Animation animation)</span> </span>&#123;</div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125;);</div></pre></td></tr></table></figure>
+<h3 id="1-X-接下来我们在介绍中提到AnimationSet"><a href="#1-X-接下来我们在介绍中提到AnimationSet" class="headerlink" title="1.X 接下来我们在介绍中提到AnimationSet"></a>1.X 接下来我们在介绍中提到AnimationSet</h3><ul>
+<li><p>这个类做动画一般来说会比较常用，因为它控制了多个动画一起动还是队列的动，通俗来讲就是你先动还是我先动，或者说大家一起动起来~！ 好像很Happy的样子</p>
+</li>
+<li><p>其实就是这个类内部维护了一个List<animation> AnimationSet继承于Animation</animation></p>
+</li>
+<li><p>同样简单动画可以用XML实现，在我们目录里可以新建一个anim的文件夹，里面可以放一个根为「set」的 原理是一样的</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;set xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;</div><div class="line">    &lt;alpha</div><div class="line">        android:fromAlpha=&quot;0.3&quot;</div><div class="line">        android:toAlpha=&quot;0.5&quot;&gt;&lt;/alpha&gt;</div><div class="line"></div><div class="line">    &lt;rotate</div><div class="line">        android:fromDegrees=&quot;0&quot;</div><div class="line">        android:pivotX=&quot;50%&quot;</div><div class="line">        android:pivotY=&quot;50%&quot;</div><div class="line">        android:toDegrees=&quot;180&quot;/&gt;</div><div class="line">    &lt;scale</div><div class="line">        android:fromXScale=&quot;0.5&quot;</div><div class="line">        android:fromYScale=&quot;0.5&quot;</div><div class="line">        android:pivotX=&quot;50%&quot;</div><div class="line">        android:pivotY=&quot;50%&quot;</div><div class="line">        android:toXScale=&quot;1&quot;</div><div class="line">        android:toYScale=&quot;1&quot;/&gt;</div><div class="line">    &lt;translate</div><div class="line">        android:fromXDelta=&quot;50%&quot;</div><div class="line">        android:fromYDelta=&quot;50%&quot;</div><div class="line">        android:toXDelta=&quot;100%&quot;</div><div class="line">        android:toYDelta=&quot;100%&quot;/&gt;</div><div class="line">&lt;/set&gt;</div><div class="line"></div><div class="line">使用AnimationUtils.loadAnimation(this,R.anim.sad)加载</div></pre></td></tr></table></figure>
+<blockquote>
+<p>（吐槽一下我打样子输入法无限给我杨紫你说这么黑好么！！！）</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">AnimationSet set=<span class="keyword">new</span> AnimationSet(<span class="keyword">true</span>);</div><div class="line">        set.addAnimation(aa);<span class="comment">//加进去就好了 注意内存小心OOM 和内存泄露</span></div><div class="line">        set.setFillAfter(<span class="keyword">true</span>);<span class="comment">//保持结束动画的样子,setFillBefore你懂的</span></div><div class="line">        set.setDuration(<span class="number">5000</span>);</div><div class="line">        view.startAnimation(set);</div></pre></td></tr></table></figure>
+<ul>
+<li>对于内存要有借有还，再借不难</li>
+</ul>
+<h2 id="2-帧动画-Frame-Animation"><a href="#2-帧动画-Frame-Animation" class="headerlink" title="2.帧动画(Frame Animation)"></a>2.帧动画(Frame Animation)</h2><blockquote>
+<p>度娘说</p>
+</blockquote>
+<ul>
+<li>动画是通过把人物的表情、动作、变化等分解后画成许多动作瞬间的画幅，再用摄影机连续拍摄成一系列画面，给视觉造成连续变化的图画。它的基本原理与电影、电视一样，都是视觉暂留原理。医学证明人类具有“视觉暂留”的特性，人的眼睛看到一幅画或一个物体后，在0.34秒内不会消失。利用这一原理，在一幅画还没有消失前播放下一幅画，就会给人造成一种流畅的视觉变化效果。</li>
+</ul>
+<blockquote>
+<p>结论就是 动画标准是一秒24帧，也就是24张画面组成一秒。电视播放标准是25帧每秒。</p>
+</blockquote>
+<ul>
+<li>那么就很好理解啦，1秒大概24幅图片！！！</li>
+</ul>
+<p><img src="http://img.blog.csdn.net/20140115213539656?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvand6aGFuZ2ppZQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="网络图片素材"></p>
+<blockquote>
+<p>用AS的在drawable中新建一个xml</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line"> &lt;animation-list</div><div class="line">        xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">        android:oneshot=&quot;true&quot;</div><div class="line">        &gt;</div><div class="line">    &lt;!--</div><div class="line">    根标签为animation-list，其中oneshot代表着是否只展示一遍，设置为false会不停的循环播放动画</div><div class="line">    根标签下，通过item标签对动画中的每一个图片进行声明</div><div class="line">    android:duration 表示展示所用的该图片的时间长度</div><div class="line"> --&gt;</div><div class="line"></div><div class="line">    &lt;item android:drawable=&quot;@drawable/icon1&quot; android:duration=&quot;150&quot;&gt;&lt;/item&gt;</div><div class="line">        &lt;item android:drawable=&quot;@drawable/icon2&quot; android:duration=&quot;150&quot;&gt;&lt;/item&gt;</div><div class="line">        &lt;item android:drawable=&quot;@drawable/icon3&quot; android:duration=&quot;150&quot;&gt;&lt;/item&gt;</div><div class="line">        &lt;item android:drawable=&quot;@drawable/icon4&quot; android:duration=&quot;150&quot;&gt;&lt;/item&gt;</div><div class="line">        &lt;item android:drawable=&quot;@drawable/icon5&quot; android:duration=&quot;150&quot;&gt;&lt;/item&gt;</div><div class="line">        &lt;item android:drawable=&quot;@drawable/icon6&quot; android:duration=&quot;150&quot;&gt;&lt;/item&gt;</div><div class="line">    &lt;/animation-list&gt;</div><div class="line">    </div><div class="line">    </div><div class="line">    在activity中用一下即可</div><div class="line">    </div><div class="line">        view.setImageResource(R.drawable.icon);</div><div class="line">        AnimationDrawable ad = (AnimationDrawable) view.getDrawable();</div><div class="line">        ad.start();</div><div class="line">        </div><div class="line">        当然你可以手动添加图片帧</div><div class="line">        ad.addFrame(@NonNull Drawable frame, int duration)</div></pre></td></tr></table></figure>
+<h2 id="3-属性动画（Property-Animation）"><a href="#3-属性动画（Property-Animation）" class="headerlink" title="3.属性动画（Property Animation）"></a>3.属性动画（Property Animation）</h2><ul>
+<li>属性动画有 ObjectAnimator、ValueAnimator，常用的还是ObjectAnimator继承于ValueAnimator</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">AnimatorSet animatorSet = new AnimatorSet();///创建属性动画集</div><div class="line">       animatorSet.playTogether(///“playTogether”表示所有的子动画同时运作</div><div class="line">               ObjectAnimator.ofFloat(view, &quot;rotationX&quot;, 0, 360),</div><div class="line">               ObjectAnimator.ofFloat(view, &quot;rotationY&quot;, 0, 180),</div><div class="line">               ObjectAnimator.ofFloat(view, &quot;rotation&quot;, 0, -90),</div><div class="line">               ObjectAnimator.ofFloat(view, &quot;translationX&quot;, 0, 90),</div><div class="line">               ObjectAnimator.ofFloat(view, &quot;translationY&quot;, 0, 90),</div><div class="line">               ObjectAnimator.ofFloat(view, &quot;scaleX&quot;, 1, 1.5f),</div><div class="line">               ObjectAnimator.ofFloat(view, &quot;scaleY&quot;, 1, 0.5f),</div><div class="line">               ObjectAnimator.ofFloat(view, &quot;alpha&quot;, 1, 0.25f, 1)</div><div class="line">       );</div><div class="line">       animatorSet.setDuration(5 * 1000).start();</div></pre></td></tr></table></figure>
+<ul>
+<li>同样Animator也可以写XML来实现</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;set xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">    android:ordering=&quot;sequentially&quot;&gt;</div><div class="line">    &lt;objectAnimator</div><div class="line">        android:duration=&quot;3000&quot;</div><div class="line">        android:propertyName=&quot;rotationX&quot;</div><div class="line">        android:repeatCount=&quot;infinite&quot;</div><div class="line">        android:repeatMode=&quot;reverse&quot;</div><div class="line">        android:startOffset=&quot;0&quot;</div><div class="line">        android:valueFrom=&quot;0&quot;</div><div class="line">        android:valueTo=&quot;360&quot;</div><div class="line">        android:valueType=&quot;intType&quot; /&gt;</div><div class="line"></div><div class="line"></div><div class="line">&lt;/set&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">AnimatorSet set = (AnimatorSet) 			AnimatorInflater.loadAnimator(getApplicationContext(), R.animator.property_animator);</div><div class="line">set.setTarget(mView);//设置一下要动的目标View</div><div class="line">set.start();</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">一般监听有</div><div class="line">ObjectAnimator.ofArgb().addListener(<span class="keyword">new</span> Animator.AnimatorListener() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationStart</span><span class="params">(Animator animation)</span> </span>&#123;</div><div class="line">                <span class="comment">//动画开始</span></div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationEnd</span><span class="params">(Animator animation)</span> </span>&#123;</div><div class="line">                <span class="comment">//动画结束</span></div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationCancel</span><span class="params">(Animator animation)</span> </span>&#123;</div><div class="line">                <span class="comment">//动画取消</span></div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationRepeat</span><span class="params">(Animator animation)</span> </span>&#123;</div><div class="line">                <span class="comment">//重复动画</span></div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        ObjectAnimator.ofFloat(view, <span class="string">"alpha"</span>, <span class="number">1</span>, <span class="number">0.25f</span>, <span class="number">1</span>).addUpdateListener(<span class="keyword">new</span> ValueAnimator</div><div class="line">                .AnimatorUpdateListener() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationUpdate</span><span class="params">(ValueAnimator animation)</span> </span>&#123;</div><div class="line">                <span class="comment">//动画值更新通过 animation.getAnimatedValue()取得</span></div><div class="line">                <span class="comment">//这个更新值能让我们做一些规律动画</span></div><div class="line">            &#125;</div><div class="line">        &#125;);</div></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>AnimationSet 与 AnimatorSet 最大的不同在于，AnimationSet 使用的是 Animation 子类、AnimatorSet 使用的是 Animator 的子类。</li>
+</ul>
+<blockquote>
+<p>Animation 是针对视图外观的动画实现，动画被应用时外观改变但视图的触发点不会发生变化，还是在原来定义的位置。</p>
+<p>Animator是针对视图属性的动画实现，动画被应用时对象属性产生变化，最终导致视图外观变化。</p>
+</blockquote>
+<ul>
+<li>这一章讲了一个动画大概，下一章一起看看自定义动画和场景动画还有现在的流行的SVG动画</li>
+</ul>
+<p>有问题可以来我<a href="http://www.mapleslong.com" target="_blank" rel="external">博客</a>或者<a href="http://www.jianshu.com/users/0da7bdbfddb2" target="_blank" rel="external">简书</a>反馈,谢谢大家的停留在这里时间</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-一起撸一波干货集中营练练手Android（四）终章"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2016/08/19/一起撸一波干货集中营练练手Android（四）终章/">一起撸一波干货集中营练练手Android（四）终章</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2016/08/19/一起撸一波干货集中营练练手Android（四）终章/" class="article-date">
+	  <time datetime="2016-08-19T08:24:49.000Z" itemprop="datePublished">2016-08-19</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="MPGankIO-终章"><a href="#MPGankIO-终章" class="headerlink" title="MPGankIO  终章"></a>MPGankIO  终章</h1><blockquote>
+<p>整个App到了这里就开始准备开始实现最后的点击事件和页面跳转啦！<br>后续如果有需要可以爬一波包包通缉令的数据O(∩_∩)O~~</p>
+</blockquote>
+<h2 id="适配器的使用"><a href="#适配器的使用" class="headerlink" title="适配器的使用"></a>适配器的使用</h2><blockquote>
+<p>因为其中有一些是用整张图片的url返回因此我们在Adapter中需要判断返回不同类型顺便可以使用一下ViewType 这个方法</p>
+</blockquote>
+<p><img src="http://o6kv2wscf.bkt.clouddn.com/16-8-19/13443557.jpg" alt=""></p>
+<p><img src="http://o6kv2wscf.bkt.clouddn.com/16-8-19/50209347.jpg" alt=""></p>
+<p><img src="http://o6kv2wscf.bkt.clouddn.com/16-8-19/35968451.jpg" alt=""></p>
+<ul>
+<li>乍一看好像代码有点多 哈哈，因为有些没封装，这个adapter可以进行再次封装以便以后的使用 鸿神这块弄了好久了 大家可以参考他的</li>
+</ul>
+<h2 id="WebView的使用"><a href="#WebView的使用" class="headerlink" title="WebView的使用"></a>WebView的使用</h2><p><img src="http://o6kv2wscf.bkt.clouddn.com/16-8-19/31001804.jpg" alt=""></p>
+<blockquote>
+<p>剩下的只要传值进入就好了</p>
+<p>福利妹子图本来是打算用PhotoView+Glide 做的不过还有带你事等下次有空的时候再去完善一些东西吧！</p>
+</blockquote>
+<p><img src="http://o6kv2wscf.bkt.clouddn.com/16-8-19/6786155.gif?attname=" alt="效果图"></p>
+<h3 id="本篇系列到此结束了，其中有很多零碎的小点大家可以在代码中发现"><a href="#本篇系列到此结束了，其中有很多零碎的小点大家可以在代码中发现" class="headerlink" title="本篇系列到此结束了，其中有很多零碎的小点大家可以在代码中发现"></a>本篇系列到此结束了，其中有很多零碎的小点大家可以在代码中发现</h3><p>有问题可以来我<a href="http://www.mapleslong.com" target="_blank" rel="external">博客</a>或者<a href="http://www.jianshu.com/users/0da7bdbfddb2" target="_blank" rel="external">简书</a>反馈,谢谢大家的停留在这里时间</p>
+<p> <a href="https://github.com/mapleslong/MPGankIO" target="_blank" rel="external">附上源码下载地址</a> </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-一起撸一波干货集中营练练手Android（三）布局+实现篇"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2016/08/19/一起撸一波干货集中营练练手Android（三）布局+实现篇/">一起撸一波干货集中营练练手Android（三）布局+实现篇</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2016/08/19/一起撸一波干货集中营练练手Android（三）布局+实现篇/" class="article-date">
+	  <time datetime="2016-08-19T07:20:11.000Z" itemprop="datePublished">2016-08-19</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="MPGankIO-布局-实现篇"><a href="#MPGankIO-布局-实现篇" class="headerlink" title="MPGankIO 布局+实现篇"></a>MPGankIO 布局+实现篇</h1><blockquote>
+<p>整个App到了这里就开始准备开始实现逻辑啦，有没有点小期待<br>后续如果有需要可以爬一波包包通缉令的数据O(∩_∩)O~~</p>
+</blockquote>
+<p>我们的布局采用5.0之后的新布局控件</p>
+<h2 id="1-CardView"><a href="#1-CardView" class="headerlink" title="1.CardView"></a>1.CardView</h2><p>  <a href="http://www.androidchina.net/3754.html" target="_blank" rel="external">CardView 对这个控件还不太了解的可以戳这里</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">CardView特别的属性如下：</div><div class="line"></div><div class="line">android:cardCornerRadius：在布局中设置card圆角的大小</div><div class="line">CardView.setRadius：在代码中设置card圆角的大小</div><div class="line">android:cardBackgroundColor：在布局中设置card背景的颜色</div><div class="line">android:elevation：设置阴影的大小</div><div class="line">card_view:cardElevation 阴影的大小</div><div class="line">card_view:cardMaxElevation 阴影最大高度</div><div class="line">card_view:cardCornerRadius 卡片的圆角大小</div><div class="line">card_view:contentPadding 卡片内容于边距的间隔 </div><div class="line">card_view:contentPaddingBottom </div><div class="line">card_view:contentPaddingTop </div><div class="line">card_view:contentPaddingLeft </div><div class="line">card_view:contentPaddingRight </div><div class="line">card_view:contentPaddingStart </div><div class="line">card_view:contentPaddingEnd</div><div class="line">card_view:cardUseCompatPadding 设置内边距，V21+的版本和之前的版本仍旧具有一样的计算方式</div><div class="line">**card_view:cardPreventConrerOverlap </div><div class="line">在V20和之前的版本中添加内边距，这个属性为了防止内容和边角的重叠**</div></pre></td></tr></table></figure>
+<ul>
+<li>我们要使用这个CardView来做卡片式的列表</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line">&lt;android.support.v7.widget.CardView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">                                    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;</div><div class="line">                                    android:layout_width=&quot;match_parent&quot;</div><div class="line">                                    android:layout_height=&quot;wrap_content&quot;</div><div class="line">                                    android:layout_margin=&quot;5dp&quot;</div><div class="line">                                    android:foreground=&quot;?android:attr/selectableItemBackground&quot;</div><div class="line">                                    android:orientation=&quot;vertical&quot;</div><div class="line">                                    app:contentPadding=&quot;5dp&quot;&gt;</div><div class="line"></div><div class="line">    &lt;RelativeLayout</div><div class="line">        android:layout_width=&quot;match_parent&quot;</div><div class="line">        android:layout_height=&quot;match_parent&quot;&gt;</div><div class="line"></div><div class="line">        &lt;TextView</div><div class="line">            android:id=&quot;@id/tv_title&quot;</div><div class="line">            style=&quot;@style/txt_normal_style&quot;</div><div class="line">            android:layout_width=&quot;match_parent&quot;</div><div class="line">            android:layout_height=&quot;wrap_content&quot;</div><div class="line">            android:layout_marginLeft=&quot;5dp&quot;</div><div class="line">            android:ellipsize=&quot;end&quot;</div><div class="line">            android:gravity=&quot;start&quot;</div><div class="line">            android:maxLines=&quot;3&quot;</div><div class="line">            android:text=&quot;标题&quot;</div><div class="line">            android:textSize=&quot;16sp&quot;</div><div class="line">            /&gt;</div><div class="line"></div><div class="line"></div><div class="line">        &lt;TextView</div><div class="line">            android:id=&quot;@id/tv_name&quot;</div><div class="line">            style=&quot;@style/txt_normal_style&quot;</div><div class="line">            android:layout_width=&quot;wrap_content&quot;</div><div class="line">            android:layout_height=&quot;wrap_content&quot;</div><div class="line">            android:layout_alignParentBottom=&quot;true&quot;</div><div class="line">            android:layout_below=&quot;@id/tv_title&quot;</div><div class="line">            android:layout_marginTop=&quot;10dp&quot;</div><div class="line">            android:gravity=&quot;bottom&quot;</div><div class="line">            android:text=&quot;作者&quot;</div><div class="line">            android:textColor=&quot;@color/colorPrimary&quot;/&gt;</div><div class="line"></div><div class="line">        &lt;TextView</div><div class="line">            android:id=&quot;@id/tv_publishtime&quot;</div><div class="line">            style=&quot;@style/txt_normal_style&quot;</div><div class="line">            android:layout_width=&quot;wrap_content&quot;</div><div class="line">            android:layout_height=&quot;wrap_content&quot;</div><div class="line">            android:layout_alignParentBottom=&quot;true&quot;</div><div class="line">            android:layout_alignParentRight=&quot;true&quot;</div><div class="line">            android:layout_below=&quot;@id/tv_title&quot;</div><div class="line">            android:layout_marginTop=&quot;10dp&quot;</div><div class="line">            android:gravity=&quot;bottom&quot;</div><div class="line">            android:text=&quot;发表时间&quot;/&gt;</div><div class="line"></div><div class="line">    &lt;/RelativeLayout&gt;</div><div class="line"></div><div class="line">&lt;/android.support.v7.widget.CardView&gt;</div></pre></td></tr></table></figure>
+<p><img src="http://o6kv2wscf.bkt.clouddn.com/16-8-19/98564766.jpg" alt=""></p>
+<blockquote>
+<p>CardView 大部分适用于 listView 或者recyclerView的item中。</p>
+</blockquote>
+<h2 id="2-RecyclerView"><a href="#2-RecyclerView" class="headerlink" title="2.RecyclerView"></a>2.RecyclerView</h2><p><a href="http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2014/1118/2004.html" target="_blank" rel="external">RecyclerView 可以戳这里了解一下</a></p>
+<p><strong>RecyclerView与ListView原理是类似的：都是仅仅维护少量的View并且可以展示大量的数据集。RecyclerView用以下两种方式简化了数据的展示和处理:</strong></p>
+<ul>
+<li>使用LayoutManager来确定每一个item的排列方式。</li>
+<li><p>为增加和删除项目提供默认的动画效果。</p>
+<blockquote>
+<p>你也可以定义你自己的LayoutManager和添加删除动画,SDK中默认包含了三种布局</p>
+</blockquote>
+<ol>
+<li>横向布局（LinearLayoutManager）  </li>
+<li>Grid布局（GridLayoutManager） </li>
+<li>瀑布流布局（StaggeredGridLayoutManager）</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li>Adapter：使用RecyclerView之前，你需要一个继承自RecyclerView.Adapter的适配器，作用是将数据与每一个item的界面进行绑定。</li>
+<li>LayoutManager：用来确定每一个item如何进行排列摆放，何时展示和隐藏。回收或重用一个View的时候，<br>LayoutManager会向适配器请求新的数据来替换旧的数据，这种机制避免了创建过多的View和频繁的调用findViewById方法（与ListView原理类似）。</li>
+</ul>
+<p><strong><em>总而言之就相当于ListView封装后再抽象，使item更加灵活</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">项目中我使用的是XRecyclerView,是封装了上拉刷新和下拉加载的一个库，非常好用还有挺多的加载动画可以切换,使用的方法也很简单，哈哈，偷懒！！ 不都是说为了不要重复造轮子嘛~你懂的</div></pre></td></tr></table></figure>
+<h2 id="3-Fragment"><a href="#3-Fragment" class="headerlink" title="3.Fragment"></a>3.Fragment</h2><p>这个应该不用多讲了相信大家都会的</p>
+<h2 id="4-代码附上"><a href="#4-代码附上" class="headerlink" title="4.代码附上"></a>4.代码附上</h2><blockquote>
+<p>MainFragment.java 这个就是为了在主页将一些数据初始化为了给TypeFragment拿到类型数据</p>
+</blockquote>
+<p><img src="http://o6kv2wscf.bkt.clouddn.com/16-8-19/18992588.jpg" alt=""></p>
+<ul>
+<li>为什么使用FragmentStateAdapter而不用FragmentPagerAdapter是因为viewpager页数比较多<pre><code>FragmentStateAdatper的机制是空置的时候将其销毁释放内存,而FragmentPagerAdapter是将其dettach
+因此选用FragmentSteteAdapter
+</code></pre></li>
+</ul>
+<blockquote>
+<p>GankViewPagerAdapter.java</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GankViewPagerAdapter</span> <span class="keyword">extends</span> <span class="title">FragmentStatePagerAdapter</span> </span>&#123;</div><div class="line">   </div><div class="line">    <span class="keyword">private</span> List&lt;Fragment&gt; mFragments;</div><div class="line">    <span class="keyword">private</span> List&lt;String&gt; mTitles;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">GankViewPagerAdapter</span><span class="params">(FragmentManager fm, List&lt;Fragment&gt; fragments, List&lt;String&gt; titles)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(fm);</div><div class="line">        <span class="keyword">this</span>.mFragments = fragments;</div><div class="line">        <span class="keyword">this</span>.mTitles = titles;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Fragment <span class="title">getItem</span><span class="params">(<span class="keyword">int</span> position)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mFragments.get(position);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCount</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mFragments.size();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> CharSequence <span class="title">getPageTitle</span><span class="params">(<span class="keyword">int</span> position)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mTitles.get(position);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><em>大家如果之前理解过MVP架构应该就会发现我调用的方式啦！</em></p>
+<blockquote>
+<p>TypeFragment.java  核心模块</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TypeFragment</span> <span class="keyword">extends</span> <span class="title">BaseMvpFragment</span>&lt;<span class="title">TypeFragmentView</span>, <span class="title">TypePresenter</span>&gt; <span class="keyword">implements</span></span></div><div class="line"><span class="class">        <span class="title">TypeFragmentView</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String ARG_PARAM1 = <span class="string">"type"</span>;</div><div class="line">    <span class="meta">@BindView</span>(R.id.rv_list)</div><div class="line">    XRecyclerView rvList;</div><div class="line">    <span class="keyword">private</span> String mCategory;</div><div class="line">    <span class="keyword">private</span> View rootView;</div><div class="line">    <span class="keyword">private</span> GankTypeCardAdapter mGankTypeCardAdapter;</div><div class="line">    <span class="keyword">private</span> List&lt;GankDataEntity&gt; mDatas;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> curPage = <span class="number">1</span>;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        <span class="keyword">if</span> (getArguments() != <span class="keyword">null</span>) &#123;</div><div class="line">            mCategory = getArguments().getString(ARG_PARAM1);</div><div class="line">        &#125;</div><div class="line">        initVariables();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> View <span class="title">onCreateView</span><span class="params">(LayoutInflater inflater, ViewGroup container,</span></span></div><div class="line"><span class="function"><span class="params">                             Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        rootView = inflater.inflate(R.layout.fragment_type, container, <span class="keyword">false</span>);</div><div class="line">        ButterKnife.bind(<span class="keyword">this</span>, rootView);</div><div class="line">        resetDatas();</div><div class="line">        initViews();</div><div class="line">        <span class="keyword">return</span> rootView;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSaveInstanceState</span><span class="params">(Bundle outState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onSaveInstanceState(outState);</div><div class="line">        outState.putString(ARG_PARAM1, mCategory);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onViewStateRestored</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onViewStateRestored(savedInstanceState);</div><div class="line">        <span class="keyword">if</span> (savedInstanceState != <span class="keyword">null</span>) &#123;</div><div class="line">            mCategory = ConvertUtil.toString(savedInstanceState.getString(ARG_PARAM1), <span class="string">""</span>);<span class="comment">//避免为NULL</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initVariables</span><span class="params">()</span> </span>&#123;</div><div class="line">        mDatas = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initViews</span><span class="params">()</span> </span>&#123;</div><div class="line">        initRecyclerView();</div><div class="line">        presenter.getTypeGankList();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initRecyclerView</span><span class="params">()</span> </span>&#123;</div><div class="line">        rvList.setPullRefreshEnabled(<span class="keyword">true</span>);</div><div class="line">        rvList.setLoadingMoreEnabled(<span class="keyword">true</span>);</div><div class="line">        rvList.setLoadingListener(<span class="keyword">new</span> XRecyclerView.LoadingListener() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onRefresh</span><span class="params">()</span> </span>&#123;</div><div class="line">                resetDatas();</div><div class="line">                presenter.getTypeGankList();</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onLoadMore</span><span class="params">()</span> </span>&#123;</div><div class="line">                presenter.getTypeGankList();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> TypePresenter <span class="title">initPresenter</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> TypePresenter();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TypeFragment <span class="title">newInstance</span><span class="params">(String type)</span> </span>&#123;</div><div class="line">        TypeFragment fragment = <span class="keyword">new</span> TypeFragment();</div><div class="line">        Bundle args = <span class="keyword">new</span> Bundle();</div><div class="line">        args.putString(ARG_PARAM1, type);</div><div class="line">        fragment.setArguments(args);</div><div class="line">        <span class="keyword">return</span> fragment;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getCategory</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mCategory;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCurPage</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> curPage;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addOnePage</span><span class="params">()</span> </span>&#123;</div><div class="line">        curPage++;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">makeUpDatas</span><span class="params">(List&lt;GankDataEntity&gt; datas)</span> </span>&#123;</div><div class="line">        mDatas.addAll(datas);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">notifyAdapter</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (mGankTypeCardAdapter == <span class="keyword">null</span>) &#123;</div><div class="line">            mGankTypeCardAdapter = <span class="keyword">new</span> GankTypeCardAdapter(mActivity, mDatas);</div><div class="line">            rvList.setLayoutManager(<span class="keyword">new</span> LinearLayoutManager(mActivity));</div><div class="line">            rvList.setAdapter(mGankTypeCardAdapter);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// <span class="doctag">TODO:</span> 16/8/19 //此处可以优化成动画效果以及item逐个优化不需要整个重新排列</span></div><div class="line">        mGankTypeCardAdapter.notifyDataSetChanged();</div><div class="line">        rvList.refreshComplete();</div><div class="line">        rvList.loadMoreComplete();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">resetDatas</span><span class="params">()</span> </span>&#123;</div><div class="line">        curPage = <span class="number">1</span>;</div><div class="line">        mDatas.clear();</div><div class="line">        <span class="keyword">if</span> (mGankTypeCardAdapter != <span class="keyword">null</span>) &#123;</div><div class="line">            mGankTypeCardAdapter.notifyDataSetChanged();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDestroyView</span><span class="params">()</span> </span>&#123;</div><div class="line">        mGankTypeCardAdapter = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">super</span>.onDestroyView();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>最后就是P中调用V啦 就是传说中的解耦</p>
+</blockquote>
+<p> <img src="http://o6kv2wscf.bkt.clouddn.com/16-8-19/37113028.jpg" alt=""></p>
+<hr>
+<p> 到此基本上的请求列表功能结束啦，下一篇最终章就是列表点击事件和链接的内容页面！</p>
+<p>有问题可以来我<a href="http://www.mapleslong.com" target="_blank" rel="external">博客</a>或者<a href="http://www.jianshu.com/users/0da7bdbfddb2" target="_blank" rel="external">简书</a>反馈,谢谢大家的停留在这里时间</p>
+<p> <a href="https://github.com/mapleslong/MPGankIO" target="_blank" rel="external">附上源码下载地址</a> </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-一起撸一波干货集中营练练手Android（二）网络篇"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2016/08/19/一起撸一波干货集中营练练手Android（二）网络篇/">一起撸一波干货集中营练练手Android（二) 网络篇</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2016/08/19/一起撸一波干货集中营练练手Android（二）网络篇/" class="article-date">
+	  <time datetime="2016-08-19T04:20:49.000Z" itemprop="datePublished">2016-08-19</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="MPGankIO-网络篇"><a href="#MPGankIO-网络篇" class="headerlink" title="MPGankIO 网络篇"></a>MPGankIO 网络篇</h1><hr>
+<blockquote>
+<p>本篇对于不熟悉RxJava的童鞋可以先去了解一下。OK , 让咱们继续撸起来</p>
+</blockquote>
+<h2 id="GankIO全局配置实现"><a href="#GankIO全局配置实现" class="headerlink" title="GankIO全局配置实现"></a>GankIO全局配置实现</h2><p><img src="http://upload-images.jianshu.io/upload_images/1878404-a67ef636ac488a0f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="GankIO的Api接口实现"><a href="#GankIO的Api接口实现" class="headerlink" title="GankIO的Api接口实现"></a>GankIO的Api接口实现</h2><p><img src="http://upload-images.jianshu.io/upload_images/1878404-bd10c7f2f4fbc6db.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""> </p>
+<blockquote>
+<p>目前用这2个接口基本可以获取实现获取数据</p>
+</blockquote>
+<h2 id="将RetrofitClient进行封装"><a href="#将RetrofitClient进行封装" class="headerlink" title="将RetrofitClient进行封装"></a>将RetrofitClient进行封装</h2><blockquote>
+<p>先让我们解析一下Api返回的数据格式</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">&quot;error&quot;: false,</div><div class="line">&quot;results&quot;: [</div><div class="line">&#123;</div><div class="line">&quot;_id&quot;: &quot;******&quot;,</div><div class="line">&quot;createdAt&quot;: &quot;****&quot;,</div><div class="line">&quot;desc&quot;: &quot;******&quot;,</div><div class="line">&quot;publishedAt&quot;: &quot;*******&quot;,</div><div class="line">&quot;source&quot;: &quot;*****&quot;,</div><div class="line">&quot;type&quot;: &quot;****&quot;,</div><div class="line">&quot;url&quot;: &quot;******&quot;,</div><div class="line">&quot;used&quot;: ***,</div><div class="line">&quot;who&quot;: ***</div><div class="line">&#125;]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>一看全是这个规律的数据集合，只有results这个值在变化，那我们就可以写一个泛型类去做解析，不需要针对某一个接口写一个对象<br>相信大家Gson已经用的很熟练的，那么再写一个数据的实例继承Apirespose就OK啦！</li>
+</ul>
+<blockquote>
+<p>ApiResponse.java</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/1878404-44391b8adec993c9.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<ul>
+<li>咱们可以开始封装Retrofit &gt; NetworkApiClient.java</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/1878404-d7547dcdecdd49e4.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h2 id="HttpCallback请求回调封装"><a href="#HttpCallback请求回调封装" class="headerlink" title="HttpCallback请求回调封装"></a>HttpCallback请求回调封装</h2><p><img src="http://upload-images.jianshu.io/upload_images/1878404-23d2e07d2918131a.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1878404-80fb604b60e350a2.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<ul>
+<li><p>其中还有更多的异常可以自行定义，例如网络不稳定等情况的发生，后面的回调也可以进行自定义处理</p>
+</li>
+<li><p>OK，咱们网络请求的架构也就搭好啦！</p>
+</li>
+</ul>
+<p>有问题可以来我<a href="http://www.mapleslong.com" target="_blank" rel="external">博客</a>或者<a href="http://www.jianshu.com/users/0da7bdbfddb2" target="_blank" rel="external">简书</a>反馈</p>
+<p>至于BaseModel是为了复用和方便创建的此App暂时没有用到<br>如果有发现可以继承BaseModel</p>
+<p> <a href="https://github.com/mapleslong/MPGankIO" target="_blank" rel="external">源码下载</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-一起撸一波干货集中营练练手Android（一）框架篇"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2016/08/19/一起撸一波干货集中营练练手Android（一）框架篇/">一起撸一波干货集中营练练手Android（一）框架篇</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2016/08/19/一起撸一波干货集中营练练手Android（一）框架篇/" class="article-date">
+	  <time datetime="2016-08-19T03:46:48.000Z" itemprop="datePublished">2016-08-19</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="MPGankIO-框架篇"><a href="#MPGankIO-框架篇" class="headerlink" title="MPGankIO 框架篇"></a>MPGankIO 框架篇</h1><blockquote>
+<p>这个App其实是拿来锻炼架构所用,欢迎大家来指正和讨论，<br>App结构采用MVP但是并没有同官方MVP一样写Contract接口来解耦<br>后续如果有需要可以爬一波包包通缉令的数据O(∩_∩)O~~</p>
+</blockquote>
+<hr>
+<p>第一次写文章，希望大家轻喷哈~~！！</p>
+<h3 id="APP框架搭建："><a href="#APP框架搭建：" class="headerlink" title="APP框架搭建："></a>APP框架搭建：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"># 网络框架 </div><div class="line">  1. RxJava</div><div class="line">  2. Retrofit</div><div class="line">  3. Gson</div><div class="line">  4. okhttp</div><div class="line"> </div><div class="line"># 图片框架</div><div class="line"></div><div class="line">  1. Glide(推荐采用，Google官方推荐)</div><div class="line"></div><div class="line"># 注入框架</div><div class="line"></div><div class="line">  1. ButterKnife(神器不解释) </div><div class="line">  </div><div class="line"># 内存泄露检测</div><div class="line"></div><div class="line">  1. Leakcanary</div></pre></td></tr></table></figure>
+<blockquote>
+<p>我觉得放代码会印象阅读，所以采用图片贴代码的形式解读</p>
+</blockquote>
+<h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><p><img src="http://o6kv2wscf.bkt.clouddn.com/16-8-19/78414221.jpg" alt="MPGankIO目录结构"></p>
+<blockquote>
+<p>adapter 放置各个模块的数据适配器 </p>
+<p>config  放置app的一些设置常用变量 </p>
+<p>entity  放置数据对象实例         </p>
+<p>manager 放置自定义的一些全局管理对象(例如AccountManager、ActivityStackManager)</p>
+<p>module  放置我们的app应用模块例如home/main等</p>
+<p>network 放置网络框架我自定义和参考了一些大牛设计集成而来至于是谁我下次翻到的时候把链接打上去（大牛看到不要拍我）</p>
+<p>utils 放置app用到的工具类</p>
+<p>ui 因为这个app没有我自定义的ui所以暂时没有放上去</p>
+</blockquote>
+<h2 id="MVP架构搭建"><a href="#MVP架构搭建" class="headerlink" title="MVP架构搭建"></a>MVP架构搭建</h2><blockquote>
+<p>BaseMvpActivity.java</p>
+</blockquote>
+<p><img src="http://o6kv2wscf.bkt.clouddn.com/16-8-19/49528159.jpg" alt=""></p>
+<p>后文用到的BaseMvpFragment.java同理可得</p>
+<hr>
+<blockquote>
+<p>BasePresenter.java</p>
+</blockquote>
+<p><img src="http://o6kv2wscf.bkt.clouddn.com/16-8-19/50537867.jpg" alt=""></p>
+<p>里面采用了Rxjava的CompositeSubscription请求全局控制<br>并且将View附加给Presenter来进行与View的沟通</p>
+<hr>
+<p>#这样一来MVP基本的架构就搭好啦！</p>
+<p>有问题可以来我<a href="http://www.mapleslong.com" target="_blank" rel="external">博客</a>或者<a href="http://www.jianshu.com/users/0da7bdbfddb2" target="_blank" rel="external">简书</a>反馈</p>
+<p>至于BaseModel是为了复用和方便创建的此App暂时没有用到<br>如果有发现可以继承BaseModel</p>
+<p> <a href="https://github.com/mapleslong/MPGankIO" target="_blank" rel="external">源码下载</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+
+
+</section>
+        
+      </div>
+      
+        <div align="center" style="margin-top: 30px;"><hr class="hr" style="margin:0px; height:3px;"></div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2017 Mapleslong&#39;s Blog All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+  <script src="/js/home.js"></script>
+
+
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Mapleslong&#39;s Blog
+          </div>
+          <div class="panel-body">
+            Copyright © 2017 Mapleslong All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+</body>
+</html>
