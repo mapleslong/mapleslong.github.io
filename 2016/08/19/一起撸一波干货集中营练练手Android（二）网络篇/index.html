@@ -11,13 +11,13 @@
   
   
   
-  <meta name="description" content="MPGankIO 网络篇  本篇对于不熟悉RxJava的童鞋可以先去了解一下。OK , 让咱们继续撸起来  GankIO全局配置实现 GankIO的Api接口实现   目前用这2个接口基本可以获取实现获取数据  将RetrofitClient进行封装 先让我们解析一下Api返回的数据格式  123456789101112131415&amp;#123;&amp;quot;error&amp;quot;: false,&amp;q">
+  <meta name="description" content="MPGankIO 网络篇  本篇对于不熟悉RxJava的童鞋可以先去了解一下。OK , 让咱们继续撸起来">
 <meta name="keywords" content="Android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一起撸一波干货集中营练练手Android（二) 网络篇">
 <meta property="og:url" content="http://blog.mapleslong.com/2016/08/19/一起撸一波干货集中营练练手Android（二）网络篇/index.html">
 <meta property="og:site_name" content="枫叶的博客">
-<meta property="og:description" content="MPGankIO 网络篇  本篇对于不熟悉RxJava的童鞋可以先去了解一下。OK , 让咱们继续撸起来  GankIO全局配置实现 GankIO的Api接口实现   目前用这2个接口基本可以获取实现获取数据  将RetrofitClient进行封装 先让我们解析一下Api返回的数据格式  123456789101112131415&amp;#123;&amp;quot;error&amp;quot;: false,&amp;q">
+<meta property="og:description" content="MPGankIO 网络篇  本篇对于不熟悉RxJava的童鞋可以先去了解一下。OK , 让咱们继续撸起来">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1878404-a67ef636ac488a0f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1878404-bd10c7f2f4fbc6db.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -25,10 +25,10 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1878404-d7547dcdecdd49e4.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1878404-23d2e07d2918131a.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1878404-80fb604b60e350a2.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2016-08-19T08:31:46.000Z">
+<meta property="og:updated_time" content="2017-10-16T08:15:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一起撸一波干货集中营练练手Android（二) 网络篇">
-<meta name="twitter:description" content="MPGankIO 网络篇  本篇对于不熟悉RxJava的童鞋可以先去了解一下。OK , 让咱们继续撸起来  GankIO全局配置实现 GankIO的Api接口实现   目前用这2个接口基本可以获取实现获取数据  将RetrofitClient进行封装 先让我们解析一下Api返回的数据格式  123456789101112131415&amp;#123;&amp;quot;error&amp;quot;: false,&amp;q">
+<meta name="twitter:description" content="MPGankIO 网络篇  本篇对于不熟悉RxJava的童鞋可以先去了解一下。OK , 让咱们继续撸起来">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1878404-a67ef636ac488a0f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
   
     <link rel="alternate" href="/atom.xml" title="枫叶的博客" type="application/atom+xml">
@@ -204,6 +204,7 @@
 <blockquote>
 <p>本篇对于不熟悉RxJava的童鞋可以先去了解一下。OK , 让咱们继续撸起来</p>
 </blockquote>
+<a id="more"></a>
 <h2 id="GankIO全局配置实现"><a href="#GankIO全局配置实现" class="headerlink" title="GankIO全局配置实现"></a>GankIO全局配置实现</h2><p><img src="http://upload-images.jianshu.io/upload_images/1878404-a67ef636ac488a0f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <h2 id="GankIO的Api接口实现"><a href="#GankIO的Api接口实现" class="headerlink" title="GankIO的Api接口实现"></a>GankIO的Api接口实现</h2><p><img src="http://upload-images.jianshu.io/upload_images/1878404-bd10c7f2f4fbc6db.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""> </p>
 <blockquote>

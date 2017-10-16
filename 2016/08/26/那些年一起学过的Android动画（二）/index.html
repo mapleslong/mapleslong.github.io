@@ -11,18 +11,18 @@
   
   
   
-  <meta name="description" content="场景动画  LayoutAnimation作用于ViewGroup,为ViewGroup指定一个动画，当他的子元素出场的时候都会具有这种动画，ListView上用的多，LayoutAnimation也是一个View动画。 123456789101112131415161718192021 &amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&amp;gt;&amp;lt;layoutA">
+  <meta name="description" content="场景动画  LayoutAnimation作用于ViewGroup,为ViewGroup指定一个动画，当他的子元素出场的时候都会具有这种动画，ListView上用的多，LayoutAnimation也是一个View动画。">
 <meta name="keywords" content="Android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="那些年一起学过的Android动画（二）">
 <meta property="og:url" content="http://blog.mapleslong.com/2016/08/26/那些年一起学过的Android动画（二）/index.html">
 <meta property="og:site_name" content="枫叶的博客">
-<meta property="og:description" content="场景动画  LayoutAnimation作用于ViewGroup,为ViewGroup指定一个动画，当他的子元素出场的时候都会具有这种动画，ListView上用的多，LayoutAnimation也是一个View动画。 123456789101112131415161718192021 &amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&amp;gt;&amp;lt;layoutA">
+<meta property="og:description" content="场景动画  LayoutAnimation作用于ViewGroup,为ViewGroup指定一个动画，当他的子元素出场的时候都会具有这种动画，ListView上用的多，LayoutAnimation也是一个View动画。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2016-12-16T09:22:19.000Z">
+<meta property="og:updated_time" content="2017-10-16T08:16:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="那些年一起学过的Android动画（二）">
-<meta name="twitter:description" content="场景动画  LayoutAnimation作用于ViewGroup,为ViewGroup指定一个动画，当他的子元素出场的时候都会具有这种动画，ListView上用的多，LayoutAnimation也是一个View动画。 123456789101112131415161718192021 &amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&amp;gt;&amp;lt;layoutA">
+<meta name="twitter:description" content="场景动画  LayoutAnimation作用于ViewGroup,为ViewGroup指定一个动画，当他的子元素出场的时候都会具有这种动画，ListView上用的多，LayoutAnimation也是一个View动画。">
   
     <link rel="alternate" href="/atom.xml" title="枫叶的博客" type="application/atom+xml">
   
@@ -196,6 +196,7 @@
         <h2 id="场景动画"><a href="#场景动画" class="headerlink" title="场景动画"></a>场景动画</h2><hr>
 <ol>
 <li><p>LayoutAnimation作用于ViewGroup,为ViewGroup指定一个动画，当他的子元素出场的时候都会具有这种动画，ListView上用的多，LayoutAnimation也是一个View动画。</p>
+<a id="more"></a>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"> &lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span>?&gt;</div><div class="line">&lt;layoutAnimation xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></div><div class="line"> android:animationOrder=<span class="string">"normal"</span></div><div class="line"> android:delay=<span class="string">"0.3"</span> android:animation=<span class="string">"@anim/anim_item"</span>/&gt;</div><div class="line"><span class="comment">//--- delay 表示动画开始的时间延迟，比如子元素入场动画的时间周期为300ms,</span></div><div class="line"><span class="comment">//那么0.5表示每个子元素都需要延迟150ms才开始播放入场动画。</span></div><div class="line"><span class="comment">//--- animationOrder 表示子元素的动画的顺序，有三种选项：</span></div><div class="line"><span class="comment">//normal(顺序显示）、reverse（逆序显示）和random（随机显示）。</span></div><div class="line"><span class="comment">//---1. android:animation 为子元素指定具体的入场动画</span></div><div class="line"><span class="comment">//----------------------</span></div><div class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span>?&gt;</div><div class="line">&lt;set xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></div><div class="line"> android:duration=<span class="string">"300"</span></div><div class="line"> android:shareInterpolator=<span class="string">"true"</span>&gt;</div><div class="line"> &lt;alpha</div><div class="line">     android:fromAlpha=<span class="string">"0.0"</span></div><div class="line">     android:toAlpha=<span class="string">"1.0"</span> /&gt;</div><div class="line"> &lt;translate</div><div class="line">     android:fromXDelta=<span class="string">"300"</span></div><div class="line">     android:toXDelta=<span class="string">"0"</span> /&gt;</div><div class="line">&lt;/set&gt;</div></pre></td></tr></table></figure>
 </li>
 </ol>

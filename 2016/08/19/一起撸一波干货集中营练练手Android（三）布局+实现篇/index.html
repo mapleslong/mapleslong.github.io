@@ -11,21 +11,21 @@
   
   
   
-  <meta name="description" content="MPGankIO 布局+实现篇 整个App到了这里就开始准备开始实现逻辑啦，有没有点小期待后续如果有需要可以爬一波包包通缉令的数据O(∩_∩)O~~  我们的布局采用5.0之后的新布局控件 1.CardView  CardView 对这个控件还不太了解的可以戳这里 12345678910111213141516171819CardView特别的属性如下：android:cardCornerRadi">
+  <meta name="description" content="MPGankIO 布局+实现篇 整个App到了这里就开始准备开始实现逻辑啦，有没有点小期待后续如果有需要可以爬一波包包通缉令的数据O(∩_∩)O~~  我们的布局采用5.0之后的新布局控件">
 <meta name="keywords" content="Android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一起撸一波干货集中营练练手Android（三）布局+实现篇">
 <meta property="og:url" content="http://blog.mapleslong.com/2016/08/19/一起撸一波干货集中营练练手Android（三）布局+实现篇/index.html">
 <meta property="og:site_name" content="枫叶的博客">
-<meta property="og:description" content="MPGankIO 布局+实现篇 整个App到了这里就开始准备开始实现逻辑啦，有没有点小期待后续如果有需要可以爬一波包包通缉令的数据O(∩_∩)O~~  我们的布局采用5.0之后的新布局控件 1.CardView  CardView 对这个控件还不太了解的可以戳这里 12345678910111213141516171819CardView特别的属性如下：android:cardCornerRadi">
+<meta property="og:description" content="MPGankIO 布局+实现篇 整个App到了这里就开始准备开始实现逻辑啦，有没有点小期待后续如果有需要可以爬一波包包通缉令的数据O(∩_∩)O~~  我们的布局采用5.0之后的新布局控件">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://o6kv2wscf.bkt.clouddn.com/16-8-19/98564766.jpg">
 <meta property="og:image" content="http://o6kv2wscf.bkt.clouddn.com/16-8-19/18992588.jpg">
 <meta property="og:image" content="http://o6kv2wscf.bkt.clouddn.com/16-8-19/37113028.jpg">
-<meta property="og:updated_time" content="2016-08-19T08:25:15.000Z">
+<meta property="og:updated_time" content="2017-10-16T08:15:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一起撸一波干货集中营练练手Android（三）布局+实现篇">
-<meta name="twitter:description" content="MPGankIO 布局+实现篇 整个App到了这里就开始准备开始实现逻辑啦，有没有点小期待后续如果有需要可以爬一波包包通缉令的数据O(∩_∩)O~~  我们的布局采用5.0之后的新布局控件 1.CardView  CardView 对这个控件还不太了解的可以戳这里 12345678910111213141516171819CardView特别的属性如下：android:cardCornerRadi">
+<meta name="twitter:description" content="MPGankIO 布局+实现篇 整个App到了这里就开始准备开始实现逻辑啦，有没有点小期待后续如果有需要可以爬一波包包通缉令的数据O(∩_∩)O~~  我们的布局采用5.0之后的新布局控件">
 <meta name="twitter:image" content="http://o6kv2wscf.bkt.clouddn.com/16-8-19/98564766.jpg">
   
     <link rel="alternate" href="/atom.xml" title="枫叶的博客" type="application/atom+xml">
@@ -201,6 +201,7 @@
 <p>整个App到了这里就开始准备开始实现逻辑啦，有没有点小期待<br>后续如果有需要可以爬一波包包通缉令的数据O(∩_∩)O~~</p>
 </blockquote>
 <p>我们的布局采用5.0之后的新布局控件</p>
+<a id="more"></a>
 <h2 id="1-CardView"><a href="#1-CardView" class="headerlink" title="1.CardView"></a>1.CardView</h2><p>  <a href="http://www.androidchina.net/3754.html" target="_blank" rel="external">CardView 对这个控件还不太了解的可以戳这里</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">CardView特别的属性如下：</div><div class="line"></div><div class="line">android:cardCornerRadius：在布局中设置card圆角的大小</div><div class="line">CardView.setRadius：在代码中设置card圆角的大小</div><div class="line">android:cardBackgroundColor：在布局中设置card背景的颜色</div><div class="line">android:elevation：设置阴影的大小</div><div class="line">card_view:cardElevation 阴影的大小</div><div class="line">card_view:cardMaxElevation 阴影最大高度</div><div class="line">card_view:cardCornerRadius 卡片的圆角大小</div><div class="line">card_view:contentPadding 卡片内容于边距的间隔 </div><div class="line">card_view:contentPaddingBottom </div><div class="line">card_view:contentPaddingTop </div><div class="line">card_view:contentPaddingLeft </div><div class="line">card_view:contentPaddingRight </div><div class="line">card_view:contentPaddingStart </div><div class="line">card_view:contentPaddingEnd</div><div class="line">card_view:cardUseCompatPadding 设置内边距，V21+的版本和之前的版本仍旧具有一样的计算方式</div><div class="line">**card_view:cardPreventConrerOverlap </div><div class="line">在V20和之前的版本中添加内边距，这个属性为了防止内容和边角的重叠**</div></pre></td></tr></table></figure>
 <ul>

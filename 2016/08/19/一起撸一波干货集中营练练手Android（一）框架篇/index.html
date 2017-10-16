@@ -11,21 +11,21 @@
   
   
   
-  <meta name="description" content="MPGankIO 框架篇 这个App其实是拿来锻炼架构所用,欢迎大家来指正和讨论，App结构采用MVP但是并没有同官方MVP一样写Contract接口来解耦后续如果有需要可以爬一波包包通缉令的数据O(∩_∩)O~~   第一次写文章，希望大家轻喷哈~~！！ APP框架搭建：1234567891011121314151617# 网络框架   1. RxJava  2. Retrofit  3. Gs">
+  <meta name="description" content="MPGankIO 框架篇 这个App其实是拿来锻炼架构所用,欢迎大家来指正和讨论，App结构采用MVP但是并没有同官方MVP一样写Contract接口来解耦 后续如果有需要可以爬一波包包通缉令的数据O(∩_∩)O~~ 第一次写文章，希望大家轻喷哈~~！！">
 <meta name="keywords" content="Android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一起撸一波干货集中营练练手Android（一）框架篇">
 <meta property="og:url" content="http://blog.mapleslong.com/2016/08/19/一起撸一波干货集中营练练手Android（一）框架篇/index.html">
 <meta property="og:site_name" content="枫叶的博客">
-<meta property="og:description" content="MPGankIO 框架篇 这个App其实是拿来锻炼架构所用,欢迎大家来指正和讨论，App结构采用MVP但是并没有同官方MVP一样写Contract接口来解耦后续如果有需要可以爬一波包包通缉令的数据O(∩_∩)O~~   第一次写文章，希望大家轻喷哈~~！！ APP框架搭建：1234567891011121314151617# 网络框架   1. RxJava  2. Retrofit  3. Gs">
+<meta property="og:description" content="MPGankIO 框架篇 这个App其实是拿来锻炼架构所用,欢迎大家来指正和讨论，App结构采用MVP但是并没有同官方MVP一样写Contract接口来解耦 后续如果有需要可以爬一波包包通缉令的数据O(∩_∩)O~~ 第一次写文章，希望大家轻喷哈~~！！">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://o6kv2wscf.bkt.clouddn.com/16-8-19/78414221.jpg">
 <meta property="og:image" content="http://o6kv2wscf.bkt.clouddn.com/16-8-19/49528159.jpg">
 <meta property="og:image" content="http://o6kv2wscf.bkt.clouddn.com/16-8-19/50537867.jpg">
-<meta property="og:updated_time" content="2016-08-19T08:25:03.000Z">
+<meta property="og:updated_time" content="2017-10-16T08:15:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一起撸一波干货集中营练练手Android（一）框架篇">
-<meta name="twitter:description" content="MPGankIO 框架篇 这个App其实是拿来锻炼架构所用,欢迎大家来指正和讨论，App结构采用MVP但是并没有同官方MVP一样写Contract接口来解耦后续如果有需要可以爬一波包包通缉令的数据O(∩_∩)O~~   第一次写文章，希望大家轻喷哈~~！！ APP框架搭建：1234567891011121314151617# 网络框架   1. RxJava  2. Retrofit  3. Gs">
+<meta name="twitter:description" content="MPGankIO 框架篇 这个App其实是拿来锻炼架构所用,欢迎大家来指正和讨论，App结构采用MVP但是并没有同官方MVP一样写Contract接口来解耦 后续如果有需要可以爬一波包包通缉令的数据O(∩_∩)O~~ 第一次写文章，希望大家轻喷哈~~！！">
 <meta name="twitter:image" content="http://o6kv2wscf.bkt.clouddn.com/16-8-19/78414221.jpg">
   
     <link rel="alternate" href="/atom.xml" title="枫叶的博客" type="application/atom+xml">
@@ -198,10 +198,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="MPGankIO-框架篇"><a href="#MPGankIO-框架篇" class="headerlink" title="MPGankIO 框架篇"></a>MPGankIO 框架篇</h1><blockquote>
-<p>这个App其实是拿来锻炼架构所用,欢迎大家来指正和讨论，<br>App结构采用MVP但是并没有同官方MVP一样写Contract接口来解耦<br>后续如果有需要可以爬一波包包通缉令的数据O(∩_∩)O~~</p>
-</blockquote>
-<hr>
-<p>第一次写文章，希望大家轻喷哈~~！！</p>
+<p>这个App其实是拿来锻炼架构所用,欢迎大家来指正和讨论，<br>App结构采用MVP但是并没有同官方MVP一样写Contract接口来解耦</p>
+<h2 id="后续如果有需要可以爬一波包包通缉令的数据O-∩-∩-O"><a href="#后续如果有需要可以爬一波包包通缉令的数据O-∩-∩-O" class="headerlink" title="后续如果有需要可以爬一波包包通缉令的数据O(∩_∩)O~~"></a>后续如果有需要可以爬一波包包通缉令的数据O(∩_∩)O~~</h2></blockquote>
+<p>第一次写文章，希望大家轻喷哈~~！！<br><a id="more"></a></p>
 <h3 id="APP框架搭建："><a href="#APP框架搭建：" class="headerlink" title="APP框架搭建："></a>APP框架搭建：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"># 网络框架 </div><div class="line">  1. RxJava</div><div class="line">  2. Retrofit</div><div class="line">  3. Gson</div><div class="line">  4. okhttp</div><div class="line"> </div><div class="line"># 图片框架</div><div class="line"></div><div class="line">  1. Glide(推荐采用，Google官方推荐)</div><div class="line"></div><div class="line"># 注入框架</div><div class="line"></div><div class="line">  1. ButterKnife(神器不解释) </div><div class="line">  </div><div class="line"># 内存泄露检测</div><div class="line"></div><div class="line">  1. Leakcanary</div></pre></td></tr></table></figure>
 <blockquote>
 <p>我觉得放代码会印象阅读，所以采用图片贴代码的形式解读</p>
@@ -307,7 +306,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MPGankIO-框架篇"><span class="nav-number">1.</span> <span class="nav-text">MPGankIO 框架篇</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#APP框架搭建："><span class="nav-number">1.0.1.</span> <span class="nav-text">APP框架搭建：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目录结构"><span class="nav-number">1.0.2.</span> <span class="nav-text">目录结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MVP架构搭建"><span class="nav-number">1.1.</span> <span class="nav-text">MVP架构搭建</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MPGankIO-框架篇"><span class="nav-number">1.</span> <span class="nav-text">MPGankIO 框架篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#后续如果有需要可以爬一波包包通缉令的数据O-∩-∩-O"><span class="nav-number">1.1.</span> <span class="nav-text">后续如果有需要可以爬一波包包通缉令的数据O(∩_∩)O~~</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#APP框架搭建："><span class="nav-number">1.1.1.</span> <span class="nav-text">APP框架搭建：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目录结构"><span class="nav-number">1.1.2.</span> <span class="nav-text">目录结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MVP架构搭建"><span class="nav-number">1.2.</span> <span class="nav-text">MVP架构搭建</span></a></li></ol></li></ol>
     
     </div>
   </aside>
