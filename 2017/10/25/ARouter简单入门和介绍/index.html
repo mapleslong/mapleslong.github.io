@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>arouter简单入门和介绍 | 枫叶的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="ARouter" />
+  
+  
+  
+  
+  <meta name="description" content="##1.路由介绍  什么是路由框架？  说简单点就是映射页面跳转关系的，当然它也包含跳转相关的一切功能  为什么使用ARouter?  我们先从适用场景来分析：  动态跳转：一般来说复杂的电商跳转多页面需要很强的灵活性，很多情况下是运营人员动态配置的下发活动页面，需要灵活的进行跳转。  组件化：随着业务量的不断增长，app也会不断的膨胀，开发团队的规模和工作量也会逐渐增大，面对所衍生的64K问题、">
+<meta name="keywords" content="ARouter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ARouter简单入门和介绍">
+<meta property="og:url" content="http://blog.mapleslong.com/2017/10/25/ARouter简单入门和介绍/index.html">
+<meta property="og:site_name" content="枫叶的博客">
+<meta property="og:description" content="##1.路由介绍  什么是路由框架？  说简单点就是映射页面跳转关系的，当然它也包含跳转相关的一切功能  为什么使用ARouter?  我们先从适用场景来分析：  动态跳转：一般来说复杂的电商跳转多页面需要很强的灵活性，很多情况下是运营人员动态配置的下发活动页面，需要灵活的进行跳转。  组件化：随着业务量的不断增长，app也会不断的膨胀，开发团队的规模和工作量也会逐渐增大，面对所衍生的64K问题、">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-10-25T06:25:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ARouter简单入门和介绍">
+<meta name="twitter:description" content="##1.路由介绍  什么是路由框架？  说简单点就是映射页面跳转关系的，当然它也包含跳转相关的一切功能  为什么使用ARouter?  我们先从适用场景来分析：  动态跳转：一般来说复杂的电商跳转多页面需要很强的灵活性，很多情况下是运营人员动态配置的下发活动页面，需要灵活的进行跳转。  组件化：随着业务量的不断增长，app也会不断的膨胀，开发团队的规模和工作量也会逐渐增大，面对所衍生的64K问题、">
+  
+    <link rel="alternate" href="/atom.xml" title="枫叶的博客" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css" >
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-ARouter简单入门和介绍" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      ARouter简单入门和介绍
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/10/25/ARouter简单入门和介绍/" class="article-date">
+	  <time datetime="2017-10-25T06:25:04.000Z" itemprop="datePublished">2017-10-25</time>
+	</a>
+
+      
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>##1.路由介绍</p>
+<blockquote>
+<p>什么是路由框架？</p>
+</blockquote>
+<p>说简单点就是映射页面跳转关系的，当然它也包含跳转相关的一切功能</p>
+<blockquote>
+<p>为什么使用ARouter?</p>
+</blockquote>
+<p>我们先从适用场景来分析：</p>
+<ol>
+<li><p>动态跳转：一般来说复杂的电商跳转多页面需要很强的灵活性，很多情况下是运营人员动态配置的下发活动页面，需要灵活的进行跳转。</p>
+</li>
+<li><p>组件化：随着业务量的不断增长，app也会不断的膨胀，开发团队的规模和工作量也会逐渐增大，面对所衍生的64K问题、协作开发问题等，app一般都会走向组件化。组件化就是将APP按照一定的功能和业务拆分成多个组件module，不同的组件独立开发，组件化不仅能够提供团队的工作效率，还能够提高应用性能。而组件化的前提就是解耦，那么我们首先要做的就是解耦页面之间的依赖关系</p>
+</li>
+<li><p>Native与H5的问题：现在的APP很少是纯Native的，也很少会有纯H5的，一般情况下都是将两者进行结合。这时候就需要非常便捷并且统一的跳转方案，因为在H5中是无法使用StartActivity()跳转到Native页面的，而从Native跳转到H5页面也只能通过配置浏览器的方式实现</p>
+</li>
+<li><p>其他等场景</p>
+</li>
+</ol>
+<a id="more"></a>
+<blockquote>
+<p><strong>原生跳转方式的不足</strong></p>
+<ul>
+<li><p>显式跳转， Intent intent = new Intent(activity, XXActivity.class);<br>由于需要直接持有对应class，从而导致了强依赖关系，提高了耦合度</p>
+</li>
+<li><p>隐式跳转，譬如 Intent intent = new Intent(); intent.setAction(“com.android.activity.MY_ACTION”);<br>action等属性的定义在Manifest，导致了扩展性较差<br>规则集中式管理，导致协作变得非常困难。</p>
+</li>
+<li><p>原生的路由方案会出现跳转过程无法控制的问题，因为一旦使用了StartActivity()就无法插手其中任何环节了，只能交给系统管理，这就导致了在跳转失败的情况下无法降级，而是会直接抛出运行时的异常。</p>
+</li>
+</ul>
+</blockquote>
+<p>##2.ARouter的使用</p>
+<blockquote>
+<p>1.添加框架的依赖和配置</p>
+</blockquote>
+<p>在各个模块的build.gradle中添加编译参数和依赖的框架</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    defaultConfig &#123;</div><div class="line">	...</div><div class="line">	javaCompileOptions &#123;</div><div class="line">	    annotationProcessorOptions &#123;</div><div class="line">		arguments = [ moduleName : project.getName() ]</div><div class="line">	    &#125;</div><div class="line">	&#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">dependencies &#123;</div><div class="line">    // 替换成最新版本, 需要注意的是api</div><div class="line">    // 要与compiler匹配使用，均使用最新版可以保证兼容</div><div class="line">    compile &apos;com.alibaba:arouter-api:1.2.2&apos;</div><div class="line">    annotationProcessor &apos;com.alibaba:arouter-compiler:1.1.3&apos;</div><div class="line">    ...</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 旧版本gradle插件(&lt; 2.2)，可以使用apt插件，在根build.gradle中配置方法</div><div class="line">apply plugin: &apos;com.neenbedankt.android-apt&apos;</div><div class="line"></div><div class="line">buildscript &#123;</div><div class="line">    repositories &#123;</div><div class="line">        jcenter()    </div><div class="line">    &#125;</div><div class="line"></div><div class="line">    dependencies &#123;</div><div class="line">	classpath &apos;com.neenbedankt.gradle.plugins:android-apt:1.4&apos;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>2.添加注解</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// 在支持路由的页面上添加注解(必选)</div><div class="line">// 这里的路径需要注意的是至少需要有两级，/xx/xx</div><div class="line">@Route(path = &quot;/test/activity&quot;)</div><div class="line">public class YourActivity extend Activity &#123;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>3.初始化SDK</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">if (isDebug()) &#123;           // 这两行必须写在init之前，否则这些配置在init过程中将无效</div><div class="line">    ARouter.openLog();     // 打印日志</div><div class="line">    ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)</div><div class="line">&#125;</div><div class="line">ARouter.init(mApplication); // 尽可能早，推荐在Application中初始化</div></pre></td></tr></table></figure>
+<blockquote>
+<p>4.路由操作</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">// 1.普通跳转</div><div class="line">ARouter.getInstance().build(&quot;/test/activity&quot;).navigation();</div><div class="line"></div><div class="line">// 2.跳转并携带参数</div><div class="line">ARouter.getInstance().build(&quot;/test/activity2&quot;).navigation();</div><div class="line">// 3.跳转并携带请求码</div><div class="line">ARouter.getInstance().build(&quot;/test/activity2&quot;).navigation(this, requestCode);</div><div class="line"></div><div class="line">// 4.URI跳转 </div><div class="line">/*这种使用URi的方式中，URi的Scheme 和 host不影响结果，可以随便设，关键的是path</div><div class="line">*  - build(URI)会把URI解析为path，并把当前URI存入PostCard</div><div class="line">*  - build(String)构造的PostCard不存储URI*/</div><div class="line">Uri testUriMix = Uri.parse(&quot;xx://xxx/test/activity2&quot;);</div><div class="line">ARouter.getInstance().build(testUriMix)</div><div class="line">                        .withString(&quot;name&quot;, &quot;老王&quot;)</div><div class="line">                        .withInt(&quot;age&quot;, 18)</div><div class="line">                        .withBoolean(&quot;boy&quot;, true)</div><div class="line">                        .withLong(&quot;high&quot;, 180)</div><div class="line">                        .withString(&quot;url&quot;, &quot;https://a.b.c&quot;)</div><div class="line">                        .withParcelable(&quot;pac&quot;, testParcelable)</div><div class="line">                        .withObject(&quot;obj&quot;, testObj)</div><div class="line">                        .navigation();</div><div class="line"></div><div class="line">// 5.跳转包含回调 单次降级策略可以在这里使用</div><div class="line">ARouter.getInstance().build(&quot;/test/activity2&quot;).navigation(Context mContext, int requestCode, NavigationCallback callback);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>5.配置自定义序列化方式</p>
+</blockquote>
+<p>上诉的代码中有withObject进行传参，没有定义序列化方式是无法进行解析因此需要定义一个序列化方式,以下采用FastJson进行序列化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">// 如果需要传递自定义对象，需要实现 SerializationService,并使用@Route注解标注(方便用户自行选择序列化方式)，例如：</div><div class="line">@Route(path = &quot;/service/json&quot;)</div><div class="line">public class JsonServiceImpl implements SerializationService &#123;</div><div class="line">    @Override</div><div class="line">    public void init(Context context) &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public &lt;T&gt; T json2Object(String text, Class&lt;T&gt; clazz) &#123;</div><div class="line">        return JSON.parseObject(text, clazz);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public String object2Json(Object instance) &#123;</div><div class="line">        return JSON.toJSONString(instance);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>6.声明拦截器(拦截跳转过程，面向切面编程)</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">// 比较经典的应用就是在跳转过程中处理登陆事件，这样就不需要在目标页重复做登陆检查</div><div class="line">// 拦截器会在跳转之间执行，多个拦截器会按优先级顺序依次执行</div><div class="line">@Interceptor(priority = 8, name = &quot;测试用拦截器&quot;)</div><div class="line">public class TestInterceptor implements IInterceptor &#123;</div><div class="line">    @Override</div><div class="line">    public void process(Postcard postcard, InterceptorCallback callback) &#123;</div><div class="line">	...</div><div class="line">	callback.onContinue(postcard);  // 处理完成，交还控制权</div><div class="line">	// callback.onInterrupt(new RuntimeException(&quot;我觉得有点异常&quot;));      // 觉得有问题，中断路由流程</div><div class="line"></div><div class="line">	// 以上两种至少需要调用其中一种，否则不会继续路由</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void init(Context context) &#123;</div><div class="line">	// 拦截器的初始化，会在sdk初始化的时候调用该方法，仅会调用一次</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>// 我们经常需要在目标页面中配置一些属性，比方说”是否需要登陆”之类的<br>// 可以通过 Route 注解中的 extras 属性进行扩展，这个属性是一个 int值，换句话说，单个int有4字节，也就是32位，可以配置32个开关<br>// 剩下的可以自行发挥，通过字节操作可以标识32个开关，通过开关标记目标页面的一些属性，在拦截器中可以拿到这个标记进行业务逻辑判断<br><strong>@Route(path = “/test/activity”, extras = Consts.XXXX)</strong></p>
+<blockquote>
+<p>7.通过依赖注入解耦:服务管理(一) 暴露服务</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">// 声明接口,其他组件通过接口来调用服务</div><div class="line">public interface HelloService extends IProvider &#123;</div><div class="line">    String sayHello(String name);</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 实现接口</div><div class="line">@Route(path = &quot;/service/hello&quot;, name = &quot;测试服务&quot;)</div><div class="line">public class HelloServiceImpl implements HelloService &#123;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public String sayHello(String name) &#123;</div><div class="line">	return &quot;hello, &quot; + name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void init(Context context) &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>8.通过依赖注入解耦:服务管理(二) 发现服务</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">public class Test &#123;</div><div class="line">    @Autowired</div><div class="line">    HelloService helloService;</div><div class="line"></div><div class="line">    @Autowired(name = &quot;/service/hello&quot;)</div><div class="line">    HelloService helloService2;</div><div class="line"></div><div class="line">    HelloService helloService3;</div><div class="line"></div><div class="line">    HelloService helloService4;</div><div class="line"></div><div class="line">    public Test() &#123;</div><div class="line">	ARouter.getInstance().inject(this);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void testService() &#123;</div><div class="line">	 // 1. (推荐)使用依赖注入的方式发现服务,通过注解标注字段,即可使用，无需主动获取</div><div class="line">	 // Autowired注解中标注name之后，将会使用byName的方式注入对应的字段，不设置name属性，会默认使用byType的方式发现服务(当同一接口有多个实现的时候，必须使用byName的方式发现服务)</div><div class="line">	helloService.sayHello(&quot;Vergil&quot;);</div><div class="line">	helloService2.sayHello(&quot;Vergil&quot;);</div><div class="line"></div><div class="line">	// 2. 使用依赖查找的方式发现服务，主动去发现服务并使用，下面两种方式分别是byName和byType</div><div class="line">	helloService3 = ARouter.getInstance().navigation(HelloService.class);</div><div class="line">	helloService4 = (HelloService) ARouter.getInstance().build(&quot;/service/hello&quot;).navigation();</div><div class="line">	helloService3.sayHello(&quot;Vergil&quot;);</div><div class="line">	helloService4.sayHello(&quot;Vergil&quot;);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>官方的文档<a href="https://github.com/alibaba/ARouter" target="_blank" rel="external">Github</a>很详细可以去看看</p>
+<p>以上方式可以进行简单的入门使用了，下一步我们从源码分析。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/WeChanQR.png',
+  alipayImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/AliPayQR.jpg'
+});
+</script>
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ARouter/">ARouter</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/08/26/那些年一起学过的Android动画（二）/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">那些年一起学过的Android动画（二）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav">无</ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2016 - 2017 枫叶的博客 All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            枫叶的博客
+          </div>
+          <div class="panel-body">
+            Copyright © 2017 Mapleslong All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
