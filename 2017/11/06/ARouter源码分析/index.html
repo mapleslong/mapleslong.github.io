@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>arouter源码分析 | 枫叶的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="Android,框架" />
+  
+  
+  
+  
+  <meta name="description" content="ARouter的源码分析分析需要储备以下知识点：  Java注解知识 Java反射知识 javapoet库(在注释里也有简单分析) auto-service库  下面分析的时候会把各位看官当做已经掌握了以上知识点哈！  ARouter包含3个核心模块  arouter-annotation 注解的声明和信息存储类的模块 arouter-compiler 编译期解析注解信息并生成相应类以便进行注入的">
+<meta name="keywords" content="Android,框架">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ARouter源码分析">
+<meta property="og:url" content="http://blog.mapleslong.com/2017/11/06/ARouter源码分析/index.html">
+<meta property="og:site_name" content="枫叶的博客">
+<meta property="og:description" content="ARouter的源码分析分析需要储备以下知识点：  Java注解知识 Java反射知识 javapoet库(在注释里也有简单分析) auto-service库  下面分析的时候会把各位看官当做已经掌握了以上知识点哈！  ARouter包含3个核心模块  arouter-annotation 注解的声明和信息存储类的模块 arouter-compiler 编译期解析注解信息并生成相应类以便进行注入的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1878404-ff6f32276afaa42d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1878404-d7aca3d7d5dec0f1.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1878404-5ce18f8887c9b61c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1878404-6c93d4218f9a8e34.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1878404-e8729f9616fbbbfb.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1878404-5b19b95878ea8c71.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1878404-eb39fc24524b722f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1878404-5e6dc2875de88d2c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1878404-9d8d4b3b54689176.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1878404-530c79e5d0085eb8.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1878404-b6a0f02db035edf0.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1878404-53799686194b75e1.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1878404-d5355b6448f9de2b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1878404-1e0f73cc4ea3f7c9.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-11-07T04:03:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ARouter源码分析">
+<meta name="twitter:description" content="ARouter的源码分析分析需要储备以下知识点：  Java注解知识 Java反射知识 javapoet库(在注释里也有简单分析) auto-service库  下面分析的时候会把各位看官当做已经掌握了以上知识点哈！  ARouter包含3个核心模块  arouter-annotation 注解的声明和信息存储类的模块 arouter-compiler 编译期解析注解信息并生成相应类以便进行注入的">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1878404-ff6f32276afaa42d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+    <link rel="alternate" href="/atom.xml" title="枫叶的博客" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css" >
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-ARouter源码分析" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      ARouter源码分析
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/11/06/ARouter源码分析/" class="article-date">
+	  <time datetime="2017-11-06T04:03:08.000Z" itemprop="datePublished">2017-11-06</time>
+	</a>
+
+      
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="ARouter的源码分析"><a href="#ARouter的源码分析" class="headerlink" title="ARouter的源码分析"></a>ARouter的源码分析</h1><p>分析需要储备以下知识点：</p>
+<ul>
+<li>Java注解知识</li>
+<li>Java反射知识</li>
+<li>javapoet库(在注释里也有简单分析)</li>
+<li>auto-service库</li>
+</ul>
+<p>下面分析的时候会把各位看官当做已经掌握了以上知识点哈！</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1878404-ff6f32276afaa42d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ARouter包含3个核心模块.jpg"></p>
+<p>ARouter包含3个核心模块</p>
+<ol>
+<li>arouter-annotation 注解的声明和信息存储类的模块</li>
+<li>arouter-compiler 编译期解析注解信息并生成相应类以便进行注入的模块</li>
+<li>arouter-api 核心调用Api功能的模块</li>
+</ol>
+<a id="more"></a>
+<h2 id="1-模块arouter-annotation分析"><a href="#1-模块arouter-annotation分析" class="headerlink" title="1.模块arouter-annotation分析"></a>1.模块arouter-annotation分析</h2><ul>
+<li>这个注解用于路由传递过来的对象自动进行注入值</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/1878404-d7aca3d7d5dec0f1.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="参数注入的注解"></p>
+<ul>
+<li>这个拦截器注解主要是用来声明和确定拦截器优先级</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/1878404-5ce18f8887c9b61c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="拦截器"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1878404-6c93d4218f9a8e34.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Param注解"></p>
+<ul>
+<li>Route注解是用到最多的，用来声明路由的路径和分组（分组这块后面会详细讲解，因为分组这块用到懒加载的形式来提高性能）</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/1878404-e8729f9616fbbbfb.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Route注解"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1878404-5b19b95878ea8c71.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="RouteType解析用的"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1878404-eb39fc24524b722f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="RouteMeta放数据用的后面Postcard会继承"></p>
+<p><strong>总结：这个模块主要还是用来声明注解的参数和compiler搭配使用这样分开，让结构更加清晰。</strong></p>
+<h2 id="2-模块arouter-compiler分析"><a href="#2-模块arouter-compiler分析" class="headerlink" title="2.模块arouter-compiler分析"></a>2.模块arouter-compiler分析</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">在这个模块中引用了一下两个核心库</div><div class="line">compile &apos;com.google.auto.service:auto-service:1.0-rc2&apos; //auto-service 主要用于注解 Processor，对其生成 META-INF 配置信息。</div><div class="line">          </div><div class="line">compile &apos;com.squareup:javapoet:1.7.0&apos; // Javapoet是square一个工具，提供了各种 API 让你用各种姿势去生成 Java 代码文件，避免了徒手拼接字符串的尴尬。</div></pre></td></tr></table></figure>
+<blockquote>
+<p>AutowiredProcessor分析</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div><div class="line">250</div><div class="line">251</div><div class="line">252</div><div class="line">253</div><div class="line">254</div><div class="line">255</div><div class="line">256</div><div class="line">257</div><div class="line">258</div><div class="line">259</div><div class="line">260</div><div class="line">261</div><div class="line">262</div><div class="line">263</div><div class="line">264</div><div class="line">265</div><div class="line">266</div><div class="line">267</div><div class="line">268</div><div class="line">269</div><div class="line">270</div><div class="line">271</div><div class="line">272</div><div class="line">273</div><div class="line">274</div><div class="line">275</div><div class="line">276</div><div class="line">277</div><div class="line">278</div><div class="line">279</div><div class="line">280</div><div class="line">281</div><div class="line">282</div><div class="line">283</div><div class="line">284</div><div class="line">285</div><div class="line">286</div><div class="line">287</div><div class="line">288</div><div class="line">289</div><div class="line">290</div></pre></td><td class="code"><pre><div class="line">package com.alibaba.android.arouter.compiler.processor;</div><div class="line"></div><div class="line">import com.alibaba.android.arouter.compiler.utils.Consts;</div><div class="line">import com.alibaba.android.arouter.compiler.utils.Logger;</div><div class="line">import com.alibaba.android.arouter.compiler.utils.TypeUtils;</div><div class="line">import com.alibaba.android.arouter.facade.annotation.Autowired;</div><div class="line">import com.alibaba.android.arouter.facade.enums.TypeKind;</div><div class="line">import com.google.auto.service.AutoService;</div><div class="line">import com.squareup.javapoet.ClassName;</div><div class="line">import com.squareup.javapoet.FieldSpec;</div><div class="line">import com.squareup.javapoet.JavaFile;</div><div class="line">import com.squareup.javapoet.MethodSpec;</div><div class="line">import com.squareup.javapoet.ParameterSpec;</div><div class="line">import com.squareup.javapoet.TypeName;</div><div class="line">import com.squareup.javapoet.TypeSpec;</div><div class="line"></div><div class="line">import org.apache.commons.collections4.CollectionUtils;</div><div class="line">import org.apache.commons.collections4.MapUtils;</div><div class="line">import org.apache.commons.lang3.StringUtils;</div><div class="line"></div><div class="line">import java.io.IOException;</div><div class="line">import java.util.ArrayList;</div><div class="line">import java.util.HashMap;</div><div class="line">import java.util.List;</div><div class="line">import java.util.Map;</div><div class="line">import java.util.Set;</div><div class="line"></div><div class="line">import javax.annotation.processing.AbstractProcessor;</div><div class="line">import javax.annotation.processing.Filer;</div><div class="line">import javax.annotation.processing.ProcessingEnvironment;</div><div class="line">import javax.annotation.processing.Processor;</div><div class="line">import javax.annotation.processing.RoundEnvironment;</div><div class="line">import javax.annotation.processing.SupportedAnnotationTypes;</div><div class="line">import javax.annotation.processing.SupportedOptions;</div><div class="line">import javax.annotation.processing.SupportedSourceVersion;</div><div class="line">import javax.lang.model.SourceVersion;</div><div class="line">import javax.lang.model.element.Element;</div><div class="line">import javax.lang.model.element.Modifier;</div><div class="line">import javax.lang.model.element.TypeElement;</div><div class="line">import javax.lang.model.type.TypeMirror;</div><div class="line">import javax.lang.model.util.Elements;</div><div class="line">import javax.lang.model.util.Types;</div><div class="line"></div><div class="line">import static com.alibaba.android.arouter.compiler.utils.Consts.ANNOTATION_TYPE_AUTOWIRED;</div><div class="line">import static com.alibaba.android.arouter.compiler.utils.Consts.ISYRINGE;</div><div class="line">import static com.alibaba.android.arouter.compiler.utils.Consts.JSON_SERVICE;</div><div class="line">import static com.alibaba.android.arouter.compiler.utils.Consts.KEY_MODULE_NAME;</div><div class="line">import static com.alibaba.android.arouter.compiler.utils.Consts.METHOD_INJECT;</div><div class="line">import static com.alibaba.android.arouter.compiler.utils.Consts.NAME_OF_AUTOWIRED;</div><div class="line">import static com.alibaba.android.arouter.compiler.utils.Consts.WARNING_TIPS;</div><div class="line">import static javax.lang.model.element.Modifier.PUBLIC;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Processor used to create autowired helper</div><div class="line"> *</div><div class="line"> * @author zhilong &lt;a href=&quot;mailto:zhilong.lzl@alibaba-inc.com&quot;&gt;Contact me.&lt;/a&gt;</div><div class="line"> * @version 1.0</div><div class="line"> * @since 2017/2/20 下午5:56</div><div class="line"> */</div><div class="line">@AutoService(Processor.class)//用 @AutoService 来注解这个处理器，可以自动生成配置信息。</div><div class="line">@SupportedOptions(KEY_MODULE_NAME)</div><div class="line">@SupportedSourceVersion(SourceVersion.RELEASE_7)</div><div class="line">@SupportedAnnotationTypes(&#123;ANNOTATION_TYPE_AUTOWIRED&#125;)</div><div class="line">public class AutowiredProcessor extends AbstractProcessor &#123;</div><div class="line">    private Filer mFiler;                 //文件相关的辅助类</div><div class="line">    private Logger logger;</div><div class="line">    private Types types;                  //类型相关的辅助类</div><div class="line">    private TypeUtils typeUtils;</div><div class="line">    private Elements elements;            //元素相关的辅助类</div><div class="line">    private Map&lt;TypeElement, List&lt;Element&gt;&gt; parentAndChild = new HashMap&lt;&gt;(); // 包含注解字段的Map集合  // Contain field need autowired and his super class.</div><div class="line">    private static final ClassName ARouterClass = ClassName.get(&quot;com.alibaba.android.arouter.launcher&quot;, &quot;ARouter&quot;);</div><div class="line">    private static final ClassName AndroidLog = ClassName.get(&quot;android.util&quot;, &quot;Log&quot;);</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public synchronized void init(ProcessingEnvironment processingEnvironment) &#123;</div><div class="line">        super.init(processingEnvironment);</div><div class="line"></div><div class="line">        mFiler = processingEnv.getFiler();                  // Generate class.</div><div class="line">        types = processingEnv.getTypeUtils();            // Get type utils.</div><div class="line">        elements = processingEnv.getElementUtils();      // Get class meta.</div><div class="line"></div><div class="line">        typeUtils = new TypeUtils(types, elements);</div><div class="line"></div><div class="line">        logger = new Logger(processingEnv.getMessager());   // Package the log utils.</div><div class="line"></div><div class="line">        logger.info(&quot;&gt;&gt;&gt; AutowiredProcessor init. &lt;&lt;&lt;&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public boolean process(Set&lt;? extends TypeElement&gt; set, RoundEnvironment roundEnvironment) &#123;</div><div class="line">        if (CollectionUtils.isNotEmpty(set)) &#123;</div><div class="line">            try &#123;</div><div class="line">                logger.info(&quot;&gt;&gt;&gt; Found autowired field, start... &lt;&lt;&lt;&quot;);</div><div class="line">                //传入被Autowire注解修饰的集合并且执行分类填充进parentAndChild的Map集合</div><div class="line">                categories(roundEnvironment.getElementsAnnotatedWith(Autowired.class));</div><div class="line">                //执行解析</div><div class="line">                generateHelper();</div><div class="line"></div><div class="line">            &#125; catch (Exception e) &#123;</div><div class="line">                logger.error(e);</div><div class="line">            &#125;</div><div class="line">            return true;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        return false;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private void generateHelper() throws IOException, IllegalAccessException &#123;</div><div class="line">        TypeElement type_ISyringe = elements.getTypeElement(ISYRINGE); //获取注入对象的元素类</div><div class="line">        TypeElement type_JsonService = elements.getTypeElement(JSON_SERVICE);// 获取JsonService元素类</div><div class="line">        TypeMirror iProvider = elements.getTypeElement(Consts.IPROVIDER).asType(); //获取IProvider类对象</div><div class="line">        TypeMirror activityTm = elements.getTypeElement(Consts.ACTIVITY).asType(); //获取activity类对象</div><div class="line">        TypeMirror fragmentTm = elements.getTypeElement(Consts.FRAGMENT).asType(); //获取fragment类对象</div><div class="line">        TypeMirror fragmentTmV4 = elements.getTypeElement(Consts.FRAGMENT_V4).asType(); //获取fragment的v4版本的类对象</div><div class="line"></div><div class="line">        // Build input param name.</div><div class="line">        ParameterSpec objectParamSpec = ParameterSpec.builder(TypeName.OBJECT, &quot;target&quot;).build(); //生成方法的参数 ***(Object target)</div><div class="line"></div><div class="line">        if (MapUtils.isNotEmpty(parentAndChild)) &#123; //解析parentAndChild</div><div class="line">            for (Map.Entry&lt;TypeElement, List&lt;Element&gt;&gt; entry : parentAndChild.entrySet()) &#123; // 被autowire注解的循环对象</div><div class="line">                // Build method : &apos;inject&apos;</div><div class="line">                MethodSpec.Builder injectMethodBuilder = MethodSpec.methodBuilder(METHOD_INJECT)</div><div class="line">                        .addAnnotation(Override.class)</div><div class="line">                        .addModifiers(PUBLIC)</div><div class="line">                        .addParameter(objectParamSpec);</div><div class="line">                //生成方法injtct  所以和上面联合在一块就是生成了@override public void inject(Object target)</div><div class="line"></div><div class="line">                TypeElement parent = entry.getKey();</div><div class="line">                List&lt;Element&gt; childs = entry.getValue();</div><div class="line"></div><div class="line">                String qualifiedName = parent.getQualifiedName().toString();//整个类名</div><div class="line">                String packageName = qualifiedName.substring(0, qualifiedName.lastIndexOf(&quot;.&quot;));//截取包名</div><div class="line">                String fileName = parent.getSimpleName() + NAME_OF_AUTOWIRED;//文件名</div><div class="line"></div><div class="line">                logger.info(&quot;&gt;&gt;&gt; Start process &quot; + childs.size() + &quot; field in &quot; + parent.getSimpleName() + &quot; ... &lt;&lt;&lt;&quot;);</div><div class="line"></div><div class="line">                // 生成类 类名是 **$$**$***实现ISyringe接口并且是public的类</div><div class="line">                TypeSpec.Builder helper = TypeSpec.classBuilder(fileName)</div><div class="line">                        .addJavadoc(WARNING_TIPS)</div><div class="line">                        .addSuperinterface(ClassName.get(type_ISyringe))</div><div class="line">                        .addModifiers(PUBLIC);</div><div class="line"></div><div class="line"></div><div class="line">                // 生成一个私有的全局对象serializationService</div><div class="line">                FieldSpec jsonServiceField = FieldSpec.builder(TypeName.get(type_JsonService.asType()), &quot;serializationService&quot;, Modifier.PRIVATE).build();</div><div class="line">                helper.addField(jsonServiceField);</div><div class="line">                // 在方法体内加入指定的语句执行</div><div class="line">                injectMethodBuilder.addStatement(&quot;serializationService = $T.getInstance().navigation($T.class)&quot;, ARouterClass, ClassName.get(type_JsonService));</div><div class="line">                injectMethodBuilder.addStatement(&quot;$T substitute = ($T)target&quot;, ClassName.get(parent), ClassName.get(parent));</div><div class="line"></div><div class="line">                //生成方法体并且注入</div><div class="line">                // Generate method body, start inject.</div><div class="line">                for (Element element : childs) &#123;</div><div class="line">                    Autowired fieldConfig = element.getAnnotation(Autowired.class);</div><div class="line">                    String fieldName = element.getSimpleName().toString();</div><div class="line">                    if (types.isSubtype(element.asType(), iProvider)) &#123;  // It&apos;s provider  //如果是iProvider的子类</div><div class="line">                        if (&quot;&quot;.equals(fieldConfig.name())) &#123;    // User has not set service path, then use byType.</div><div class="line">                            //默认通过类解析</div><div class="line">                            // Getter</div><div class="line">                            injectMethodBuilder.addStatement(</div><div class="line">                                    &quot;substitute.&quot; + fieldName + &quot; = $T.getInstance().navigation($T.class)&quot;,</div><div class="line">                                    ARouterClass,</div><div class="line">                                    ClassName.get(element.asType())</div><div class="line">                            );</div><div class="line">                        &#125; else &#123;    // use byName  //如果指定了Autowired的name的话 则用name进行解析</div><div class="line">                            // Getter</div><div class="line">                            injectMethodBuilder.addStatement(</div><div class="line">                                    &quot;substitute.&quot; + fieldName + &quot; = ($T)$T.getInstance().build($S).navigation();&quot;,</div><div class="line">                                    ClassName.get(element.asType()),</div><div class="line">                                    ARouterClass,</div><div class="line">                                    fieldConfig.name()</div><div class="line">                            );</div><div class="line">                        &#125;</div><div class="line"></div><div class="line">                        // Validater 校验</div><div class="line">                        if (fieldConfig.required()) &#123; //校验此字段是不是必填的不许为空</div><div class="line">                            injectMethodBuilder.beginControlFlow(&quot;if (substitute.&quot; + fieldName + &quot; == null)&quot;);</div><div class="line">                            injectMethodBuilder.addStatement(</div><div class="line">                                    &quot;throw new RuntimeException(\&quot;The field &apos;&quot; + fieldName + &quot;&apos; is null, in class &apos;\&quot; + $T.class.getName() + \&quot;!\&quot;)&quot;, ClassName.get(parent));</div><div class="line">                            injectMethodBuilder.endControlFlow();</div><div class="line">                        &#125;</div><div class="line">                    &#125; else &#123;    // It&apos;s normal intent value  如果是普通的参数传递</div><div class="line">                        String originalValue = &quot;substitute.&quot; + fieldName;</div><div class="line">                        String statement = &quot;substitute.&quot; + fieldName + &quot; = substitute.&quot;;</div><div class="line">                        boolean isActivity = false;</div><div class="line">                        if (types.isSubtype(parent.asType(), activityTm)) &#123;  // Activity, then use getIntent() 如果是activity则通过getIntent注入</div><div class="line">                            isActivity = true;</div><div class="line">                            statement += &quot;getIntent().&quot;;</div><div class="line">                        &#125; else if (types.isSubtype(parent.asType(), fragmentTm) || types.isSubtype(parent.asType(), fragmentTmV4)) &#123;   // Fragment, then use getArguments() 如果是fragment则通过getArguements进行注入</div><div class="line">                            statement += &quot;getArguments().&quot;;</div><div class="line">                        &#125; else &#123;//其他方式暂不支持</div><div class="line">                            throw new IllegalAccessException(&quot;The field [&quot; + fieldName + &quot;] need autowired from intent, its parent must be activity or fragment!&quot;);</div><div class="line">                        &#125;</div><div class="line">                        //判断类型进行相应的转换生成代码</div><div class="line">                        statement = buildStatement(originalValue, statement, typeUtils.typeExchange(element), isActivity);</div><div class="line">                        // 生成servicejson解析的服务循环解析生成代码</div><div class="line">                        if (statement.startsWith(&quot;serializationService.&quot;)) &#123;   // Not mortals</div><div class="line">                            injectMethodBuilder.beginControlFlow(&quot;if (null != serializationService)&quot;);</div><div class="line">                            injectMethodBuilder.addStatement(</div><div class="line">                                    &quot;substitute.&quot; + fieldName + &quot; = &quot; + statement,</div><div class="line">                                    (StringUtils.isEmpty(fieldConfig.name()) ? fieldName : fieldConfig.name()),</div><div class="line">                                    ClassName.get(element.asType())</div><div class="line">                            );</div><div class="line">                            injectMethodBuilder.nextControlFlow(&quot;else&quot;);</div><div class="line">                            injectMethodBuilder.addStatement(</div><div class="line">                                    &quot;$T.e(\&quot;&quot; + Consts.TAG + &quot;\&quot;, \&quot;You want automatic inject the field &apos;&quot; + fieldName + &quot;&apos; in class &apos;$T&apos; , then you should implement &apos;SerializationService&apos; to support object auto inject!\&quot;)&quot;, AndroidLog, ClassName.get(parent));</div><div class="line">                            injectMethodBuilder.endControlFlow();</div><div class="line">                        &#125; else &#123;</div><div class="line">                            //在方法体内加入代码</div><div class="line">                            injectMethodBuilder.addStatement(statement, StringUtils.isEmpty(fieldConfig.name()) ? fieldName : fieldConfig.name());</div><div class="line">                        &#125;</div><div class="line"></div><div class="line">                        // Validator 校验支持解析的类型为空则做记录</div><div class="line">                        if (fieldConfig.required() &amp;&amp; !element.asType().getKind().isPrimitive()) &#123;  // Primitive wont be check.</div><div class="line">                            injectMethodBuilder.beginControlFlow(&quot;if (null == substitute.&quot; + fieldName + &quot;)&quot;);</div><div class="line">                            injectMethodBuilder.addStatement(</div><div class="line">                                    &quot;$T.e(\&quot;&quot; + Consts.TAG + &quot;\&quot;, \&quot;The field &apos;&quot; + fieldName + &quot;&apos; is null, in class &apos;\&quot; + $T.class.getName() + \&quot;!\&quot;)&quot;, AndroidLog, ClassName.get(parent));</div><div class="line">                            injectMethodBuilder.endControlFlow();</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">                // 生成指定方法</div><div class="line">                helper.addMethod(injectMethodBuilder.build());</div><div class="line"></div><div class="line">                // Generate autowire helper 生成文件</div><div class="line">                JavaFile.builder(packageName, helper.build()).build().writeTo(mFiler);</div><div class="line"></div><div class="line">                logger.info(&quot;&gt;&gt;&gt; &quot; + parent.getSimpleName() + &quot; has been processed, &quot; + fileName + &quot; has been generated. &lt;&lt;&lt;&quot;);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            logger.info(&quot;&gt;&gt;&gt; Autowired processor stop. &lt;&lt;&lt;&quot;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private String buildStatement(String originalValue, String statement, int type, boolean isActivity) &#123;</div><div class="line">        if (type == TypeKind.BOOLEAN.ordinal()) &#123;</div><div class="line">            statement += (isActivity ? (&quot;getBooleanExtra($S, &quot; + originalValue + &quot;)&quot;) : (&quot;getBoolean($S)&quot;));</div><div class="line">        &#125; else if (type == TypeKind.BYTE.ordinal()) &#123;</div><div class="line">            statement += (isActivity ? (&quot;getByteExtra($S, &quot; + originalValue + &quot;&quot;) : (&quot;getByte($S)&quot;));</div><div class="line">        &#125; else if (type == TypeKind.SHORT.ordinal()) &#123;</div><div class="line">            statement += (isActivity ? (&quot;getShortExtra($S, &quot; + originalValue + &quot;)&quot;) : (&quot;getShort($S)&quot;));</div><div class="line">        &#125; else if (type == TypeKind.INT.ordinal()) &#123;</div><div class="line">            statement += (isActivity ? (&quot;getIntExtra($S, &quot; + originalValue + &quot;)&quot;) : (&quot;getInt($S)&quot;));</div><div class="line">        &#125; else if (type == TypeKind.LONG.ordinal()) &#123;</div><div class="line">            statement += (isActivity ? (&quot;getLongExtra($S, &quot; + originalValue + &quot;)&quot;) : (&quot;getLong($S)&quot;));</div><div class="line">        &#125; else if (type == TypeKind.CHAR.ordinal()) &#123;</div><div class="line">            statement += (isActivity ? (&quot;getCharExtra($S, &quot; + originalValue + &quot;)&quot;) : (&quot;getChar($S)&quot;));</div><div class="line">        &#125; else if (type == TypeKind.FLOAT.ordinal()) &#123;</div><div class="line">            statement += (isActivity ? (&quot;getFloatExtra($S, &quot; + originalValue + &quot;)&quot;) : (&quot;getFloat($S)&quot;));</div><div class="line">        &#125; else if (type == TypeKind.DOUBLE.ordinal()) &#123;</div><div class="line">            statement += (isActivity ? (&quot;getDoubleExtra($S, &quot; + originalValue + &quot;)&quot;) : (&quot;getDouble($S)&quot;));</div><div class="line">        &#125; else if (type == TypeKind.STRING.ordinal()) &#123;</div><div class="line">            statement += (isActivity ? (&quot;getStringExtra($S)&quot;) : (&quot;getString($S)&quot;));</div><div class="line">        &#125; else if (type == TypeKind.PARCELABLE.ordinal()) &#123;</div><div class="line">            statement += (isActivity ? (&quot;getParcelableExtra($S)&quot;) : (&quot;getParcelable($S)&quot;));</div><div class="line">        &#125; else if (type == TypeKind.OBJECT.ordinal()) &#123;</div><div class="line">            statement = &quot;serializationService.parseObject(substitute.&quot; + (isActivity ? &quot;getIntent().&quot; : &quot;getArguments().&quot;) + (isActivity ? &quot;getStringExtra($S)&quot; : &quot;getString($S)&quot;) + &quot;, new com.alibaba.android.arouter.facade.model.TypeWrapper&lt;$T&gt;()&#123;&#125;.getType())&quot;;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        return statement;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * Categories field, find his papa.</div><div class="line">     *</div><div class="line">     * @param elements Field need autowired</div><div class="line">     */</div><div class="line">    private void categories(Set&lt;? extends Element&gt; elements) throws IllegalAccessException &#123;</div><div class="line">        if (CollectionUtils.isNotEmpty(elements)) &#123;//判断注解集合是不是为空</div><div class="line">            for (Element element : elements) &#123;//循环解析</div><div class="line">                TypeElement enclosingElement = (TypeElement) element.getEnclosingElement();// 获取父元素</div><div class="line"></div><div class="line">                if (element.getModifiers().contains(Modifier.PRIVATE)) &#123;// 检验是否注解的对象不能被private修饰</div><div class="line">                    throw new IllegalAccessException(&quot;The inject fields CAN NOT BE &apos;private&apos;!!! please check field [&quot;</div><div class="line">                            + element.getSimpleName() + &quot;] in class [&quot; + enclosingElement.getQualifiedName() + &quot;]&quot;);</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                if (parentAndChild.containsKey(enclosingElement)) &#123; // Has categries</div><div class="line">                    parentAndChild.get(enclosingElement).add(element);</div><div class="line">                &#125; else &#123;//第1次进入会生成列表并且组装到parentAndChild的map中</div><div class="line">                    List&lt;Element&gt; childs = new ArrayList&lt;&gt;();</div><div class="line">                    childs.add(element);</div><div class="line">                    parentAndChild.put(enclosingElement, childs);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            logger.info(&quot;categories finished.&quot;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>都是通过解析Element对象的注解的参数来进行编写相应的Java类<br>下图就是上面AutowiredProcessor通过解析生成的类</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/1878404-5e6dc2875de88d2c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="自动生成的注入类"></p>
+<blockquote>
+<p>下图是拦截器的Processor类和上面一样也会生成相应的拦截类具体的代码都很相似就不贴分析的代码啦</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/1878404-9d8d4b3b54689176.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="拦截器Processor"></p>
+<blockquote>
+<p>贴上拦截器注解后编译器生成的类</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/1878404-530c79e5d0085eb8.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="自动生成的拦截类"></p>
+<blockquote>
+<p>在Route的Processor中验证路径的代码和上面是很类似的就不一一分析的需要注意点校验和分类</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/1878404-b6a0f02db035edf0.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="路由校验"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1878404-53799686194b75e1.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="路由分类排序"></p>
+<p><strong>总结：以上的类稍微了解就好，因为使用到的就是将注解解析自动生成响应的类方便Api核心去调用将整个框架联动起来</strong></p>
+<h2 id="3-模块arouter-api分析"><a href="#3-模块arouter-api分析" class="headerlink" title="3.模块arouter-api分析"></a>3.模块arouter-api分析</h2><p>在外部使用的时候调用的Api是ARouter，但是它是使用代理模式，实际上的操作是_ARouter类进行调用。</p>
+<p>我们从init方法开始解析：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"> /**</div><div class="line"> * Init, it must be call before used router.</div><div class="line"> */</div><div class="line">public static void init(Application application) &#123;</div><div class="line">    if (!hasInit) &#123;</div><div class="line">        logger = _ARouter.logger; //需要初始化出_ARouter的日志类 因为内部和外部都会调用所以一定要先调init</div><div class="line">        _ARouter.logger.info(Consts.TAG, &quot;ARouter init start.&quot;);</div><div class="line">        hasInit = _ARouter.init(application);//真正的初始化ARouter核心  里面调用了LogisticsCenter.init(mContext, executor);内部创建了一个线程池</div><div class="line"></div><div class="line">        if (hasInit) &#123;</div><div class="line">            _ARouter.afterInit();//初始化完成之后开始处理拦截器</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        _ARouter.logger.info(Consts.TAG, &quot;ARouter init over.&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>LogisticCenter的初始化核心就是讲自定义生成的类进行调用loadInto然后缓存近Warehouse仓库中以便快速调用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * LogisticsCenter init, load all metas in memory. Demand initialization</div><div class="line"> */</div><div class="line">public synchronized static void init(Context context, ThreadPoolExecutor tpe) throws HandlerException &#123;</div><div class="line">    mContext = context;</div><div class="line">    executor = tpe;</div><div class="line"></div><div class="line">    try &#123;</div><div class="line">        long startInit = System.currentTimeMillis();</div><div class="line">        Set&lt;String&gt; routerMap;</div><div class="line"></div><div class="line">        // It will rebuild router map every times when debuggable.</div><div class="line">        if (ARouter.debuggable() || PackageUtils.isNewVersion(context)) &#123;</div><div class="line">            logger.info(TAG, &quot;Run with debug mode or new install, rebuild router map.&quot;);</div><div class="line">            // These class was generate by arouter-compiler.</div><div class="line">            routerMap = ClassUtils.getFileNameByPackageName(mContext, ROUTE_ROOT_PAKCAGE);//搜索routerMap</div><div class="line">            if (!routerMap.isEmpty()) &#123;</div><div class="line">                context.getSharedPreferences(AROUTER_SP_CACHE_KEY, Context.MODE_PRIVATE).edit().putStringSet(AROUTER_SP_KEY_MAP, routerMap).apply();// 将搜索到的map保存到sp中</div><div class="line">            &#125;</div><div class="line">        &#125; else &#123;</div><div class="line">            logger.info(TAG, &quot;Load router map from cache.&quot;);</div><div class="line">            routerMap = new HashSet&lt;&gt;(context.getSharedPreferences(AROUTER_SP_CACHE_KEY, Context.MODE_PRIVATE).getStringSet(AROUTER_SP_KEY_MAP, new HashSet&lt;String&gt;()));</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        logger.info(TAG, &quot;Find router map finished, map size = &quot; + routerMap.size() + &quot;, cost &quot; + (System.currentTimeMillis() - startInit) + &quot; ms.&quot;);</div><div class="line">        startInit = System.currentTimeMillis();</div><div class="line"></div><div class="line">        for (String className : routerMap) &#123;//通过反射初始化自动生成的类并且进行调用loadInto方法将数据缓存到Warehouse的仓库中</div><div class="line">            if (className.startsWith(ROUTE_ROOT_PAKCAGE + DOT + SDK_NAME + SEPARATOR + SUFFIX_ROOT)) &#123;</div><div class="line">                // This one of root elements, load root.</div><div class="line">                ((IRouteRoot) (Class.forName(className).getConstructor().newInstance())).loadInto(Warehouse.groupsIndex);</div><div class="line">            &#125; else if (className.startsWith(ROUTE_ROOT_PAKCAGE + DOT + SDK_NAME + SEPARATOR + SUFFIX_INTERCEPTORS)) &#123;</div><div class="line">                // Load interceptorMeta</div><div class="line">                ((IInterceptorGroup) (Class.forName(className).getConstructor().newInstance())).loadInto(Warehouse.interceptorsIndex);</div><div class="line">            &#125; else if (className.startsWith(ROUTE_ROOT_PAKCAGE + DOT + SDK_NAME + SEPARATOR + SUFFIX_PROVIDERS)) &#123;</div><div class="line">                // Load providerIndex</div><div class="line">                ((IProviderGroup) (Class.forName(className).getConstructor().newInstance())).loadInto(Warehouse.providersIndex);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        logger.info(TAG, &quot;Load root element finished, cost &quot; + (System.currentTimeMillis() - startInit) + &quot; ms.&quot;);</div><div class="line"></div><div class="line">        if (Warehouse.groupsIndex.size() == 0) &#123;</div><div class="line">            logger.error(TAG, &quot;No mapping files were found, check your configuration please!&quot;);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        if (ARouter.debuggable()) &#123;</div><div class="line">            logger.debug(TAG, String.format(Locale.getDefault(), &quot;LogisticsCenter has already been loaded, GroupIndex[%d], InterceptorIndex[%d], ProviderIndex[%d]&quot;, Warehouse.groupsIndex.size(), Warehouse.interceptorsIndex.size(), Warehouse.providersIndex.size()));</div><div class="line">        &#125;</div><div class="line">    &#125; catch (Exception e) &#123;</div><div class="line">        throw new HandlerException(TAG + &quot;ARouter init logistics center exception! [&quot; + e.getMessage() + &quot;]&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在我们所有调用ARouter.getInstance().build(-).navigation()都会经来进行组装Postcard和completion方法通知组装完成，所以我们再来看一下postcard是个什么鬼</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1878404-d5355b6448f9de2b.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Postcard类"></p>
+<p><strong>看了一下就是继承了RouteMeta并且多了一些参数，换句话说就是在View层可以多自定义一些动画和参数传递的方式</strong></p>
+<p>那么继续看completion方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div></pre></td><td class="code"><pre><div class="line">public synchronized static void completion(Postcard postcard) &#123;</div><div class="line">       if (null == postcard) &#123;</div><div class="line">           throw new NoRouteFoundException(TAG + &quot;No postcard!&quot;);</div><div class="line">       &#125;</div><div class="line"></div><div class="line">       RouteMeta routeMeta = Warehouse.routes.get(postcard.getPath());</div><div class="line">       if (null == routeMeta) &#123;    // Maybe its does&apos;t exist, or didn&apos;t load.</div><div class="line">           Class&lt;? extends IRouteGroup&gt; groupMeta = Warehouse.groupsIndex.get(postcard.getGroup());  // Load route meta.</div><div class="line">           if (null == groupMeta) &#123;</div><div class="line">               throw new NoRouteFoundException(TAG + &quot;There is no route match the path [&quot; + postcard.getPath() + &quot;], in group [&quot; + postcard.getGroup() + &quot;]&quot;);</div><div class="line">           &#125; else &#123;</div><div class="line">               // Load route and cache it into memory, then delete from metas.</div><div class="line">               try &#123;</div><div class="line">                   if (ARouter.debuggable()) &#123;</div><div class="line">                       logger.debug(TAG, String.format(Locale.getDefault(), &quot;The group [%s] starts loading, trigger by [%s]&quot;, postcard.getGroup(), postcard.getPath()));</div><div class="line">                   &#125;</div><div class="line"></div><div class="line">                   IRouteGroup iGroupInstance = groupMeta.getConstructor().newInstance(); //对路由的路径进行分组</div><div class="line">                   iGroupInstance.loadInto(Warehouse.routes);</div><div class="line">                   Warehouse.groupsIndex.remove(postcard.getGroup());</div><div class="line"></div><div class="line">                   if (ARouter.debuggable()) &#123;</div><div class="line">                       logger.debug(TAG, String.format(Locale.getDefault(), &quot;The group [%s] has already been loaded, trigger by [%s]&quot;, postcard.getGroup(), postcard.getPath()));</div><div class="line">                   &#125;</div><div class="line">               &#125; catch (Exception e) &#123;</div><div class="line">                   throw new HandlerException(TAG + &quot;Fatal exception when loading group meta. [&quot; + e.getMessage() + &quot;]&quot;);</div><div class="line">               &#125;</div><div class="line"></div><div class="line">               completion(postcard);   // Reload //分组完毕后进行重新加载 也就是会执行到下面else段</div><div class="line">           &#125;</div><div class="line">       &#125; else &#123;</div><div class="line">           // 将所有手机到的目标信息都取出来封装进postcard</div><div class="line">           postcard.setDestination(routeMeta.getDestination());</div><div class="line">           postcard.setType(routeMeta.getType());</div><div class="line">           postcard.setPriority(routeMeta.getPriority());</div><div class="line">           postcard.setExtra(routeMeta.getExtra());</div><div class="line"></div><div class="line">           Uri rawUri = postcard.getUri();</div><div class="line">           if (null != rawUri) &#123;   // Try to set params into bundle.</div><div class="line">               Map&lt;String, String&gt; resultMap = TextUtils.splitQueryParameters(rawUri);</div><div class="line">               Map&lt;String, Integer&gt; paramsType = routeMeta.getParamsType();</div><div class="line"></div><div class="line">               if (MapUtils.isNotEmpty(paramsType)) &#123;</div><div class="line">                   // Set value by its type, just for params which annotation by @Param</div><div class="line">                   for (Map.Entry&lt;String, Integer&gt; params : paramsType.entrySet()) &#123;</div><div class="line">                       setValue(postcard,</div><div class="line">                               params.getValue(),</div><div class="line">                               params.getKey(),</div><div class="line">                               resultMap.get(params.getKey()));</div><div class="line">                   &#125;</div><div class="line"></div><div class="line">                   // Save params name which need auto inject.</div><div class="line">                   postcard.getExtras().putStringArray(ARouter.AUTO_INJECT, paramsType.keySet().toArray(new String[]&#123;&#125;));</div><div class="line">               &#125;</div><div class="line"></div><div class="line">               // Save raw uri</div><div class="line">               postcard.withString(ARouter.RAW_URI, rawUri.toString());</div><div class="line">           &#125;</div><div class="line"></div><div class="line"></div><div class="line">           /**</div><div class="line">            * 如果是Iprovider服务类和fragment则跳过所有拦截器</div><div class="line">            */</div><div class="line">           switch (routeMeta.getType()) &#123;</div><div class="line">               case PROVIDER:  // if the route is provider, should find its instance</div><div class="line">                   // Its provider, so it must be implememt IProvider</div><div class="line">                   Class&lt;? extends IProvider&gt; providerMeta = (Class&lt;? extends IProvider&gt;) routeMeta.getDestination();</div><div class="line">                   IProvider instance = Warehouse.providers.get(providerMeta);</div><div class="line">                   if (null == instance) &#123; // There&apos;s no instance of this provider</div><div class="line">                       IProvider provider;</div><div class="line">                       try &#123;</div><div class="line">                           provider = providerMeta.getConstructor().newInstance();</div><div class="line">                           provider.init(mContext);</div><div class="line">                           Warehouse.providers.put(providerMeta, provider);</div><div class="line">                           instance = provider;</div><div class="line">                       &#125; catch (Exception e) &#123;</div><div class="line">                           throw new HandlerException(&quot;Init provider failed! &quot; + e.getMessage());</div><div class="line">                       &#125;</div><div class="line">                   &#125;</div><div class="line">                   postcard.setProvider(instance);</div><div class="line">                   postcard.greenChannel();    // Provider should skip all of interceptors </div><div class="line">                   break;</div><div class="line">               case FRAGMENT:</div><div class="line">                   postcard.greenChannel();    // Fragment needn&apos;t interceptors</div><div class="line">               default:</div><div class="line">                   break;</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>核心的封装流程讲完了咱们开始看路由的跳转和拦截:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line"> @Override</div><div class="line">    public void doInterceptions(final Postcard postcard, final InterceptorCallback callback) &#123;</div><div class="line">        if (null != Warehouse.interceptors &amp;&amp; Warehouse.interceptors.size() &gt; 0) &#123;</div><div class="line"></div><div class="line">            checkInterceptorsInitStatus();</div><div class="line"></div><div class="line">            if (!interceptorHasInit) &#123;</div><div class="line">                callback.onInterrupt(new HandlerException(&quot;Interceptors initialization takes too much time.&quot;));</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            LogisticsCenter.executor.execute(new Runnable() &#123;</div><div class="line">                @Override</div><div class="line">                public void run() &#123;  //使用线程池并且利用CountDownLatch来处理线程同步问题进行一个个拦截器的兰姐</div><div class="line">                    CancelableCountDownLatch interceptorCounter = new CancelableCountDownLatch(Warehouse.interceptors.size());</div><div class="line">                    try &#123;</div><div class="line">                        _excute(0, interceptorCounter, postcard);</div><div class="line">                        interceptorCounter.await(postcard.getTimeout(), TimeUnit.SECONDS);</div><div class="line">                        if (interceptorCounter.getCount() &gt; 0) &#123;    // Cancel the navigation this time, if it hasn&apos;t return anythings.</div><div class="line">                            callback.onInterrupt(new HandlerException(&quot;The interceptor processing timed out.&quot;));</div><div class="line">                        &#125; else if (null != postcard.getTag()) &#123;    // Maybe some exception in the tag.</div><div class="line">                            callback.onInterrupt(new HandlerException(postcard.getTag().toString()));</div><div class="line">                        &#125; else &#123;</div><div class="line">                            callback.onContinue(postcard);</div><div class="line">                        &#125;</div><div class="line">                    &#125; catch (Exception e) &#123;</div><div class="line">                        callback.onInterrupt(e);</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;);</div><div class="line">        &#125; else &#123;</div><div class="line">            callback.onContinue(postcard);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * Excute interceptor</div><div class="line">     *</div><div class="line">     * @param index    current interceptor index</div><div class="line">     * @param counter  interceptor counter</div><div class="line">     * @param postcard routeMeta</div><div class="line">     */</div><div class="line">    private static void _excute(final int index, final CancelableCountDownLatch counter, final Postcard postcard) &#123;</div><div class="line">        if (index &lt; Warehouse.interceptors.size()) &#123;</div><div class="line">            IInterceptor iInterceptor = Warehouse.interceptors.get(index);</div><div class="line">            iInterceptor.process(postcard, new InterceptorCallback() &#123;</div><div class="line">                @Override</div><div class="line">                public void onContinue(Postcard postcard) &#123;</div><div class="line">                    // Last interceptor excute over with no exception.</div><div class="line">                    counter.countDown();  </div><div class="line">                    // 回调自身将所有拦截器执行一边</div><div class="line">                    _excute(index + 1, counter, postcard);  // When counter is down, it will be execute continue ,but index bigger than interceptors size, then U know.</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                @Override</div><div class="line">                public void onInterrupt(Throwable exception) &#123;</div><div class="line">                    // Last interceptor excute over with fatal exception.</div><div class="line">                    postcard.setTag(null == exception ? new HandlerException(&quot;No message.&quot;) : exception.getMessage());    // save the exception message for backup.</div><div class="line">                    //如果已经被拦截则取消同步状态</div><div class="line">                    counter.cancel();</div><div class="line">                    // Be attention, maybe the thread in callback has been changed,</div><div class="line">                    // then the catch block(L207) will be invalid.</div><div class="line">                    // The worst is the thread changed to main thread, then the app will be crash, if you throw this exception!</div><div class="line">//                    if (!Looper.getMainLooper().equals(Looper.myLooper())) &#123;    // You shouldn&apos;t throw the exception if the thread is main thread.</div><div class="line">//                        throw new HandlerException(exception.getMessage());</div><div class="line">//                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>看到以上代码知道他们是利用线程池加上CountLatchDown的方式来进行线程空值同步并且调用_excute进行回调来一步步拿出拦截器来调用</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">     * Use router navigation.</div><div class="line">     *</div><div class="line">     * @param context     Activity or null.</div><div class="line">     * @param postcard    Route metas</div><div class="line">     * @param requestCode RequestCode</div><div class="line">     * @param callback    cb</div><div class="line">     */</div><div class="line">    protected Object navigation(final Context context, final Postcard postcard, final int requestCode, final NavigationCallback callback) &#123;</div><div class="line">        try &#123;</div><div class="line">            LogisticsCenter.completion(postcard);</div><div class="line">        &#125; catch (NoRouteFoundException ex) &#123;</div><div class="line">            logger.warning(Consts.TAG, ex.getMessage());</div><div class="line"></div><div class="line">            if (debuggable()) &#123; // Show friendly tips for user.</div><div class="line">                Toast.makeText(mContext, &quot;There&apos;s no route matched!\n&quot; +</div><div class="line">                        &quot; Path = [&quot; + postcard.getPath() + &quot;]\n&quot; +</div><div class="line">                        &quot; Group = [&quot; + postcard.getGroup() + &quot;]&quot;, Toast.LENGTH_LONG).show();</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            if (null != callback) &#123;  //这里就是回调有没有找到路由的回调</div><div class="line">                callback.onLost(postcard);</div><div class="line">            &#125; else &#123;    // No callback for this invoke, then we use the global degrade service. //没有找到路由则进行降级服务的调用</div><div class="line">                DegradeService degradeService = ARouter.getInstance().navigation(DegradeService.class);</div><div class="line">                if (null != degradeService) &#123;</div><div class="line">                    degradeService.onLost(context, postcard);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            return null;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        if (null != callback) &#123; // 找到路由的回调</div><div class="line">            callback.onFound(postcard);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        if (!postcard.isGreenChannel()) &#123;   // It must be run in async thread, maybe interceptor cost too mush time made ANR.  //判断当前调用是不是走『绿色通道』跳过所有拦截器</div><div class="line">            //一定要调用一下两个方式之一才能继续执行路径否则返回为空</div><div class="line">            interceptorService.doInterceptions(postcard, new InterceptorCallback() &#123;</div><div class="line">                /**</div><div class="line">                 * Continue process</div><div class="line">                 *</div><div class="line">                 * @param postcard route meta</div><div class="line">                 */</div><div class="line">                @Override</div><div class="line">                public void onContinue(Postcard postcard) &#123;</div><div class="line">                    _navigation(context, postcard, requestCode, callback);</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                /**</div><div class="line">                 * Interrupt process, pipeline will be destory when this method called.</div><div class="line">                 *</div><div class="line">                 * @param exception Reson of interrupt.</div><div class="line">                 */</div><div class="line">                @Override</div><div class="line">                public void onInterrupt(Throwable exception) &#123;</div><div class="line">                    if (null != callback) &#123;</div><div class="line">                        callback.onInterrupt(postcard);</div><div class="line">                    &#125;</div><div class="line"></div><div class="line">                    logger.info(Consts.TAG, &quot;Navigation failed, termination by interceptor : &quot; + exception.getMessage());</div><div class="line">                &#125;</div><div class="line">            &#125;);</div><div class="line">        &#125; else &#123;</div><div class="line">            return _navigation(context, postcard, requestCode, callback); //这个方法就是下图所执行的返回分类对象</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        return null;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/1878404-1e0f73cc4ea3f7c9.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="跳转返回对象的处理"></p>
+<blockquote>
+<p>到这里核心的流程基本全部讲完了，因此可以看到拦截都是进行全局的拦截，但是他们通过注解的extra值进行处理来分类拦截的过程通过优先级排序拦截。更多的细节大家可以下载源码仔细研究，希望本文对大家有帮助，如有错误之处，涵请指出，多多指教，感激不尽。</p>
+</blockquote>
+<p>有问题可以来我<a href="http://blog.mapleslong.com">博客</a>或者<a href="http://www.jianshu.com/users/0da7bdbfddb2" target="_blank" rel="external">简书</a>反馈</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/WeChanQR.png',
+  alipayImage: 'https://raw.githubusercontent.com/iTimeTraveler/iTimeTraveler.github.io/site/source/about/donate/images/AliPayQR.jpg'
+});
+</script>
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-框架/">Android,框架</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/10/25/ARouter简单入门和介绍/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">ARouter简单入门和介绍</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ARouter的源码分析"><span class="nav-number">1.</span> <span class="nav-text">ARouter的源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-模块arouter-annotation分析"><span class="nav-number">1.1.</span> <span class="nav-text">1.模块arouter-annotation分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-模块arouter-compiler分析"><span class="nav-number">1.2.</span> <span class="nav-text">2.模块arouter-compiler分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-模块arouter-api分析"><span class="nav-number">1.3.</span> <span class="nav-text">3.模块arouter-api分析</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2016 - 2017 枫叶的博客 All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            枫叶的博客
+          </div>
+          <div class="panel-body">
+            Copyright © 2017 Mapleslong All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

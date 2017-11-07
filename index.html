@@ -191,6 +191,78 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-ARouter源码分析"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/11/06/ARouter源码分析/">ARouter源码分析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/11/06/ARouter源码分析/" class="article-date">
+	  <time datetime="2017-11-06T04:03:08.000Z" itemprop="datePublished">2017-11-06</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="ARouter的源码分析"><a href="#ARouter的源码分析" class="headerlink" title="ARouter的源码分析"></a>ARouter的源码分析</h1><p>分析需要储备以下知识点：</p>
+<ul>
+<li>Java注解知识</li>
+<li>Java反射知识</li>
+<li>javapoet库(在注释里也有简单分析)</li>
+<li>auto-service库</li>
+</ul>
+<p>下面分析的时候会把各位看官当做已经掌握了以上知识点哈！</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1878404-ff6f32276afaa42d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ARouter包含3个核心模块.jpg"></p>
+<p>ARouter包含3个核心模块</p>
+<ol>
+<li>arouter-annotation 注解的声明和信息存储类的模块</li>
+<li>arouter-compiler 编译期解析注解信息并生成相应类以便进行注入的模块</li>
+<li>arouter-api 核心调用Api功能的模块</li>
+</ol>
+        <!-- ARouter的源码分析分析需要储备以下知识点：
+
+Java注解知识
+Java反射知识
+javapoet库(在注释里也有简单分析)
+auto-service库
+
+下面分析的时候会把各位看官当做已经掌握了以上知识点哈！
+
+ARouter包含3个核心模块
+
+arouter-annotation 注解的声明和信息存储类的模块
+arouter-compiler 编译期解析注解信息并生成相应类以便进行......  -->
+        <p class="article-more-link">
+          <a href="/2017/11/06/ARouter源码分析/#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-框架/">Android,框架</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-ARouter简单入门和介绍"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -256,78 +328,6 @@
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-ARouter源码分析"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2017/10/25/ARouter源码分析/">ARouter的源码分析</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2017/10/25/ARouter源码分析/" class="article-date">
-	  <time datetime="2017-10-25T06:25:04.000Z" itemprop="datePublished">2017-10-25</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="ARouter的源码分析"><a href="#ARouter的源码分析" class="headerlink" title="ARouter的源码分析"></a>ARouter的源码分析</h1><p>分析需要储备以下知识点：</p>
-<ul>
-<li>Java注解知识</li>
-<li>Java反射知识</li>
-<li>javapoet库(在注释里也有简单分析)</li>
-<li>auto-service库</li>
-</ul>
-<p>下面分析的时候会把各位看官当做已经掌握了以上知识点哈！</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1878404-ff6f32276afaa42d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ARouter包含3个核心模块.jpg"></p>
-<p>ARouter包含3个核心模块</p>
-<ol>
-<li>arouter-annotation 注解的声明和信息存储类的模块</li>
-<li>arouter-compiler 编译期解析注解信息并生成相应类以便进行注入的模块</li>
-<li>arouter-api 核心调用Api功能的模块</li>
-</ol>
-        <!-- ARouter的源码分析分析需要储备以下知识点：
-
-Java注解知识
-Java反射知识
-javapoet库(在注释里也有简单分析)
-auto-service库
-
-下面分析的时候会把各位看官当做已经掌握了以上知识点哈！
-
-ARouter包含3个核心模块
-
-arouter-annotation 注解的声明和信息存储类的模块
-arouter-compiler 编译期解析注解信息并生成相应类以便进行......  -->
-        <p class="article-more-link">
-          <a href="/2017/10/25/ARouter源码分析/#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-框架/">Android,框架</a></li></ul>
 
     </footer>
   </div>
