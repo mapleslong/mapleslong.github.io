@@ -344,46 +344,6 @@
 <!-- Table of Contents -->
 
   
-    <article id="post-Java基础之三大特性"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2019/07/01/Java基础之三大特性/">Java基础之三大特性</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2019/07/01/Java基础之三大特性/" class="article-date">
-	  <time datetime="2019-07-01T12:41:18.000Z" itemprop="datePublished">2019-07-01</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-OkHttp3框架解析"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -756,6 +716,85 @@
       
       
       
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-Java基础之三大特性"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2017/11/12/Java基础之三大特性/">Java基础之三大特性</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2017/11/12/Java基础之三大特性/" class="article-date">
+	  <time datetime="2017-11-12T04:33:08.000Z" itemprop="datePublished">2017-11-12</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Java基础之三大特性"><a href="#Java基础之三大特性" class="headerlink" title="Java基础之三大特性"></a>Java基础之三大特性</h1><p>Java有三大特性继承、封装、多态</p>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><ol>
+<li>继承是使用已存在的类的定义作为基础建立新类的技术，新类的定义可以增加新的数据或新的功能，也可以用父类的功能，但不能选择性地继承父类。</li>
+<li>子类拥有父类非private的属性和方法。</li>
+<li>子类可以拥有自己属性和方法，即子类可以对父类进行扩展。</li>
+<li>子类可以用自己的方式实现父类的方法。</li>
+</ol>
+<ul>
+<li>我们知道，构造器是不能被继承的，只许被调用！</li>
+</ul>
+<p>需要注意的是，子类是依赖于父类的（这也说明了一个弊端，即继承是一种强耦合关系），子类拥有父类的非private属性和方法（弊端二：破坏了封装），所以父类应先于子类被创建。</p>
+<p>所以当父类没有默认构造器时，子类需要指定一个父类的构造器，并且写于子类构造器的第一行！当然父类有默认构造器，子类就无需super了，Java会自动调用。</p>
+<ul>
+<li>再说protected关键字。插一句，只有合理使用访问修饰符，程序才能更好的为我们服务！</li>
+</ul>
+<p>对于子类，为了使用父类的方法，我们可以修改它的访问修饰符为protected，而不是一股脑儿的写上public！一劳永逸的做法可能会带来更大的危害！</p>
+<p>而对于类的成员变量，继续保持它的private！</p>
+<ul>
+<li>最后是向上转型了，它是一个重要的方面。从上面的的代码中，我写上了Person person = new Yang(“yang”, “male”, 23); 这样结果是将Yang向上转型为Person，带来的影响可能就是属性和方法的丢失，但是它将是安全的。</li>
+</ul>
+<p>同时它最大的作用是…..子类能够提供父类更加强大的功能以适用于不同的场合，完成不同的操作。</p>
+<p>不太清楚可以看看这两个： List<string> arrayList = new ArrayList&lt;&gt;(); 和 List<string> linkedList = new LinkedList&lt;&gt;();</string></string></p>
+<p>我们知道ArrayList是数组实现，查找更快；而LinkedList是链表实现，添加元素和删除元素效率更好！</p>
+<p>但是向上转型有一个弊端，指向子类的父类引用因为向上转型了，它将只拥有父类的属性和方法，同时子类拥有而父类没有的方法，是无法使用了的！</p>
+<p>所以，继承实现了软件的可重用性和可拓展性。但是Java是单继承的，并且继承也有多个弊端（上面有提），其实还有一个弊端是父类一旦改变，子类可能也得进行改变！所以慎用吧。</p>
+<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><ol>
+<li>封装把一个对象的属性私有化，同时提供一些可以被外界访问的属性的方法(getter，setter)，如果不想被外界方法，我们大可不必提供方法给外界访问。</li>
+<li>封装确实可以使我们容易地修改类的内部实现，而无需修改使用了该类的客户代码。</li>
+<li>可以对成员变量进行更精确的控制。(在setter方法中进行实际意义的校验)</li>
+</ol>
+<blockquote>
+<p>对于封装的思想，我们需要尽可能的隐藏内部细节，只保留一些对外操作。</p>
+</blockquote>
+<h2 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h2><p>多态性就是不同的子类型可以对同一个请求做出不同的操作。同时多态性分为编译时多态性和运行时多态性，对应着方法重载overload和方法重写override！<br>对于方法重写，存在在继承中。它作为运行时多态性的表现，首先需要子类继承和实现父类的方法，然后向上转型，父类引用子类对象，对同一件事作出不同的响应。</p>
+<p>方法重写时，需要注意的是子类的访问修饰符的访问范围不能小于父类，如父类的一个方法修饰符为protected，那么子类继承时，只能选用public或者protected。除了访问修饰符，其余完全相同于父类！</p>
+<p>对于方法重载，出现在同一个类中，它是编译时多态性的表现。定义为：同名的方法如果有不同的参数列表便视为重载。</p>
+<p>最后有一道经典的题目作为结尾</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line">public class A &#123;</div><div class="line"></div><div class="line">    public String show(D obj) &#123;</div><div class="line">        return (&quot;Father and D&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public String show(A obj) &#123;</div><div class="line">        return (&quot;Father and Father&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class B extends A &#123;</div><div class="line"></div><div class="line">    public String show(B obj) &#123;</div><div class="line">        return (&quot;Child and Child&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public String show(A obj) &#123;</div><div class="line">        return (&quot;Child and Father&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class C extends B &#123;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class D extends B &#123;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Test &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        A a1 = new A();</div><div class="line">        A a2 = new B();</div><div class="line">        B b = new B();</div><div class="line">        C c = new C();</div><div class="line">        D d = new D();</div><div class="line"></div><div class="line">        System.out.println(&quot;1--&quot; + a1.show(b));</div><div class="line">        System.out.println(&quot;2--&quot; + a1.show(c));</div><div class="line">        System.out.println(&quot;3--&quot; + a1.show(d));</div><div class="line">        System.out.println(&quot;4--&quot; + a2.show(b));</div><div class="line">        System.out.println(&quot;5--&quot; + a2.show(c));</div><div class="line">        System.out.println(&quot;6--&quot; + a2.show(d));</div><div class="line">        System.out.println(&quot;7--&quot; + b.show(b));</div><div class="line">        System.out.println(&quot;8--&quot; + b.show(c));</div><div class="line">        System.out.println(&quot;9--&quot; + b.show(d));</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">结论：</div><div class="line">1--Father and Father</div><div class="line">2--Father and Father</div><div class="line">3--Father and D</div><div class="line">4--Child and Father</div><div class="line">5--Child and Father</div><div class="line">6--Father and D</div><div class="line">7--Child and Child</div><div class="line">8--Child and Child</div><div class="line">9--Father and D</div></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+
     </footer>
   </div>
   
