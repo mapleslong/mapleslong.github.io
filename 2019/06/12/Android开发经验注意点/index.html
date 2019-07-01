@@ -6,17 +6,20 @@
   <title>android开发经验注意点 | 枫叶的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
+  <meta name="keywords" content="经验之谈" />
+  
   
   
   
   <meta name="description" content="Android开发经验注意点1.I/O篇1.1磁盘I/O 项目要求不需要实时性和及时性尽可能的多用缓存，因为看你导致重复读写，在一些系统API中每次都可能需要重复打开文件导致磁盘IO读写性能浪费。   例如SharedPreferences的commit每一次的commit都进行了一次文件的打开和关闭，因此尽可能的使用一次commit方法即可。利用混存来保存多次写入的数据，延迟写入，从而减少写入次">
+<meta name="keywords" content="经验之谈">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android开发经验注意点">
-<meta property="og:url" content="http://blog.mapleslong.com/2019/07/01/Android开发经验注意点/index.html">
+<meta property="og:url" content="http://blog.mapleslong.com/2019/06/12/Android开发经验注意点/index.html">
 <meta property="og:site_name" content="枫叶的博客">
 <meta property="og:description" content="Android开发经验注意点1.I/O篇1.1磁盘I/O 项目要求不需要实时性和及时性尽可能的多用缓存，因为看你导致重复读写，在一些系统API中每次都可能需要重复打开文件导致磁盘IO读写性能浪费。   例如SharedPreferences的commit每一次的commit都进行了一次文件的打开和关闭，因此尽可能的使用一次commit方法即可。利用混存来保存多次写入的数据，延迟写入，从而减少写入次">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-01T12:52:55.065Z">
+<meta property="og:updated_time" content="2019-07-01T12:55:40.419Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android开发经验注意点">
 <meta name="twitter:description" content="Android开发经验注意点1.I/O篇1.1磁盘I/O 项目要求不需要实时性和及时性尽可能的多用缓存，因为看你导致重复读写，在一些系统API中每次都可能需要重复打开文件导致磁盘IO读写性能浪费。   例如SharedPreferences的commit每一次的commit都进行了一次文件的打开和关闭，因此尽可能的使用一次commit方法即可。利用混存来保存多次写入的数据，延迟写入，从而减少写入次">
@@ -175,8 +178,8 @@
     
     <div class="article-meta">
       
-	<a href="/2019/07/01/Android开发经验注意点/" class="article-date">
-	  <time datetime="2019-07-01T12:46:44.000Z" itemprop="datePublished">2019-07-01</time>
+	<a href="/2019/06/12/Android开发经验注意点/" class="article-date">
+	  <time datetime="2019-06-12T12:46:44.000Z" itemprop="datePublished">2019-06-12</time>
 	</a>
 
       
@@ -200,6 +203,7 @@
 <li>避免主线程进行读写，移到子线程中处理I/O事宜。因为有可能发生『放大效应』（简单来讲放大效应是在随机读写时需要清理当前磁盘的块整理的过程，和顺序读写不同在于整理过程需要耗费一定的性能导致明明只写8KB的大小却需要调度到512KB）会让平时是多毫秒的操作放大几十倍，导致主线程长时间未响应导致的体验不佳。但是数据是见面的来源，么有数据也无法展示相应的核心内容，所以移入子线程只是解决的第一步，最重要的是如何真正的减少I/O甚至避免I/O操作。</li>
 <li>合理的I/O缓存设置Buffer的大小。可以根据业务和机器性能环境来适当的调整，在读写时使用缓冲区开可以减少读写的次数，从而减少了切换内核态的次数提高效率。一般推荐Buffer大小为8KB。</li>
 </ul>
+<a id="more"></a>
 <h3 id="1-2数据库I-O"><a href="#1-2数据库I-O" class="headerlink" title="1.2数据库I/O"></a>1.2数据库I/O</h3><hr>
 <ol>
 <li>数据库连接打开后先不要关闭，保存这个连接，在应用程序退出在关闭。具体可以看一下SQLiteDatabase源码，getWritableDatabases（）方法的注释就有说明一旦打开数据库该连接就会被缓存，以供下一次使用，只有当真正不需要的时候调用close（）即可。</li>
@@ -284,6 +288,8 @@ var a = new Donate({
 
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/经验之谈/">经验之谈</a></li></ul>
+
     </footer>
   </div>
   
