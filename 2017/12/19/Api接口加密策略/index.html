@@ -3,30 +3,26 @@
 <head>
   <meta charset="utf-8">
   
-  <title>一起撸一波干货集中营练练手android（一）框架篇 | 枫叶的博客</title>
+  <title>api接口加密策略 | 枫叶的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="keywords" content="Android" />
+  <meta name="keywords" content="API" />
   
   
   
   
-  <meta name="description" content="MPGankIO 框架篇 这个App其实是拿来锻炼架构所用,欢迎大家来指正和讨论，App结构采用MVP但是并没有同官方MVP一样写Contract接口来解耦 后续如果有需要可以爬一波包包通缉令的数据O(∩_∩)O~~ 第一次写文章，希望大家轻喷哈~~！！">
-<meta name="keywords" content="Android">
+  <meta name="description" content="Api接口加密策略接口安全要求：1.防伪装攻击（案例：在公共网络环境中，第三方 有意或恶意 的调用我们的接口） 2.防篡改攻击（案例：在公共网络环境中，请求头/查询字符串/内容 在传输过程被修改） 3.防重放攻击（案例：在公共网络环境中，请求被截获，稍后被重放或多次重放） 4.防数据信息泄漏（案例：截获用户登录请求，截获到账号、密码等） 设计原则：1.轻量级 2.适合于异构系统（跨操作系统、多语言">
+<meta name="keywords" content="API">
 <meta property="og:type" content="article">
-<meta property="og:title" content="一起撸一波干货集中营练练手Android（一）框架篇">
-<meta property="og:url" content="http://blog.mapleslong.com/2016/08/19/一起撸一波干货集中营练练手Android（一）框架篇/index.html">
+<meta property="og:title" content="Api接口加密策略">
+<meta property="og:url" content="http://blog.mapleslong.com/2017/12/19/Api接口加密策略/index.html">
 <meta property="og:site_name" content="枫叶的博客">
-<meta property="og:description" content="MPGankIO 框架篇 这个App其实是拿来锻炼架构所用,欢迎大家来指正和讨论，App结构采用MVP但是并没有同官方MVP一样写Contract接口来解耦 后续如果有需要可以爬一波包包通缉令的数据O(∩_∩)O~~ 第一次写文章，希望大家轻喷哈~~！！">
+<meta property="og:description" content="Api接口加密策略接口安全要求：1.防伪装攻击（案例：在公共网络环境中，第三方 有意或恶意 的调用我们的接口） 2.防篡改攻击（案例：在公共网络环境中，请求头/查询字符串/内容 在传输过程被修改） 3.防重放攻击（案例：在公共网络环境中，请求被截获，稍后被重放或多次重放） 4.防数据信息泄漏（案例：截获用户登录请求，截获到账号、密码等） 设计原则：1.轻量级 2.适合于异构系统（跨操作系统、多语言">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://o6kv2wscf.bkt.clouddn.com/16-8-19/78414221.jpg">
-<meta property="og:image" content="http://o6kv2wscf.bkt.clouddn.com/16-8-19/49528159.jpg">
-<meta property="og:image" content="http://o6kv2wscf.bkt.clouddn.com/16-8-19/50537867.jpg">
-<meta property="og:updated_time" content="2017-10-16T08:15:08.000Z">
+<meta property="og:updated_time" content="2019-07-01T12:29:37.090Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一起撸一波干货集中营练练手Android（一）框架篇">
-<meta name="twitter:description" content="MPGankIO 框架篇 这个App其实是拿来锻炼架构所用,欢迎大家来指正和讨论，App结构采用MVP但是并没有同官方MVP一样写Contract接口来解耦 后续如果有需要可以爬一波包包通缉令的数据O(∩_∩)O~~ 第一次写文章，希望大家轻喷哈~~！！">
-<meta name="twitter:image" content="http://o6kv2wscf.bkt.clouddn.com/16-8-19/78414221.jpg">
+<meta name="twitter:title" content="Api接口加密策略">
+<meta name="twitter:description" content="Api接口加密策略接口安全要求：1.防伪装攻击（案例：在公共网络环境中，第三方 有意或恶意 的调用我们的接口） 2.防篡改攻击（案例：在公共网络环境中，请求头/查询字符串/内容 在传输过程被修改） 3.防重放攻击（案例：在公共网络环境中，请求被截获，稍后被重放或多次重放） 4.防数据信息泄漏（案例：截获用户登录请求，截获到账号、密码等） 设计原则：1.轻量级 2.适合于异构系统（跨操作系统、多语言">
   
     <link rel="alternate" href="/atom.xml" title="枫叶的博客" type="application/atom+xml">
   
@@ -166,7 +162,7 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-一起撸一波干货集中营练练手Android（一）框架篇" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-Api接口加密策略" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -174,7 +170,7 @@
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      一起撸一波干货集中营练练手Android（一）框架篇
+      Api接口加密策略
     </h1>
   
 
@@ -182,8 +178,8 @@
     
     <div class="article-meta">
       
-	<a href="/2016/08/19/一起撸一波干货集中营练练手Android（一）框架篇/" class="article-date">
-	  <time datetime="2016-08-19T03:46:48.000Z" itemprop="datePublished">2016-08-19</time>
+	<a href="/2017/12/19/Api接口加密策略/" class="article-date">
+	  <time datetime="2017-12-19T04:03:08.000Z" itemprop="datePublished">2017-12-19</time>
 	</a>
 
       
@@ -197,41 +193,42 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="MPGankIO-框架篇"><a href="#MPGankIO-框架篇" class="headerlink" title="MPGankIO 框架篇"></a>MPGankIO 框架篇</h1><blockquote>
-<p>这个App其实是拿来锻炼架构所用,欢迎大家来指正和讨论，<br>App结构采用MVP但是并没有同官方MVP一样写Contract接口来解耦</p>
-<h2 id="后续如果有需要可以爬一波包包通缉令的数据O-∩-∩-O"><a href="#后续如果有需要可以爬一波包包通缉令的数据O-∩-∩-O" class="headerlink" title="后续如果有需要可以爬一波包包通缉令的数据O(∩_∩)O~~"></a>后续如果有需要可以爬一波包包通缉令的数据O(∩_∩)O~~</h2></blockquote>
-<p>第一次写文章，希望大家轻喷哈~~！！<br><a id="more"></a></p>
-<h3 id="APP框架搭建："><a href="#APP框架搭建：" class="headerlink" title="APP框架搭建："></a>APP框架搭建：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"># 网络框架 </div><div class="line">  1. RxJava</div><div class="line">  2. Retrofit</div><div class="line">  3. Gson</div><div class="line">  4. okhttp</div><div class="line"> </div><div class="line"># 图片框架</div><div class="line"></div><div class="line">  1. Glide(推荐采用，Google官方推荐)</div><div class="line"></div><div class="line"># 注入框架</div><div class="line"></div><div class="line">  1. ButterKnife(神器不解释) </div><div class="line">  </div><div class="line"># 内存泄露检测</div><div class="line"></div><div class="line">  1. Leakcanary</div></pre></td></tr></table></figure>
-<blockquote>
-<p>我觉得放代码会印象阅读，所以采用图片贴代码的形式解读</p>
-</blockquote>
-<h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><p><img src="http://o6kv2wscf.bkt.clouddn.com/16-8-19/78414221.jpg" alt="MPGankIO目录结构"></p>
-<blockquote>
-<p>adapter 放置各个模块的数据适配器 </p>
-<p>config  放置app的一些设置常用变量 </p>
-<p>entity  放置数据对象实例         </p>
-<p>manager 放置自定义的一些全局管理对象(例如AccountManager、ActivityStackManager)</p>
-<p>module  放置我们的app应用模块例如home/main等</p>
-<p>network 放置网络框架我自定义和参考了一些大牛设计集成而来至于是谁我下次翻到的时候把链接打上去（大牛看到不要拍我）</p>
-<p>utils 放置app用到的工具类</p>
-<p>ui 因为这个app没有我自定义的ui所以暂时没有放上去</p>
-</blockquote>
-<h2 id="MVP架构搭建"><a href="#MVP架构搭建" class="headerlink" title="MVP架构搭建"></a>MVP架构搭建</h2><blockquote>
-<p>BaseMvpActivity.java</p>
-</blockquote>
-<p><img src="http://o6kv2wscf.bkt.clouddn.com/16-8-19/49528159.jpg" alt=""></p>
-<p>后文用到的BaseMvpFragment.java同理可得</p>
-<hr>
-<blockquote>
-<p>BasePresenter.java</p>
-</blockquote>
-<p><img src="http://o6kv2wscf.bkt.clouddn.com/16-8-19/50537867.jpg" alt=""></p>
-<p>里面采用了Rxjava的CompositeSubscription请求全局控制<br>并且将View附加给Presenter来进行与View的沟通</p>
-<hr>
-<p>#这样一来MVP基本的架构就搭好啦！</p>
-<p>有问题可以来我<a href="http://www.mapleslong.com" target="_blank" rel="external">博客</a>或者<a href="http://www.jianshu.com/users/0da7bdbfddb2" target="_blank" rel="external">简书</a>反馈</p>
-<p>至于BaseModel是为了复用和方便创建的此App暂时没有用到<br>如果有发现可以继承BaseModel</p>
-<p> <a href="https://github.com/mapleslong/MPGankIO" target="_blank" rel="external">源码下载</a></p>
+        <h1 id="Api接口加密策略"><a href="#Api接口加密策略" class="headerlink" title="Api接口加密策略"></a>Api接口加密策略</h1><p>接口安全要求：<br>1.防伪装攻击（案例：在公共网络环境中，第三方 有意或恶意 的调用我们的接口）</p>
+<p>2.防篡改攻击（案例：在公共网络环境中，请求头/查询字符串/内容 在传输过程被修改）</p>
+<p>3.防重放攻击（案例：在公共网络环境中，请求被截获，稍后被重放或多次重放）</p>
+<p>4.防数据信息泄漏（案例：截获用户登录请求，截获到账号、密码等）</p>
+<p>设计原则：<br>1.轻量级</p>
+<p>2.适合于异构系统（跨操作系统、多语言简易实现）</p>
+<p>3.易于开发</p>
+<p>4.易于测试</p>
+<p>5.易于部署</p>
+<p>6.满足接口安全需求（满足接口安全1,2,3），无过度设计。</p>
+<p>其它：接口安全要求防数据信息泄漏部分，主要针对目前用户中心的登录接口</p>
+<p>设计原则是：使用HTTPS安全协议 或 传输内容使用非对称加密，目前我们采用的后者。</p>
+<p>适用范围：<br>1.所有写操作接口（增、删、改 操作）</p>
+<p>2.非公开的读接口（如：涉密/敏感/隐私 等信息）</p>
+<p>接口参数签名 实现思路参考：<br>必要的输入参数：</p>
+<p>签名算法过程：</p>
+<p>1.对除签名外的所有请求参数按key做的升序排列,value无需编码。 （假设当前时间的时间戳是12345678）</p>
+<p>例如：有c=3,b=2,a=1 三个参，另加上时间戳后， 按key排序后为：a=1，b=2，c=3，_timestamp=12345678。</p>
+<p>2 把参数名和参数值连接成字符串，得到拼装字符：a1b2c3_timestamp12345678</p>
+<p>3 用申请到的appkey 连接到接拼装字符串头部和尾部，然后进行32位MD5加密，最后将到得MD5加密摘要转化成大写。</p>
+<p>示例：假设appkey=test，md5(testa1b2c3_timestamp12345678test)，取得MD5摘要值 C5F3EB5D7DC2748AED89E90AF00081E6 。</p>
+<p>常见的加密方式：<br>DES加密算法： DES加密算法是一种分组密码，以64位为分组对数据加密，它的密钥长度是56位，加密解密用同一算法。DES加密算法是对密钥进行保密，而公开算法，包括加密和解密算法。这样，只有掌握了和发送方相同密钥的人才能解读由DES加密算法加密的密文数据。因此，破译DES加密算法实际上就是搜索密钥的编码。对于56位长度的密钥来说，如果用穷举法来进行搜索的话，其运算次数为256。</p>
+<p>随着计算机系统能力的不断发展，DES的安全性比它刚出现时会弱得多，然而从非关键性质的实际出发，仍可以认为它是足够的。不过，DES现在仅用于旧系统的鉴定，而更多地选择新的加密标准。</p>
+<p>AES加密算法： ES加密算法是密码学中的高级加密标准，该加密算法采用对称分组密码体制，密钥长度的最少支持为128、192、256，分组长度128位，算法应易于各种硬件和软件实现。这种加密算法是美国联邦政府采用的区块加密标准，这个标准用来替代原先的DES，已经被多方分析且广为全世界所使用。</p>
+<p>AES加密算法被设计为支持128／192／256位（/32=nb)数据块大小（即分组长度）；支持128／192／256位（/32=nk)密码长度，，在10进制里，对应34×1038、62×1057、1.1×1077个密钥。</p>
+<p>RSA加密算法： RSA加密算法是目前最有影响力的公钥加密算法，并且被普遍认为是目前最优秀的公钥方案之一。RSA是第一个能同时用于加密和数宇签名的算法，它能够抵抗到目前为止已知的所有密码攻击，已被ISO推荐为公钥数据加密标准。RSA加密算法基于一个十分简单的数论事实：将两个大素数相乘十分容易，但那时想要，但那时想要对其乘积进行因式分解却极其困难，因此可以将乘积公开作为加密密钥。</p>
+<p>Base64加密算法： Base64加密算法是网络上最常见的用于传输8bit字节代码的编码方式之一，Base64编码可用于在HTTP环境下传递较长的标识信息。例如，在JAVAPERSISTENCE系统HIBEMATE中，采用了Base64来将一个较长的唯一标识符编码为一个字符串，用作HTTP表单和HTTPGETURL中的参数。在其他应用程序中，也常常需要把二进制数据编码为适合放在URL（包括隐藏表单域）中的形式。此时，采用Base64编码不仅比较简短，同时也具有不可读性，即所编码的数据不会被人用肉眼所直接看到。</p>
+<p>MD5加密算法： MD5为计算机安全领域广泛使用的一种散列函数，用以提供消息的完整性保护。对MD5加密算法简要的叙述可以为：MD5以512位分组来处理输入的信息，且每一分组又被划分为16个32位子分组，经过了一系列的处理后，算法的输出由四个32位分组组成，将这四个32位分组级联后将生成—个128位散列值。</p>
+<p>MD5被广泛用于各种软件的密码认证和钥匙识别上。MD5用的是哈希函数，它的典型应用是对一段信息产生信息摘要，以防止被篡改。MD5的典型应用是对一段Message产生fingerprin指纹，以防止被“篡改”。如果再有—个第三方的认证机构，用MD5还可以防止文件作者的“抵赖”，这就是所谓的数字签名应用。MD5还广泛用于操作系统的登陆认证上，如UNIX、各类BSD系统登录密码、数字签名等诸多方</p>
+<p>总结：<br>1、接口调用方和接口提供方约定好统一的参数加密算法</p>
+<p>2、接口调用方在调用时把加密后的_sign放在参数中去请求接口</p>
+<p>3、接口提供方接到响应后，判断时间戳是不是在有效时间内（这个时间间隔根据你的安全范围可以是10分钟，5分钟，20秒等，过期失效，前提是需要保证接口提供方和调用方的服务器时间为准确的网络同步时间）</p>
+<p>4、把参数中除了_sign以外的参数进行加密，然后把加密结果和传过来的_sign比较，相同则执行调用请求。</p>
+<p>5、如果服务器和客户端的时间没有同步，可以返回错误的同时候在返回一个服务器的当前时间，客户端接收到该错误后再请求上一个接口，时间则传服务器刚刚返回的时间 </p>
+<p>6、如果用户还没有登录时，还没有token之类的唯一标识时，可以和服务端定义一个固定的标识来使用就行。 7、涉及到比较重要的信息，可以用AES对value进行加密，防止抓包拉取到上传的数据。 </p>
+<p>8、追求安全可以考虑https的双向验证模式 + 参数的sign签名的规则双重验证达到安全的请求后台。</p>
 
       
     </div>
@@ -277,7 +274,7 @@ var a = new Donate({
 
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/API/">API</a></li></ul>
 
     </footer>
   </div>
@@ -285,15 +282,11 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/2016/08/19/一起撸一波干货集中营练练手Android（二）网络篇/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">上一篇</strong>
-      <div class="article-nav-title">
-        
-          一起撸一波干货集中营练练手Android（二) 网络篇
-        
-      </div>
-    </a>
   
+    <a href="/2017/11/06/计算机基础原理/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">计算机原理</div>
+    </a>
   
 </nav>
 
@@ -306,7 +299,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MPGankIO-框架篇"><span class="nav-number">1.</span> <span class="nav-text">MPGankIO 框架篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#后续如果有需要可以爬一波包包通缉令的数据O-∩-∩-O"><span class="nav-number">1.1.</span> <span class="nav-text">后续如果有需要可以爬一波包包通缉令的数据O(∩_∩)O~~</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#APP框架搭建："><span class="nav-number">1.1.1.</span> <span class="nav-text">APP框架搭建：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目录结构"><span class="nav-number">1.1.2.</span> <span class="nav-text">目录结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MVP架构搭建"><span class="nav-number">1.2.</span> <span class="nav-text">MVP架构搭建</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Api接口加密策略"><span class="nav-number">1.</span> <span class="nav-text">Api接口加密策略</span></a></li></ol>
     
     </div>
   </aside>
