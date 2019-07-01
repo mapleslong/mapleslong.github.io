@@ -3,23 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>java基础之三大特性 | 枫叶的博客</title>
+  <title>android开发经验注意点 | 枫叶的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   
   
   
-  <meta name="description" content="记录一下成长的点点滴滴">
+  <meta name="description" content="Android开发经验注意点1.I/O篇1.1磁盘I/O 项目要求不需要实时性和及时性尽可能的多用缓存，因为看你导致重复读写，在一些系统API中每次都可能需要重复打开文件导致磁盘IO读写性能浪费。   例如SharedPreferences的commit每一次的commit都进行了一次文件的打开和关闭，因此尽可能的使用一次commit方法即可。利用混存来保存多次写入的数据，延迟写入，从而减少写入次">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java基础之三大特性">
-<meta property="og:url" content="http://blog.mapleslong.com/2019/07/01/Java基础之三大特性/index.html">
+<meta property="og:title" content="Android开发经验注意点">
+<meta property="og:url" content="http://blog.mapleslong.com/2019/07/01/Android开发经验注意点/index.html">
 <meta property="og:site_name" content="枫叶的博客">
-<meta property="og:description" content="记录一下成长的点点滴滴">
+<meta property="og:description" content="Android开发经验注意点1.I/O篇1.1磁盘I/O 项目要求不需要实时性和及时性尽可能的多用缓存，因为看你导致重复读写，在一些系统API中每次都可能需要重复打开文件导致磁盘IO读写性能浪费。   例如SharedPreferences的commit每一次的commit都进行了一次文件的打开和关闭，因此尽可能的使用一次commit方法即可。利用混存来保存多次写入的数据，延迟写入，从而减少写入次">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-01T12:41:43.913Z">
+<meta property="og:updated_time" content="2019-07-01T12:47:21.252Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java基础之三大特性">
-<meta name="twitter:description" content="记录一下成长的点点滴滴">
+<meta name="twitter:title" content="Android开发经验注意点">
+<meta name="twitter:description" content="Android开发经验注意点1.I/O篇1.1磁盘I/O 项目要求不需要实时性和及时性尽可能的多用缓存，因为看你导致重复读写，在一些系统API中每次都可能需要重复打开文件导致磁盘IO读写性能浪费。   例如SharedPreferences的commit每一次的commit都进行了一次文件的打开和关闭，因此尽可能的使用一次commit方法即可。利用混存来保存多次写入的数据，延迟写入，从而减少写入次">
   
     <link rel="alternate" href="/atom.xml" title="枫叶的博客" type="application/atom+xml">
   
@@ -159,7 +159,7 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-Java基础之三大特性" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-Android开发经验注意点" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -167,7 +167,7 @@
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      Java基础之三大特性
+      Android开发经验注意点
     </h1>
   
 
@@ -175,8 +175,8 @@
     
     <div class="article-meta">
       
-	<a href="/2019/07/01/Java基础之三大特性/" class="article-date">
-	  <time datetime="2019-07-01T12:41:18.000Z" itemprop="datePublished">2019-07-01</time>
+	<a href="/2019/07/01/Android开发经验注意点/" class="article-date">
+	  <time datetime="2019-07-01T12:46:44.000Z" itemprop="datePublished">2019-07-01</time>
 	</a>
 
       
@@ -190,7 +190,56 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="Android开发经验注意点"><a href="#Android开发经验注意点" class="headerlink" title="Android开发经验注意点"></a>Android开发经验注意点</h1><h2 id="1-I-O篇"><a href="#1-I-O篇" class="headerlink" title="1.I/O篇"></a>1.I/O篇</h2><h3 id="1-1磁盘I-O"><a href="#1-1磁盘I-O" class="headerlink" title="1.1磁盘I/O"></a>1.1磁盘I/O</h3><ul>
+<li>项目要求不需要实时性和及时性尽可能的多用缓存，因为看你导致重复读写，在一些系统API中每次都可能需要重复打开文件导致磁盘IO读写性能浪费。</li>
+</ul>
+<blockquote>
+<p>例如SharedPreferences的commit每一次的commit都进行了一次文件的打开和关闭，因此尽可能的使用一次commit方法即可。利用混存来保存多次写入的数据，延迟写入，从而减少写入次数。</p>
+</blockquote>
+<ul>
+<li>避免主线程进行读写，移到子线程中处理I/O事宜。因为有可能发生『放大效应』（简单来讲放大效应是在随机读写时需要清理当前磁盘的块整理的过程，和顺序读写不同在于整理过程需要耗费一定的性能导致明明只写8KB的大小却需要调度到512KB）会让平时是多毫秒的操作放大几十倍，导致主线程长时间未响应导致的体验不佳。但是数据是见面的来源，么有数据也无法展示相应的核心内容，所以移入子线程只是解决的第一步，最重要的是如何真正的减少I/O甚至避免I/O操作。</li>
+<li>合理的I/O缓存设置Buffer的大小。可以根据业务和机器性能环境来适当的调整，在读写时使用缓冲区开可以减少读写的次数，从而减少了切换内核态的次数提高效率。一般推荐Buffer大小为8KB。</li>
+</ul>
+<h3 id="1-2数据库I-O"><a href="#1-2数据库I-O" class="headerlink" title="1.2数据库I/O"></a>1.2数据库I/O</h3><hr>
+<ol>
+<li>数据库连接打开后先不要关闭，保存这个连接，在应用程序退出在关闭。具体可以看一下SQLiteDatabase源码，getWritableDatabases（）方法的注释就有说明一旦打开数据库该连接就会被缓存，以供下一次使用，只有当真正不需要的时候调用close（）即可。</li>
+<li>适当使用AUTO_INCREATEMENT，因为这个主键字段需要维护一张内部的sqllite_sequence表来保证不重复，因此磁盘读写次数也会从2次增加到11次，增加了额外的开销。因此建议客户端需要拿主键和服务端校对数据的时候需要保证主键唯一性即可。</li>
+</ol>
+<blockquote>
+<p>附上SQLite官网的一句话：AUTOINCREATEMENT关键字会增加CPU、内存和磁盘空间以及磁盘IO的负担，所以尽量不要使用，除非必须。其实通常情况下都是不必须的。</p>
+</blockquote>
+<h3 id="3-Bitmap图片解析I-O"><a href="#3-Bitmap图片解析I-O" class="headerlink" title="3.Bitmap图片解析I/O"></a>3.Bitmap图片解析I/O</h3><ol>
+<li>在Android4.4以上Bitmap的读取不要使用decodeFile和decodeResource效率很低，建议使用Stream的方式（例如decodeStream、decodeResourceStream）。原因是因为4.4后代码更改直接使用native方法去去写磁盘没经过缓存因此多次I/O操作导致的性能浪费。</li>
+</ol>
+<h2 id="2内存篇"><a href="#2内存篇" class="headerlink" title="2内存篇"></a>2内存篇</h2><blockquote>
+<p>一般内存问题氛围几个大类常驻内存问题（主要是图片缓存）、泄露问题（主要是Activity泄露）、GC问题（关键是GC For Alloc）后果都是会导致App Crash、闪退、后台被杀、卡顿等。</p>
+</blockquote>
+<p>分析内存泄露可以通过一些工具，也可以观察一下内存曲线。</p>
+<ul>
+<li>第一步观察内存曲线开启timeline工具的内存记录，重复操作同一个功能观察内存是否一直增长。</li>
+<li>第二步记录内存快照，对某些引起内存增长的操作记录后dump两三遍</li>
+<li>第三步快照立分析内存泄露的点</li>
+</ul>
+<ol>
+<li>善用Context被ApplicationContext，注意隐形的持有，可能会导致的内存泄露。</li>
+<li>官方建议开启子线程最好有停止自己的条件这样后面不会导致快速关闭窗口的时候导致内存泄露。</li>
+</ol>
+<h2 id="3-网络篇"><a href="#3-网络篇" class="headerlink" title="3.网络篇"></a>3.网络篇</h2><blockquote>
+<p>优化网络性能无非看三个问题：业务成功率、业务网络延时、业务宽带成本。（推荐一个优秀的若网络模拟工具ATC）</p>
+</blockquote>
+<ul>
+<li>业务成功率：正常网络信号好的情况下业务请求成功率是没什么大问题的，但是弱信号（简单看成手机信号只有一两格的时候），网络信令发送困难，而且还有可能导致不断切换网络、切换基站。APP能做的就是在应用层做重试。但是网络重试也要有一定的规则不要盲目重试。</li>
+<li>业务网络延时：可以从dns和和长连接入手来缩短消耗</li>
+<li>业务宽带成本：一般有三种方式压缩（从图片和传输资源入手）、增量（从更新入手）、去重复（避免重复下载利用好缓存）。</li>
+</ul>
+<h2 id="4-CPU篇"><a href="#4-CPU篇" class="headerlink" title="4.CPU篇"></a>4.CPU篇</h2><ol>
+<li>一般可以通过Android Studio的CPU消耗来查看CPU的使用情况。</li>
+<li>还可以使用Linux命令例如top和ps</li>
+<li>合理利用CPU和GPU在一定的程度上互相调节。</li>
+<li>合理的使用线程调度充分利用CPU</li>
+</ol>
+<h2 id="5-电池篇"><a href="#5-电池篇" class="headerlink" title="5.电池篇"></a>5.电池篇</h2><p>1.使用周期性的AlarmManager来进行数据上报最好有多个功能合并不要开多个。<br>2.合理的规避一些轮询操作。非必要不要多次唤醒机器，例如一些WifiLock、WakeLock等。</p>
+
       
     </div>
     <footer class="article-footer">
@@ -241,19 +290,10 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/2019/07/01/项目中的思考/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">上一篇</strong>
-      <div class="article-nav-title">
-        
-          项目中的思考
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/07/01/OkHttp3框架解析/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/07/01/项目中的思考/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">OkHttp3框架解析</div>
+      <div class="article-nav-title">项目中的思考</div>
     </a>
   
 </nav>
@@ -267,7 +307,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav">无</ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android开发经验注意点"><span class="nav-number">1.</span> <span class="nav-text">Android开发经验注意点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-I-O篇"><span class="nav-number">1.1.</span> <span class="nav-text">1.I/O篇</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1磁盘I-O"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1磁盘I/O</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2数据库I-O"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2数据库I/O</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Bitmap图片解析I-O"><span class="nav-number">1.1.3.</span> <span class="nav-text">3.Bitmap图片解析I/O</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2内存篇"><span class="nav-number">1.2.</span> <span class="nav-text">2内存篇</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-网络篇"><span class="nav-number">1.3.</span> <span class="nav-text">3.网络篇</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-CPU篇"><span class="nav-number">1.4.</span> <span class="nav-text">4.CPU篇</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-电池篇"><span class="nav-number">1.5.</span> <span class="nav-text">5.电池篇</span></a></li></ol></li></ol>
     
     </div>
   </aside>

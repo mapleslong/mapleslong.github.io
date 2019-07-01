@@ -191,6 +191,159 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-Android开发经验注意点"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2019/07/01/Android开发经验注意点/">Android开发经验注意点</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/07/01/Android开发经验注意点/" class="article-date">
+	  <time datetime="2019-07-01T12:46:44.000Z" itemprop="datePublished">2019-07-01</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Android开发经验注意点"><a href="#Android开发经验注意点" class="headerlink" title="Android开发经验注意点"></a>Android开发经验注意点</h1><h2 id="1-I-O篇"><a href="#1-I-O篇" class="headerlink" title="1.I/O篇"></a>1.I/O篇</h2><h3 id="1-1磁盘I-O"><a href="#1-1磁盘I-O" class="headerlink" title="1.1磁盘I/O"></a>1.1磁盘I/O</h3><ul>
+<li>项目要求不需要实时性和及时性尽可能的多用缓存，因为看你导致重复读写，在一些系统API中每次都可能需要重复打开文件导致磁盘IO读写性能浪费。</li>
+</ul>
+<blockquote>
+<p>例如SharedPreferences的commit每一次的commit都进行了一次文件的打开和关闭，因此尽可能的使用一次commit方法即可。利用混存来保存多次写入的数据，延迟写入，从而减少写入次数。</p>
+</blockquote>
+<ul>
+<li>避免主线程进行读写，移到子线程中处理I/O事宜。因为有可能发生『放大效应』（简单来讲放大效应是在随机读写时需要清理当前磁盘的块整理的过程，和顺序读写不同在于整理过程需要耗费一定的性能导致明明只写8KB的大小却需要调度到512KB）会让平时是多毫秒的操作放大几十倍，导致主线程长时间未响应导致的体验不佳。但是数据是见面的来源，么有数据也无法展示相应的核心内容，所以移入子线程只是解决的第一步，最重要的是如何真正的减少I/O甚至避免I/O操作。</li>
+<li>合理的I/O缓存设置Buffer的大小。可以根据业务和机器性能环境来适当的调整，在读写时使用缓冲区开可以减少读写的次数，从而减少了切换内核态的次数提高效率。一般推荐Buffer大小为8KB。</li>
+</ul>
+<h3 id="1-2数据库I-O"><a href="#1-2数据库I-O" class="headerlink" title="1.2数据库I/O"></a>1.2数据库I/O</h3><hr>
+<ol>
+<li>数据库连接打开后先不要关闭，保存这个连接，在应用程序退出在关闭。具体可以看一下SQLiteDatabase源码，getWritableDatabases（）方法的注释就有说明一旦打开数据库该连接就会被缓存，以供下一次使用，只有当真正不需要的时候调用close（）即可。</li>
+<li>适当使用AUTO_INCREATEMENT，因为这个主键字段需要维护一张内部的sqllite_sequence表来保证不重复，因此磁盘读写次数也会从2次增加到11次，增加了额外的开销。因此建议客户端需要拿主键和服务端校对数据的时候需要保证主键唯一性即可。</li>
+</ol>
+<blockquote>
+<p>附上SQLite官网的一句话：AUTOINCREATEMENT关键字会增加CPU、内存和磁盘空间以及磁盘IO的负担，所以尽量不要使用，除非必须。其实通常情况下都是不必须的。</p>
+</blockquote>
+<h3 id="3-Bitmap图片解析I-O"><a href="#3-Bitmap图片解析I-O" class="headerlink" title="3.Bitmap图片解析I/O"></a>3.Bitmap图片解析I/O</h3><ol>
+<li>在Android4.4以上Bitmap的读取不要使用decodeFile和decodeResource效率很低，建议使用Stream的方式（例如decodeStream、decodeResourceStream）。原因是因为4.4后代码更改直接使用native方法去去写磁盘没经过缓存因此多次I/O操作导致的性能浪费。</li>
+</ol>
+<h2 id="2内存篇"><a href="#2内存篇" class="headerlink" title="2内存篇"></a>2内存篇</h2><blockquote>
+<p>一般内存问题氛围几个大类常驻内存问题（主要是图片缓存）、泄露问题（主要是Activity泄露）、GC问题（关键是GC For Alloc）后果都是会导致App Crash、闪退、后台被杀、卡顿等。</p>
+</blockquote>
+<p>分析内存泄露可以通过一些工具，也可以观察一下内存曲线。</p>
+<ul>
+<li>第一步观察内存曲线开启timeline工具的内存记录，重复操作同一个功能观察内存是否一直增长。</li>
+<li>第二步记录内存快照，对某些引起内存增长的操作记录后dump两三遍</li>
+<li>第三步快照立分析内存泄露的点</li>
+</ul>
+<ol>
+<li>善用Context被ApplicationContext，注意隐形的持有，可能会导致的内存泄露。</li>
+<li>官方建议开启子线程最好有停止自己的条件这样后面不会导致快速关闭窗口的时候导致内存泄露。</li>
+</ol>
+<h2 id="3-网络篇"><a href="#3-网络篇" class="headerlink" title="3.网络篇"></a>3.网络篇</h2><blockquote>
+<p>优化网络性能无非看三个问题：业务成功率、业务网络延时、业务宽带成本。（推荐一个优秀的若网络模拟工具ATC）</p>
+</blockquote>
+<ul>
+<li>业务成功率：正常网络信号好的情况下业务请求成功率是没什么大问题的，但是弱信号（简单看成手机信号只有一两格的时候），网络信令发送困难，而且还有可能导致不断切换网络、切换基站。APP能做的就是在应用层做重试。但是网络重试也要有一定的规则不要盲目重试。</li>
+<li>业务网络延时：可以从dns和和长连接入手来缩短消耗</li>
+<li>业务宽带成本：一般有三种方式压缩（从图片和传输资源入手）、增量（从更新入手）、去重复（避免重复下载利用好缓存）。</li>
+</ul>
+<h2 id="4-CPU篇"><a href="#4-CPU篇" class="headerlink" title="4.CPU篇"></a>4.CPU篇</h2><ol>
+<li>一般可以通过Android Studio的CPU消耗来查看CPU的使用情况。</li>
+<li>还可以使用Linux命令例如top和ps</li>
+<li>合理利用CPU和GPU在一定的程度上互相调节。</li>
+<li>合理的使用线程调度充分利用CPU</li>
+</ol>
+<h2 id="5-电池篇"><a href="#5-电池篇" class="headerlink" title="5.电池篇"></a>5.电池篇</h2><p>1.使用周期性的AlarmManager来进行数据上报最好有多个功能合并不要开多个。<br>2.合理的规避一些轮询操作。非必要不要多次唤醒机器，例如一些WifiLock、WakeLock等。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-项目中的思考"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2019/07/01/项目中的思考/">项目中的思考</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/07/01/项目中的思考/" class="article-date">
+	  <time datetime="2019-07-01T12:45:59.000Z" itemprop="datePublished">2019-07-01</time>
+	</a>
+
+      
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>当初成为火排队的Owner的时候就不再以一个纯粹的的开发人员的职责来要求自己，或多或少会接触一些开发外的杂事，跟客户了解需求、跟其他开发兄弟协调任务、自己研究餐厅业务相关的知识、开始关注团队成长和氛围、用户体验、关注架构、关注未来可能的需求，尽可能保证一点前瞻性吧.</p>
+</blockquote>
+<p>  在做管理学习上我觉得有个简单的方法叫对标学习。在其位谋其政，不在其位预谋其政。看你现在的项目经理、技术总监、CTO的工作日常，有机会分担责任时，哪怕是协调人员、组织会议、跟踪任务。</p>
+<p>  一个项目的开发时间是固定的，甚至在大多数互联网公司来说时间是紧迫的 不够的。一个项目从开始到结束，参与的人除了客户端，还有测试和服务端，以及产品。每个人是否能够完成自己手头的任务？ 需求的频繁变更，以及前期未料到的技术难点等等，这些都是不可控因素，任何一点没做好都有可能导致项目失控，最后的结果就是逾期。</p>
+<ol>
+<li>很重要的一点就是任务分配。要充分了解小组内所有成员的特点，把任务分派到合适的人员头上。同时注意，一个模块的开发，如果资源允许的情况下最好安排给2个人协同开发，而不是一个模块一个人(里面有各种各样的情况大家想想可能就会懂了)。</li>
+<li>任务细分。包括任务时间划定和任务描述，这是很有挑战性的操作，怎么在开发前准确理清任务的脉络，并在描述中写出来让相关人员避免踩坑，这是任务进度可控的关键所在。任务粒度要足够细才能在后面的周会和禅道上精准把控每个人的完成情况。</li>
+<li>任务优先级。技术选型一定要提前展开，方案没出就可以开始。基础性任务，这个版本的重要需求任务，也要排到前面，原则就是先重后轻。</li>
+<li>每周一次的例会是少不了的，不同开发阶段会议侧重点不一样。开发中期侧重就是了解每个开发人员的进度情况（包括服务端），沟通一些技术问题，作为组长要及时提醒一些逾期的任务。开发后期，则主要是明确变更的需求调整，对于大的改动应该再三商榷。另外，把握相关的测试进度，督促测试人员加大测试力度。</li>
+<li>要实时关注开发进度，对于技术难点可以协助介入，如果长时间未能解决要及时停止，进行后面的开发。在后期在对这个难点灵活处理：比如暂时用特殊方法规避，或者和产品商议放到下个版本处理。</li>
+<li>两个关键节点一定要守住：功能封板和0bug。功能封板是指客户端完成所有开发任务，能够全程无障碍交付测试，0bug则是发版的最后一道防线。</li>
+</ol>
+<h2 id="事情做到前面"><a href="#事情做到前面" class="headerlink" title="事情做到前面"></a>事情做到前面</h2><p>要比别人花更多的精力，提前预判一些未知的问题：比如需求的不合理性，方案没有描述的地方，能够在开发前及时指出。服务端接口定义是够满足开发需求，也要提前审查。还有就是客户端开发的障碍扫平包括复杂模块的程序方案，一些技术研究，一些坑点等等。</p>
+<p>你至少要比正常进度提前1-2天，把准备工作做好，一直保持最坏的打算的心态。</p>
+<p>每天早上要了解组内成员和服务端的任务进度，必须时要运行并过一遍两端的app各模块。从我的经验来看，很多时候禅道上的任务进度有水分，明明功能没有完成，他要说自己已经完成了，这时候如果你不及时指出会直接导致后面0 bug节点失守！不要过分相信数据，要相信自己的眼睛（自己多做一会测试工作、不是不相信测试哥们，而是多一个『小白』测试也是一个测试想法要千奇百怪的测，毕竟一千个人心中有一千个哈姆雷特）。</p>
+<p>还有就是ui这一块的工作安排，要提前和UI同时沟通确定任务时间，不要到客户端本地开发快完成了，才想起来还有ui切图没有给全。ui切图的按完成时间至少要比客户端本地开发截止日期提前1-2天，这样才能顺利完成所有的本地开发。</p>
+<h2 id="引导项目向前推动"><a href="#引导项目向前推动" class="headerlink" title="引导项目向前推动"></a>引导项目向前推动</h2><p>每个人都是做自己的一亩三分地，服务端和产品可能还要负责其他的业务，大家很难做到100%的精力都投入到这个项目中。遇到一些冲突的地方就有可能是项目停滞不前，应该主动站出来组织一个短会让大家参与讨论，解决问题。</p>
+<h2 id="结果导向"><a href="#结果导向" class="headerlink" title="结果导向"></a>结果导向</h2><p>大家应该没少听说 过程导向和结果导向这两个词，有时面试中也会被问起，两者的区别我不再赘述。我只想说，管理一个项目是绝对的结果导向。我不关心中间发生了什么，只要告诉我结果，以及你是否能够守住自己的承诺。 这同样也是小组长对自己的要求，老大既然愿意把这份责任交给你，那么一切以结果说话。0 bug时间节点到了，结果是android 和ios还有几十个bug。你可以找出十几个原因，但是毫无意义。如果你能在任务细分上做的更好，如果你在开发前期关注进度更多一点，是不可能导致现在的局面。多从自己身上找原因吧，我相信一句话：任何坏的结果不是在于过程中发生了什么，而是在于我们做了什么。</p>
+<h2 id="一些挑战"><a href="#一些挑战" class="headerlink" title="一些挑战"></a>一些挑战</h2><p>比较大的挑战主要是下面两个方面： 一是开发任务的细分。需要足够的开发经验积累，以及对需求的透彻理解，这个还是很难把控，毕竟在开发前就要把一个任务的来龙去脉，各种路径全部理清并不是一件容易事。但这个事情是很重要的，以我的经验来看任务细分的质量直接关系到功能开发的进度能否按时完成。</p>
+<p>二是发版前期的进度把控，包括需求的变更和取舍，无法解决的技术难点处理。这里的准则就是：版本稳定为主，后期不应该引入较大的需求变更！比如3天后要发版了，那么接下来的3天的代码提交你要亲自审查，需求变更基本是拒绝的。如果现在还有谋和技术难点没有攻克，建议采取特殊处理办法暂时规避，后面再还这个技术债.</p>
+<p>​                                                     </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/项目/">项目</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-Java基础之三大特性"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -793,119 +946,6 @@ arouter-compiler 编译期解析注解信息并生成相应类以便进行......
 组件化：随着业务量的不断增长，app也会不断的膨胀，开发团队的规模和工作量也会逐渐增大，面对所衍生的64K问题、......  -->
         <p class="article-more-link">
           <a href="/2017/10/25/ARouter简单入门和介绍/#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-那些年一起学过的Android动画（二）"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2016/08/26/那些年一起学过的Android动画（二）/">那些年一起学过的Android动画（二）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2016/08/26/那些年一起学过的Android动画（二）/" class="article-date">
-	  <time datetime="2016-08-26T09:11:16.000Z" itemprop="datePublished">2016-08-26</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="场景动画"><a href="#场景动画" class="headerlink" title="场景动画"></a>场景动画</h2><hr>
-<ol>
-<li><p>LayoutAnimation作用于ViewGroup,为ViewGroup指定一个动画，当他的子元素出场的时候都会具有这种动画，ListView上用的多，LayoutAnimation也是一个View动画。</p>
-        <!-- 场景动画
-
-LayoutAnimation作用于ViewGroup,为ViewGroup指定一个动画，当他的子元素出场的时候都会具有这种动画，ListView上用的多，LayoutAnimation也是一个View动画。
-
-123456789101112131415161718192021 &lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;lay......  -->
-        <p class="article-more-link">
-          <a href="/2016/08/26/那些年一起学过的Android动画（二）/#more">阅读全文</a>
-        </p>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
-    <article id="post-那些年一起学过的Android动画（一）"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2016/08/26/那些年一起学过的Android动画（一）/">那些年一起学过的Android动画（一）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2016/08/26/那些年一起学过的Android动画（一）/" class="article-date">
-	  <time datetime="2016-08-26T06:59:30.000Z" itemprop="datePublished">2016-08-26</time>
-	</a>
-
-      
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>Android动画有三大类（视图动画、帧动画、属性动画【3.0引进】）</p>
-<p>为了就是让人机交互更加友好，（讲的高大上一点更容易被关注！）</p>
-<p>合理的使用动画能让用户获得更加愉悦的使用体验！你懂的很愉悦！</p>
-</blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/1896391-0680c4e63979f8de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="动画分类"></p>
-<p><strong>android已经写好了一些动画可以方便的使用例如『透明度』『旋转』『缩放』『位移』</strong></p>
-        <!-- 
-Android动画有三大类（视图动画、帧动画、属性动画【3.0引进】）
-为了就是让人机交互更加友好，（讲的高大上一点更容易被关注！）
-合理的使用动画能让用户获得更加愉悦的使用体验！你懂的很愉悦！
-
-
-android已经写好了一些动画可以方便的使用例如『透明度』『旋转』『缩放』『位移』
-
-1.视图动画（View Animation）
-做过Flash的都会知道补间动画，给出两个关键帧，通过一些......  -->
-        <p class="article-more-link">
-          <a href="/2016/08/26/那些年一起学过的Android动画（一）/#more">阅读全文</a>
         </p>
       
     </div>
