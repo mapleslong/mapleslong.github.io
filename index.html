@@ -364,7 +364,7 @@ height:50vh;
                 <span>Android开发经验注意点</span>
         </a>
         <div class="abstract-content">
-            <h1 id="Android开发经验注意点"><a href="#Android开发经验注意点" class="headerlink" title="Android开发经验注意点"></a>Android开发经验注意点</h1><h2 id="1-I-O篇"><a href="#1-I-O篇" class="headerlink" title="1.I/O篇"></a>1.I/O篇</h2><h3 id="1-1磁盘I-O"><a href="#1-1磁盘I-O" class="headerlink" title="1.1磁盘I/O"></a>1.1磁盘I/O</h3><ul>
+            <h2 id="1-I-O篇"><a href="#1-I-O篇" class="headerlink" title="1.I/O篇"></a>1.I/O篇</h2><h3 id="1-1磁盘I-O"><a href="#1-1磁盘I-O" class="headerlink" title="1.1磁盘I/O"></a>1.1磁盘I/O</h3><ul>
 <li>项目要求不需要实时性和及时性尽可能的多用缓存，因为看你导致重复读写，在一些系统API中每次都可能需要重复打开文件导致磁盘IO读写性能浪费。</li>
 </ul>
 <blockquote>
@@ -435,7 +435,7 @@ height:50vh;
                 <span>OkHttp3框架解析</span>
         </a>
         <div class="abstract-content">
-            <h1 id="OKHttp3网络框架解析"><a href="#OKHttp3网络框架解析" class="headerlink" title="OKHttp3网络框架解析"></a>OKHttp3网络框架解析</h1><p>本文会先简单说下OkHttp3的工作流程，然后介绍OkHttp3的一些核心类（如连接池StreamAllocation以及各式各样的Interceptor），接着从源码角度分析一次HTTP请求在OkHttp3中所经历的过程，在不同的Interceptor(拦截器)可以看到一些OkHttp3设计的一些巧妙思想，最后对上述分析做个简单的总结。</p>
+            <p>本文会先简单说下OkHttp3的工作流程，然后介绍OkHttp3的一些核心类（如连接池StreamAllocation以及各式各样的Interceptor），接着从源码角度分析一次HTTP请求在OkHttp3中所经历的过程，在不同的Interceptor(拦截器)可以看到一些OkHttp3设计的一些巧妙思想，最后对上述分析做个简单的总结。</p>
 <blockquote>
 <p>Okhttp3是Square公司开源的强大高效的Java网络请求库，旨于替换Java的HttpUrlConnection和Apache的HttpClient的轻量级网络框架,已经被运用到很多开源库以及Android的源码中(Android Studio 在6.0之后，移除了HttpClient，并且用OKHttp代替了HttpUrlConnection)。</p>
 </blockquote>
@@ -474,12 +474,12 @@ height:50vh;
                 <span>Retrofit2框架解析</span>
         </a>
         <div class="abstract-content">
-            网络框架Retrofit解析
+            
 什么是Retrofit框架？
 
 Retrofit其实我们可以理解为OkHttp的加强版，它也是一个网络加载框架。底层是使用OKHttp封装的。准确来说,网络请求的工作本质上是OkHttp完成，而 Retrofit 仅负责网络请求接口的封装。它的一个特点是包含了特别多注解，方便简化你的代码量。并且还支持很多的开源库(著名例子：Retrofit + RxJava)。
 本文中的Retrofit均指代Retrofit2.0,以目前最新的2.4.0版本为例子。
-Retrofit入门Retrofit 其实相当简单，简单到源码只有37个文件，其中22个文件是注解还都和HT...
+Retrofit入门Retrofit 其实相当简单，简单到源码只有37个文件，其中22个文件是注解还都和HTTP有关，真正暴露给用户的类...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -508,7 +508,7 @@ Retrofit入门Retrofit 其实相当简单，简单到源码只有37个文件，�
                 <span>Api接口加密策略</span>
         </a>
         <div class="abstract-content">
-            Api接口加密策略接口安全要求：1.防伪装攻击（案例：在公共网络环境中，第三方 有意或恶意 的调用我们的接口）
+            接口安全要求：1.防伪装攻击（案例：在公共网络环境中，第三方 有意或恶意 的调用我们的接口）
 2.防篡改攻击（案例：在公共网络环境中，请求头/查询字符串/内容 在传输过程被修改）
 3.防重放攻击（案例：在公共网络环境中，请求被截获，稍后被重放或多次重放）
 4.防数据信息泄漏（案例：截获用户登录请求，截获到账号、密码等）
@@ -519,7 +519,7 @@ Retrofit入门Retrofit 其实相当简单，简单到源码只有37个文件，�
 5.易于部署
 6.满足接口安全需求（满足接口安全1,2,3），无过度设计。
 其它：接口安全要求防数据信息泄漏部分，主要针对目前用户中心的登录接口
-设计原则...
+设计原则是：使用HTTPS...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -548,7 +548,7 @@ Retrofit入门Retrofit 其实相当简单，简单到源码只有37个文件，�
                 <span>Java基础之装箱</span>
         </a>
         <div class="abstract-content">
-            <h1 id="Java基础之装箱"><a href="#Java基础之装箱" class="headerlink" title="Java基础之装箱"></a>Java基础之装箱</h1><p>本章从一下几个点来介绍：</p>
+            <p>本章从一下几个点来介绍：</p>
 <ol>
 <li>什么是装箱？什么是拆箱？</li>
 <li>装箱和拆箱是如何实现的</li>
@@ -582,7 +582,7 @@ Retrofit入门Retrofit 其实相当简单，简单到源码只有37个文件，�
                 <span>Java基础之三大特性</span>
         </a>
         <div class="abstract-content">
-            <h1 id="Java基础之三大特性"><a href="#Java基础之三大特性" class="headerlink" title="Java基础之三大特性"></a>Java基础之三大特性</h1><p>Java有三大特性继承、封装、多态</p>
+            <p>Java有三大特性继承、封装、多态</p>
 <h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><ol>
 <li>继承是使用已存在的类的定义作为基础建立新类的技术，新类的定义可以增加新的数据或新的功能，也可以用父类的功能，但不能选择性地继承父类。</li>
 <li>子类拥有父类非private的属性和方法。</li>
@@ -617,7 +617,7 @@ Retrofit入门Retrofit 其实相当简单，简单到源码只有37个文件，�
                 <span>计算机原理</span>
         </a>
         <div class="abstract-content">
-            <h1 id="计算机基础原理"><a href="#计算机基础原理" class="headerlink" title="计算机基础原理"></a>计算机基础原理</h1><p>现代计算机，大部分都是基于冯诺依曼体系结构，而我们这里谈论的也是此问前提。冯诺依曼的核心是：存储程序，顺序执行。所以不管计算机如何发展，基本原理是相同的。计算机程序实际上是告诉计算机做什么。</p>
+            <p>现代计算机，大部分都是基于冯诺依曼体系结构，而我们这里谈论的也是此问前提。冯诺依曼的核心是：存储程序，顺序执行。所以不管计算机如何发展，基本原理是相同的。计算机程序实际上是告诉计算机做什么。</p>
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -646,7 +646,7 @@ Retrofit入门Retrofit 其实相当简单，简单到源码只有37个文件，�
                 <span>ARouter源码分析</span>
         </a>
         <div class="abstract-content">
-            <h1 id="ARouter的源码分析"><a href="#ARouter的源码分析" class="headerlink" title="ARouter的源码分析"></a>ARouter的源码分析</h1><p>分析需要储备以下知识点：</p>
+            <p>分析需要储备以下知识点：</p>
 <ul>
 <li>Java注解知识</li>
 <li>Java反射知识</li>
